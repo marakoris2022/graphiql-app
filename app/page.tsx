@@ -4,9 +4,19 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <div>
-      <Link href={"/graphiql-client"} />
-      <Link href={"/rest-client"} />
-      <Link href={"/history"} />
+      <nav>
+        <ul>
+          <li>
+            <Link href={"/graphiql-client"}>graphiql-client</Link>
+          </li>
+          <li>
+            <Link href={"/rest-client"}>rest-client</Link>
+          </li>
+          <li>
+            <Link href={"/history"}>history</Link>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 }
