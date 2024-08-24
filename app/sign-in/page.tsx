@@ -21,6 +21,9 @@ export default function SignIn() {
   });
   const user = useUserStore((state) => state.user);
   const router = useRouter();
+  const setIsFirstAuthCheck = useUserStore(
+    (state) => state.setIsFirstAuthCheck
+  );
 
   useEffect(() => {
     if (user) {
@@ -32,7 +35,7 @@ export default function SignIn() {
     if (data.email && data.password) {
       try {
         await signInWithEmail(data.email, data.password);
-        toast.success("Sign in success", toastifyMessage);
+        setIsFirstAuthCheck(true);
       } catch (error) {
         if (error instanceof Error) {
           toast.error(`${error.message}`, toastifyMessage);

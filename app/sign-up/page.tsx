@@ -22,6 +22,9 @@ export default function SignUp() {
   });
 
   const user = useUserStore((state) => state.user);
+  const setIsFirstAuthCheck = useUserStore(
+    (state) => state.setIsFirstAuthCheck
+  );
   const router = useRouter();
 
   useEffect(() => {
@@ -34,8 +37,9 @@ export default function SignUp() {
     if (data.email && data.password && data.name) {
       try {
         await registerUser(data.email, data.password, data.name);
+        setIsFirstAuthCheck(false);
         router.push("/");
-        toast.success("Sign up success", toastifyMessage);
+        toast.success("You are successfully signed up!", toastifyMessage);
       } catch (error) {
         if (error instanceof Error) {
           toast.error(`${error.message}`, toastifyMessage);
