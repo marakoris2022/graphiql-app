@@ -7,6 +7,8 @@ interface UserState {
   removeUser: () => void;
   loadingUser: boolean;
   setLoadingUser: (loading: boolean) => void;
+  isFirstAuthCheck: boolean;
+  setIsFirstAuthCheck: (isUserFirstAuthCheck: boolean) => void;
 }
 
 const useUserStore = create<UserState>()((set) => ({
@@ -15,6 +17,8 @@ const useUserStore = create<UserState>()((set) => ({
   setUser: (user: User) => set(() => ({ user })),
   removeUser: () => set({ user: null }),
   setLoadingUser: (loadingUser: boolean) => set({ loadingUser }),
+  isFirstAuthCheck: true,
+  setIsFirstAuthCheck: (isFirstAuthCheck: boolean) => set({ isFirstAuthCheck }),
 }));
 
 export default useUserStore;

@@ -1,7 +1,7 @@
 "use client";
 import { onAuthStateChanged } from "firebase/auth";
 import useUserStore from "./store/userStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "@/utils/firebaseConfig";
 import Loader from "./components/Loader/Loader";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,10 @@ export default function Template({ children }: { children: React.ReactNode }) {
   const setUser = useUserStore((state) => state.setUser);
   const removeUser = useUserStore((state) => state.removeUser);
   const router = useRouter();
+  const isFirstAuthCheck = useUserStore((state) => state.isFirstAuthCheck);
+  const setIsFirstAuthCheck = useUserStore(
+    (state) => state.setIsFirstAuthCheck
+  );
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -23,6 +27,13 @@ export default function Template({ children }: { children: React.ReactNode }) {
           .getIdToken()
           .then(() => {
             setUser(user);
+
+            if (isFirstAuthCheck) {
+              toast.success("You are successfully signed in!", {
+                ...toastifyMessage,
+                onClose: () => setIsFirstAuthCheck(false),
+              });
+            }
           })
           .catch(() => {
             removeUser();
