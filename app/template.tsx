@@ -29,10 +29,8 @@ export default function Template({ children }: { children: React.ReactNode }) {
             setUser(user);
 
             if (isFirstAuthCheck) {
-              toast.success("You are successfully signed in!", {
-                ...toastifyMessage,
-                onClose: () => setIsFirstAuthCheck(false),
-              });
+              toast.success("You are successfully signed in!", toastifyMessage);
+              setIsFirstAuthCheck(false);
             }
           })
           .catch(() => {

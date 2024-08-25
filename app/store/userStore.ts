@@ -17,7 +17,7 @@ const useUserStore = create<UserState>()((set) => ({
   setUser: (user: User) => set(() => ({ user })),
   removeUser: () => set({ user: null }),
   setLoadingUser: (loadingUser: boolean) => set({ loadingUser }),
-  isFirstAuthCheck: true,
+  isFirstAuthCheck: false,
   setIsFirstAuthCheck: (isFirstAuthCheck: boolean) => set({ isFirstAuthCheck }),
 }));
 

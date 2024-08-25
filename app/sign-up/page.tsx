@@ -37,7 +37,6 @@ export default function SignUp() {
     if (data.email && data.password && data.name) {
       try {
         await registerUser(data.email, data.password, data.name);
-        setIsFirstAuthCheck(false);
         router.push("/");
         toast.success("You are successfully signed up!", toastifyMessage);
       } catch (error) {
