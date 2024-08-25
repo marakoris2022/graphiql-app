@@ -1,28 +1,13 @@
-import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
 import styles from "./mainTemplates.module.css";
+import Link from "next/link";
 
 export const MainUnLoggedUser = () => {
-  const router = useRouter();
-
   return (
     <div className={styles.main}>
       <h1>Welcome!</h1>
       <div className={styles.buttonsContainer}>
-        <Button
-          type="button"
-          variant="contained"
-          onClick={() => router.push("/sign-in")}
-        >
-          Sign In
-        </Button>
-        <Button
-          type="button"
-          variant="contained"
-          onClick={() => router.push("/sign-up")}
-        >
-          Sign Up
-        </Button>
+        <Link href={"/sign-in"}>Sign In</Link>
+        <Link href={"/sign-up"}>Sign Up</Link>
       </div>
     </div>
   );

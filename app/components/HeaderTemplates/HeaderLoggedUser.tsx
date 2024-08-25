@@ -1,12 +1,8 @@
-import { signOutUser } from "@/utils/firebaseConfig";
-import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
 import styles from "./headerTemplates.module.css";
-import { toast } from "react-toastify";
-import { toastifyMessage } from "@/utils/utils";
+import Link from "next/link";
+import { SignOutButton } from "./SignOutButton";
 
 export const HeaderLoggedUser = () => {
-  const router = useRouter();
   return (
     <header>
       <div>Logo</div>
@@ -14,28 +10,10 @@ export const HeaderLoggedUser = () => {
       <nav>
         <ul className={styles.buttonsContainer}>
           <li>
-            <Button
-              type="button"
-              variant="contained"
-              size="small"
-              onClick={() => router.push("/")}
-            >
-              To Main
-            </Button>
+            <Link href="/">To Main</Link>
           </li>
-
           <li>
-            <Button
-              type="button"
-              size="small"
-              variant="contained"
-              onClick={async () => {
-                await signOutUser();
-                toast.success("Sign out success", toastifyMessage);
-              }}
-            >
-              Sign Out
-            </Button>
+            <SignOutButton />
           </li>
         </ul>
       </nav>

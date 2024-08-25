@@ -1,10 +1,7 @@
-import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
 import styles from "./headerTemplates.module.css";
+import Link from "next/link";
 
 export const HeaderUnLoggedUser = () => {
-  const router = useRouter();
-
   return (
     <header>
       <div>Logo</div>
@@ -12,34 +9,13 @@ export const HeaderUnLoggedUser = () => {
       <nav>
         <ul className={styles.buttonsContainer}>
           <li>
-            <Button
-              type="button"
-              variant="contained"
-              size="small"
-              onClick={() => router.push("/")}
-            >
-              To Main
-            </Button>
+            <Link href={"/"}>To Main</Link>
           </li>
           <li>
-            <Button
-              type="button"
-              variant="contained"
-              size="small"
-              onClick={() => router.push("/sign-in")}
-            >
-              Sign In
-            </Button>
+            <Link href={"/sign-in"}>Sign In</Link>
           </li>
           <li>
-            <Button
-              type="button"
-              variant="contained"
-              size="small"
-              onClick={() => router.push("/sign-up")}
-            >
-              Sign Up
-            </Button>
+            <Link href={"/sign-up"}>Sign Up</Link>
           </li>
         </ul>
       </nav>

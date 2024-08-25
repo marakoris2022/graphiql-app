@@ -1,17 +1,18 @@
-"use client";
-import useUserStore from "@/app/store/userStore";
 import { HeaderLoggedUser } from "../HeaderTemplates/HeaderLoggedUser";
 import { HeaderUnLoggedUser } from "../HeaderTemplates/HeaderUnLoggedUser";
+import { cookies } from "next/headers";
+import { getTokens } from "next-firebase-auth-edge";
+import { clientConfig, serverConfig } from "@/config";
 
-export const Header = () => {
-  const user = useUserStore((state) => state.user);
-  const loadingUser = useUserStore((state) => state.loadingUser);
+export const Header = async () => {
+  const tokens = await getTokens(cookies(), {
+    apiKey: clientConfig.apiKey,
+    cookieName: serverConfig.cookieName,
+    cookieSignatureKeys: serverConfig.cookieSignatureKeys,
+    serviceAccount: serverConfig.serviceAccount,
+  });
 
-  if (loadingUser) {
-    return null;
-  }
-
-  if (user) {
+  if (tokens) {
     return <HeaderLoggedUser />;
   }
 

@@ -1,16 +1,15 @@
-import { User } from "firebase/auth";
 import Link from "next/link";
 import React from "react";
 import styles from "./mainTemplates.module.css";
 
 type MainLoggedUserProps = {
-  user: User;
+  userName: string;
 };
 
-export const MainLoggedUser = ({ user }: MainLoggedUserProps) => {
+export const MainLoggedUser = ({ userName }: MainLoggedUserProps) => {
   return (
     <div className={styles.main}>
-      {user?.displayName && <h1>Welcome back, {user.displayName}!</h1>}
+      <h1>Welcome back, {userName}</h1>
       <nav>
         <ul>
           <li>
