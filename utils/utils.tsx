@@ -25,13 +25,3 @@ export const toastContainerConfig: ToastContainerProps = {
   theme: "light",
   transition: Bounce,
 };
-
-// Function to encode a string to Base64
-export function encodeBase64(str: string) {
-  return Buffer.from(str).toString("base64");
-}
-
-// Function to decode a Base64 string
-export function decodeBase64(base64Str: string) {
-  return Buffer.from(base64Str, "base64").toString("ascii");
-}

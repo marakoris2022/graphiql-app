@@ -1,0 +1,10 @@
+.resultWrapper {
+  width: 100%;
+}
+.title {
+  margin-bottom: 20px;
+}
+.textarea {
+  width: 100%;
+  min-height: 200px;
+}

@@ -1,0 +1,11 @@
+.form {
+  min-width: 45%;
+}
+
+.topWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+.sendBtn {
+}

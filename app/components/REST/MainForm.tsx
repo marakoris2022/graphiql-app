@@ -6,7 +6,9 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Headers } from "./components/Headers";
 import { BodyEditor } from "./components/BodyEditor";
 import { useRouter } from "next/navigation";
-import { encodeBase64 } from "@/utils/utils";
+import { generateURL } from "@/app/[...rest]/utils";
+
+import styles from "./MainForm.module.css";
 
 export const MainForm = () => {
   const {
@@ -20,17 +22,21 @@ export const MainForm = () => {
   const navigate = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    navigate.push(`/${data.method}/${encodeBase64(data.EndpointURL)}`);
+    const generatedURL = generateURL(data);
+    navigate.push(generatedURL);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <SelectMethod register={register} />
-      <EndpointURL register={register} />
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.topWrapper}>
+        <SelectMethod register={register} />
+        <EndpointURL register={register} />
+        <button className={styles.sendBtn} type="submit">
+          SEND
+        </button>
+      </div>
       <Headers register={register} unregister={unregister} />
       <BodyEditor register={register} />
-      <button type="submit">SEND</button>
     </form>
   );
 };

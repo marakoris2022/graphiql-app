@@ -1,5 +1,6 @@
 import { FieldValues, UseFormRegister, useForm } from "react-hook-form";
 import { useState } from "react";
+import styles from "./BodyEditor.module.css";
 
 type BodyEditorProps = {
   register: UseFormRegister<FieldValues>;
@@ -22,9 +23,13 @@ export const BodyEditor = ({ register }: BodyEditorProps) => {
   };
 
   return (
-    <div>
-      <p>Пример: {JSON.stringify({ name: "pikachu" })}</p>
+    <div className={styles.wrapper}>
+      <h5 className={styles.title}>Body:</h5>
+      <p className={styles.example}>
+        Пример: {JSON.stringify({ name: "pikachu" })}
+      </p>
       <textarea
+        className={styles.textarea}
         {...register("body")}
         value={body}
         onChange={(e) => setBody(e.target.value)}
@@ -32,11 +37,11 @@ export const BodyEditor = ({ register }: BodyEditorProps) => {
         cols={50}
         placeholder="Введите JSON"
       ></textarea>
-      <div>
-        <button type="button" onClick={formatJson}>
+      <div className={styles.formatWrapper}>
+        <button className={styles.formatBtn} type="button" onClick={formatJson}>
           FORMAT
         </button>
-        {error ?? <span>{error}</span>}
+        <span className={styles.errorSpan}>{error ?? ''}</span>
       </div>
     </div>
   );
