@@ -16,7 +16,7 @@ export const MainLoggedUser = ({ userName }: MainLoggedUserProps) => {
             <Link href={"/graphiql-client"}>graphiql-client</Link>
           </li>
           <li>
-            <Link href={"/rest-client"}>rest-client</Link>
+            <Link href={"/GET/"}>rest-client</Link>
           </li>
           <li>
             <Link href={"/history"}>history</Link>
