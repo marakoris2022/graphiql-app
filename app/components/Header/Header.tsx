@@ -1,10 +1,10 @@
-import { MainUnLoggedUser } from "./components/MainTemplates/MainUnLoggedUser";
-import { MainLoggedUser } from "./components/MainTemplates/MainLoggedUser";
+import { HeaderLoggedUser } from "../HeaderTemplates/HeaderLoggedUser";
+import { HeaderUnLoggedUser } from "../HeaderTemplates/HeaderUnLoggedUser";
 import { cookies } from "next/headers";
 import { getTokens } from "next-firebase-auth-edge";
 import { clientConfig, serverConfig } from "@/config";
 
-export default async function Home() {
+export const Header = async () => {
   const tokens = await getTokens(cookies(), {
     apiKey: clientConfig.apiKey,
     cookieName: serverConfig.cookieName,
@@ -12,9 +12,9 @@ export default async function Home() {
     serviceAccount: serverConfig.serviceAccount,
   });
 
-  if (!tokens) {
-    return <MainUnLoggedUser />;
+  if (tokens) {
+    return <HeaderLoggedUser />;
   }
 
-  return <MainLoggedUser userName={tokens.decodedToken.name} />;
-}
+  return <HeaderUnLoggedUser />;
+};
