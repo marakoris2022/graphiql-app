@@ -1,4 +1,4 @@
-import { servConfig } from "./servConfig";
+import { adminData } from "./adminData";
 
 export const serverConfig = {
   cookieName: process.env.AUTH_COOKIE_NAME!,
@@ -16,7 +16,7 @@ export const serverConfig = {
   serviceAccount: {
     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
     clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL!,
-    privateKey: servConfig.private_key.replace(/\\n/g, "\n"),
+    privateKey: adminData.private_key.replace(/\\n/g, "\n"),
   },
 };
 

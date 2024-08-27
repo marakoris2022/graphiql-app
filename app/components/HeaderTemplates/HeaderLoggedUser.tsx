@@ -1,6 +1,6 @@
 import styles from "./headerTemplates.module.css";
-import Link from "next/link";
 import { SignOutButton } from "./SignOutButton";
+import { CustomLink } from "../CustomLink/CustomLink";
 
 export const HeaderLoggedUser = () => {
   return (
@@ -10,7 +10,7 @@ export const HeaderLoggedUser = () => {
       <nav>
         <ul className={styles.buttonsContainer}>
           <li>
-            <Link href="/">To Main</Link>
+            <CustomLink href={"/"} title={"Main"} />
           </li>
           <li>
             <SignOutButton />

@@ -1,8 +1,8 @@
 "use client";
-import { signInWithEmail } from "@/utils/firebaseConfig";
+import { signInWithEmail } from "@/utils/firebaseApi";
 import { FormUserData, validationSchema } from "@/utils/yupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -13,6 +13,8 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { app } from "@/firebase";
+import Loader from "../Loader/Loader";
+import { CustomLink } from "../CustomLink/CustomLink";
 
 export const SignUpForm = () => {
   const {
@@ -51,13 +53,7 @@ export const SignUpForm = () => {
 
   return (
     <div className="formContainer">
-      <Button
-        sx={{ width: "fit-content" }}
-        variant="contained"
-        onClick={() => router.push("/")}
-      >
-        To Main
-      </Button>
+      <CustomLink href={"/"} title={"To Main"} />
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="formUser">
         <div className="formField">
@@ -121,6 +117,7 @@ export const SignUpForm = () => {
           Sign Up
         </Button>
       </form>
+      {isSubmitting && <Loader />}
     </div>
   );
 };

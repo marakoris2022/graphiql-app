@@ -18,5 +18,9 @@ export const SignOutButton = () => {
     toast.success("You are successfully signed out!", toastifyMessage);
   }
 
-  return <button onClick={handleLogout}>Sign Out</button>;
+  return (
+    <button className="linkDefault" onClick={handleLogout}>
+      Sign Out
+    </button>
+  );
 };
