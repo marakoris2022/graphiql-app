@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
       }
 
       if (
-        !PROTECTED_PATHS.includes(pathname) &&
+        !PROTECTED_PATHS.some((path) => pathname.startsWith(path)) &&
         pathname !== "/404" &&
         pathname !== RoutePath.HOME
       ) {
@@ -56,7 +56,7 @@ export async function middleware(request: NextRequest) {
         currentPath !== RoutePath.HOME &&
         currentPath !== "/404"
       ) {
-        if (PROTECTED_PATHS.includes(currentPath)) {
+        if (PROTECTED_PATHS.some((path) => currentPath.startsWith(path))) {
           return NextResponse.redirect(new URL(RoutePath.HOME, request.url));
         }
 
