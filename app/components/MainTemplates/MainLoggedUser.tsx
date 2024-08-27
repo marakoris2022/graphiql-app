@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./mainTemplates.module.css";
 import { CustomLink } from "../CustomLink/CustomLink";
+import { RoutePath } from "@/utils/utils";
 
 type MainLoggedUserProps = {
   userName: string;
@@ -19,7 +20,7 @@ export const MainLoggedUser = ({ userName }: MainLoggedUserProps) => {
             <CustomLink href={"/rest-client"} title={"rest-client"} />
           </li>
           <li>
-            <CustomLink href={"/history"} title={"history"} />
+            <CustomLink href={RoutePath.HISTORY} title={"history"} />
           </li>
         </ul>
       </nav>

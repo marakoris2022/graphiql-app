@@ -5,7 +5,7 @@ import { FormUserData, validationSchema } from "@/utils/yupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { toastifyMessage } from "@/utils/utils";
+import { RoutePath, toastifyMessage } from "@/utils/utils";
 import { signInWithEmail } from "@/utils/firebaseApi";
 import Loader from "../Loader/Loader";
 import { CustomLink } from "../CustomLink/CustomLink";
@@ -25,7 +25,7 @@ export const SignInForm = () => {
     if (data.email && data.password) {
       try {
         await signInWithEmail(data.email, data.password);
-        router.push("/");
+        router.push(RoutePath.HOME);
         router.refresh();
         toast.success("You are successfully signed in!", toastifyMessage);
       } catch (error) {

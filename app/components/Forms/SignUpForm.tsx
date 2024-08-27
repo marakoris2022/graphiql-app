@@ -6,7 +6,7 @@ import { Button, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { toastifyMessage } from "@/utils/utils";
+import { RoutePath, toastifyMessage } from "@/utils/utils";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -40,7 +40,7 @@ export const SignUpForm = () => {
         const user = userCredential.user;
         await updateProfile(user, { displayName: data.name });
         await signInWithEmail(data.email, data.password);
-        router.push("/");
+        router.push(RoutePath.HOME);
         router.refresh();
         toast.success("You are successfully signed up!", toastifyMessage);
       } catch (error) {
