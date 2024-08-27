@@ -6,36 +6,27 @@ import { ResultBlock } from "../components/REST/components/ResultBlock";
 
 import styles from "./page.module.css";
 
-export default async function RestClient({ params }) {
-  const { rest, searchParams } = params;
+export default async function RestClient({ params, searchParams }) {
+  const { rest } = params;
 
   let responseData = null;
   let errorData: null | string = null;
   let body = null;
+  let url = undefined;
 
   // Проверяем наличие параметров
-  const method = rest?.[0] || "GET"; // Если метод отсутствует, используем "GET" по умолчанию
-  const encodedUrl = rest?.[1];
-  const encodedBody = rest?.[2];
+  const method = decodeURIComponent(rest?.[0]) || "GET"; // Если метод отсутствует, используем "GET" по умолчанию
+  const encodedUrl = decodeURIComponent(rest?.[1]);
+  const encodedBody = decodeURIComponent(rest?.[2]);
 
-  // Проверяем наличие URL
-  if (!encodedUrl) {
-    return (
-      <div>
-        <MainForm />
-        <ErrorBlock errorText={"URL не был передан!"} />
-      </div>
-    );
-  }
-
-  // Декодируем URL
-  const url = decodeBase64(encodedUrl);
-
-  // Если есть тело запроса, декодируем его, иначе - null
+  console.log("encodedUrl", encodedUrl);
 
   try {
+    // Декодируем URL
+    url = decodeBase64(encodedUrl);
+    // Если есть тело запроса, декодируем его, иначе - null
     if (encodedBody) {
-      body = JSON.stringify(decodeBase64(encodedBody));
+      body = decodeBase64(encodedBody);
     }
   } catch (error) {
     errorData = error.message; // Сохраняем ошибку
@@ -43,6 +34,8 @@ export default async function RestClient({ params }) {
 
   // Инициализируем объект заголовков
   const headers = {};
+  console.log("searchParams", searchParams);
+
   if (searchParams && Object.keys(searchParams).length > 0) {
     Object.keys(searchParams).forEach((key) => {
       const decodedKey = decodeURIComponent(key);
@@ -55,6 +48,14 @@ export default async function RestClient({ params }) {
 
   // Выполняем запрос
   try {
+    console.log("method", method.toLowerCase());
+    console.log("url", url);
+    console.log("data", body || undefined);
+    console.log(
+      "headers",
+      Object.keys(headers).length > 0 ? headers : undefined
+    );
+
     const response = await axios({
       method: method.toLowerCase(),
       url,
