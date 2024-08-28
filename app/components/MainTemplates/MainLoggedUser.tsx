@@ -1,6 +1,7 @@
-import Link from "next/link";
 import React from "react";
 import styles from "./mainTemplates.module.css";
+import { CustomLink } from "../CustomLink/CustomLink";
+import { RoutePath } from "@/utils/utils";
 
 type MainLoggedUserProps = {
   userName: string;
@@ -13,13 +14,13 @@ export const MainLoggedUser = ({ userName }: MainLoggedUserProps) => {
       <nav>
         <ul>
           <li>
-            <Link href={"/graphiql-client"}>graphiql-client</Link>
+            <CustomLink href={"/graphiql-client"} title={"graphiql-client"} />
           </li>
           <li>
-            <Link href={"/GET/"}>rest-client</Link>
+            <CustomLink href={"/GET"} title={"rest-client"} />
           </li>
           <li>
-            <Link href={"/history"}>history</Link>
+            <CustomLink href={RoutePath.HISTORY} title={"history"} />
           </li>
         </ul>
       </nav>

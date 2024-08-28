@@ -1,6 +1,6 @@
 "use client";
 import { app } from "@/firebase";
-import { toastifyMessage } from "@/utils/utils";
+import { RoutePath, toastifyMessage } from "@/utils/utils";
 import { getAuth, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -13,10 +13,14 @@ export const SignOutButton = () => {
 
     await fetch("/api/logout");
 
-    router.push("/");
+    router.push(RoutePath.HOME);
     router.refresh();
     toast.success("You are successfully signed out!", toastifyMessage);
   }
 
-  return <button onClick={handleLogout}>Sign Out</button>;
+  return (
+    <button className="linkDefault" onClick={handleLogout}>
+      Sign Out
+    </button>
+  );
 };

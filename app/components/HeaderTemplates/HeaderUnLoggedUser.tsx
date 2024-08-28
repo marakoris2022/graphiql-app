@@ -1,5 +1,6 @@
+import { RoutePath } from "@/utils/utils";
+import { CustomLink } from "../CustomLink/CustomLink";
 import styles from "./headerTemplates.module.css";
-import Link from "next/link";
 
 export const HeaderUnLoggedUser = () => {
   return (
@@ -9,13 +10,13 @@ export const HeaderUnLoggedUser = () => {
       <nav>
         <ul className={styles.buttonsContainer}>
           <li>
-            <Link href={"/"}>To Main</Link>
+            <CustomLink href={RoutePath.HOME} title={"Main"} />
           </li>
           <li>
-            <Link href={"/sign-in"}>Sign In</Link>
+            <CustomLink href={RoutePath.SIGN_IN} title={"Sign In"} />
           </li>
           <li>
-            <Link href={"/sign-up"}>Sign Up</Link>
+            <CustomLink href={RoutePath.SIGN_UP} title={"Sign Up"} />
           </li>
         </ul>
       </nav>

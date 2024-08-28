@@ -1,4 +1,4 @@
-export const servConfig = {
+export const adminData = {
   type: "service_account",
   project_id: "test-61726",
   private_key_id: "1b3cd547cc43825f28af8b54f7062dc608034d97",

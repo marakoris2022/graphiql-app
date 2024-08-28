@@ -1,14 +1,14 @@
 "use client";
 import { Button, TextField } from "@mui/material";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { FormUserData, validationSchema } from "@/utils/yupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { toastifyMessage } from "@/utils/utils";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { app } from "@/firebase";
-import { signInWithEmail } from "@/utils/firebaseConfig";
+import { RoutePath, toastifyMessage } from "@/utils/utils";
+import { signInWithEmail } from "@/utils/firebaseApi";
+import Loader from "../Loader/Loader";
+import { CustomLink } from "../CustomLink/CustomLink";
 
 export const SignInForm = () => {
   const {
@@ -25,7 +25,7 @@ export const SignInForm = () => {
     if (data.email && data.password) {
       try {
         await signInWithEmail(data.email, data.password);
-        router.push("/");
+        router.push(RoutePath.HOME);
         router.refresh();
         toast.success("You are successfully signed in!", toastifyMessage);
       } catch (error) {
@@ -38,13 +38,7 @@ export const SignInForm = () => {
 
   return (
     <div className="formContainer">
-      <Button
-        sx={{ width: "fit-content" }}
-        variant="contained"
-        onClick={() => router.push("/")}
-      >
-        To Main
-      </Button>
+      <CustomLink href={"/"} title={"To Main"} />
       <h2>Sign In</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="formUser">
         <div className="formField">
@@ -91,6 +85,7 @@ export const SignInForm = () => {
           Sign In
         </Button>
       </form>
+      {isSubmitting && <Loader />}
     </div>
   );
 };
