@@ -5,7 +5,7 @@ import { RoutePath } from "@/utils/utils";
 
 export const HeaderLoggedUser = () => {
   return (
-    <header>
+    <>
       <div>Logo</div>
       <div>Toggle Language</div>
       <nav>
@@ -18,6 +18,6 @@ export const HeaderLoggedUser = () => {
           </li>
         </ul>
       </nav>
-    </header>
+    </>
   );
 };

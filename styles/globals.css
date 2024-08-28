@@ -4,6 +4,13 @@
   flex-direction: column;
   margin: 0 auto;
   min-height: 100vh;
+  padding-top: 65px;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
 }
 
 ul {
@@ -19,7 +26,6 @@ h2 {
   margin: 0;
 }
 
-header,
 footer {
   display: flex;
   flex-wrap: wrap;
@@ -82,4 +88,29 @@ main {
 .linkActive:hover {
   color: blue;
   transform: none;
+}
+
+header {
+  transition: all 0.5s ease;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  background-color: white;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.sticky {
+  background-color: #9acc8f;
+  transition: all 0.5s ease;
 }
