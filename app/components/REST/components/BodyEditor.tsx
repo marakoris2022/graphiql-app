@@ -1,14 +1,38 @@
-import { FieldValues, UseFormRegister, useForm } from "react-hook-form";
-import { useState } from "react";
+import {
+  FieldValues,
+  UseFormRegister,
+  UseFormSetValue,
+  useForm,
+} from "react-hook-form";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./BodyEditor.module.css";
+import { usePathname } from "next/navigation";
+import { decodeBase64, encodeBase64 } from "@/app/[...rest]/utils";
 
 type BodyEditorProps = {
   register: UseFormRegister<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
+  errorBody: string;
+  setBodyError: Dispatch<SetStateAction<string>>;
 };
 
-export const BodyEditor = ({ register }: BodyEditorProps) => {
+export const BodyEditor = ({
+  register,
+  setValue,
+  errorBody,
+  setBodyError,
+}: BodyEditorProps) => {
   const [body, setBody] = useState<string>("");
-  const [error, setError] = useState("");
+
+  const bodyFromUrl = usePathname().split("/")[3]; // Extract and capitalize path method
+
+  useEffect(() => {
+    if (bodyFromUrl) {
+      const decodedBodyFromUrl = decodeBase64(decodeURIComponent(bodyFromUrl));
+      setBody(decodedBodyFromUrl);
+      setValue("body", decodedBodyFromUrl);
+    }
+  }, [bodyFromUrl]);
 
   // Функция для форматирования JSON текста
   const formatJson = () => {
@@ -16,9 +40,9 @@ export const BodyEditor = ({ register }: BodyEditorProps) => {
       const parsed = JSON.parse(body); // Парсинг строки в объект
       const formatted = JSON.stringify(parsed, null, 2); // Форматирование с отступами
       setBody(formatted); // Обновление содержимого
-      setError("");
-    } catch (error) {
-      setError("Невалидный JSON формат."); // Если текст не является JSON
+      setBodyError("");
+    } catch {
+      setBodyError("Невалидный JSON формат."); // Если текст не является JSON
     }
   };
 
@@ -32,7 +56,11 @@ export const BodyEditor = ({ register }: BodyEditorProps) => {
         className={styles.textarea}
         {...register("body")}
         value={body}
-        onChange={(e) => setBody(e.target.value)}
+        onChange={(e) => {
+          console.log(e.target.value);
+
+          setBody(e.target.value);
+        }}
         rows={10}
         cols={50}
         placeholder="Введите JSON"
@@ -41,7 +69,7 @@ export const BodyEditor = ({ register }: BodyEditorProps) => {
         <button className={styles.formatBtn} type="button" onClick={formatJson}>
           FORMAT
         </button>
-        <span className={styles.errorSpan}>{error ?? ''}</span>
+        <span className={styles.errorSpan}>{errorBody ?? ""}</span>
       </div>
     </div>
   );

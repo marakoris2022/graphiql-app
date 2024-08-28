@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { usePathname } from "next/navigation";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 
 type SelectMethodProps = {
@@ -14,9 +14,16 @@ enum METHOD {
 }
 
 export const SelectMethod = ({ register }: SelectMethodProps) => {
+  const pathMethod = usePathname().split("/")[1].toUpperCase(); // Extract and capitalize path method
+
+  // Check if the extracted method is a valid HTTP method, otherwise default to GET
+  const selectedMethod = Object.values(METHOD).includes(pathMethod as METHOD)
+    ? pathMethod
+    : METHOD.GET;
+
   return (
     <div>
-      <select {...register("method")}>
+      <select {...register("method")} defaultValue={selectedMethod}>
         <option value={METHOD.GET}>{METHOD.GET}</option>
         <option value={METHOD.POST}>{METHOD.POST}</option>
         <option value={METHOD.PUT}>{METHOD.PUT}</option>

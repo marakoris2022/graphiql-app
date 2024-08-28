@@ -13,11 +13,14 @@ import { useState } from "react";
 
 export const MainForm = () => {
   const [urlError, setUrlError] = useState("");
+  const [errorBody, setBodyError] = useState("");
+
   const {
     register,
     handleSubmit,
     watch,
     unregister,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -28,6 +31,20 @@ export const MainForm = () => {
       setUrlError("URL can't be empty.");
       return;
     }
+
+    if (data.body !== "") {
+      try {
+        const parsedBody = JSON.parse(data.body); // Parse the JSON string
+        console.log("Parsed body:", parsedBody);
+        // Handle the parsed body as needed (send to API, etc.)
+        data = { ...data, body: parsedBody };
+      } catch {
+        setBodyError("Невалидный JSON формат."); // Если текст не является JSON
+        return;
+      }
+    }
+
+    console.log("data", data);
 
     const generatedURL = generateURL(data);
     setUrlError("");
@@ -49,7 +66,12 @@ export const MainForm = () => {
       </div>
       <p className={styles.error}>{urlError}</p>
       <Headers register={register} unregister={unregister} />
-      <BodyEditor register={register} />
+      <BodyEditor
+        errorBody={errorBody}
+        setBodyError={setBodyError}
+        setValue={setValue}
+        register={register}
+      />
     </form>
   );
 };
