@@ -9,8 +9,10 @@ import { useRouter } from "next/navigation";
 import { generateURL } from "@/app/[...rest]/utils";
 
 import styles from "./MainForm.module.css";
+import { useState } from "react";
 
 export const MainForm = () => {
+  const [urlError, setUrlError] = useState("");
   const {
     register,
     handleSubmit,
@@ -22,7 +24,13 @@ export const MainForm = () => {
   const navigate = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (data.EndpointURL === "") {
+      setUrlError("URL can't be empty.");
+      return;
+    }
+
     const generatedURL = generateURL(data);
+    setUrlError("");
     navigate.push(generatedURL);
   };
 
@@ -31,10 +39,15 @@ export const MainForm = () => {
       <div className={styles.topWrapper}>
         <SelectMethod register={register} />
         <EndpointURL register={register} />
-        <button className={styles.sendBtn} type="submit">
+        <button
+          {...register("submit")}
+          className={styles.sendBtn}
+          type="submit"
+        >
           SEND
         </button>
       </div>
+      <p className={styles.error}>{urlError}</p>
       <Headers register={register} unregister={unregister} />
       <BodyEditor register={register} />
     </form>

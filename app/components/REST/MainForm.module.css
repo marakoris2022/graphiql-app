@@ -1,7 +1,11 @@
 .form {
   min-width: 45%;
 }
-
+.error {
+  font-size: 14px;
+  color: red;
+  text-align: center;
+}
 .topWrapper {
   display: flex;
   flex-direction: row;

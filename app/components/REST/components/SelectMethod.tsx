@@ -5,15 +5,23 @@ type SelectMethodProps = {
   register: UseFormRegister<FieldValues>;
 };
 
+enum METHOD {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  PATCH = "PATCH",
+  DELETE = "DELETE",
+}
+
 export const SelectMethod = ({ register }: SelectMethodProps) => {
   return (
     <div>
       <select {...register("method")}>
-        <option value="GET">GET</option>
-        <option value="POST">POST</option>
-        <option value="PUT">PUT</option>
-        <option value="PATCH">PATCH</option>
-        <option value="DELETE">DELETE</option>
+        <option value={METHOD.GET}>{METHOD.GET}</option>
+        <option value={METHOD.POST}>{METHOD.POST}</option>
+        <option value={METHOD.PUT}>{METHOD.PUT}</option>
+        <option value={METHOD.PATCH}>{METHOD.PATCH}</option>
+        <option value={METHOD.DELETE}>{METHOD.DELETE}</option>
       </select>
     </div>
   );

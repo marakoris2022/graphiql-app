@@ -19,8 +19,6 @@ export default async function RestClient({ params, searchParams }) {
   const encodedUrl = decodeURIComponent(rest?.[1]);
   const encodedBody = decodeURIComponent(rest?.[2]);
 
-  console.log("encodedUrl", encodedUrl);
-
   try {
     // Декодируем URL
     url = decodeBase64(encodedUrl);
@@ -66,6 +64,12 @@ export default async function RestClient({ params, searchParams }) {
     responseData = response.data; // Сохраняем результат
   } catch (error) {
     errorData = error.message; // Сохраняем ошибку
+  }
+
+  // если в URL стоит _blank
+  if (encodedUrl === "_blank") {
+    errorData = "";
+    responseData = "Fill data to send REST request.";
   }
 
   return (
