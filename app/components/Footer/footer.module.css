@@ -34,6 +34,7 @@
 
 .githubUserContainer:hover a {
   color: blue;
+  transform: scale(1.03);
 }
 
 .githubUserContainer:hover img {
@@ -46,4 +47,5 @@
 
 .rsschoolLogo a:hover img {
   filter: hue-rotate(180deg);
+  transform: scale(1.03);
 }
