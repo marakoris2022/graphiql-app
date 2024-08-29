@@ -6,15 +6,16 @@ export const HeaderContainer = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isSticky, setIsSticky] = useState(false);
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!ref.current) return;
+
       if (window.scrollY > 10) {
-        setIsSticky(() => true);
+        ref.current.classList.add("sticky");
       } else {
-        setIsSticky(() => false);
+        ref.current.classList.remove("sticky");
       }
     };
 
@@ -26,8 +27,10 @@ export const HeaderContainer = ({
   }, []);
 
   return (
-    <header ref={ref} className={isSticky ? "sticky" : ""}>
-      <div className="headerContainer">{children}</div>
+    <header ref={ref}>
+      <div className="container">
+        <div className="headerContainer">{children}</div>
+      </div>
     </header>
   );
 };

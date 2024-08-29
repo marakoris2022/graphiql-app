@@ -22,12 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="container">
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <ToastContainer {...toastContainerConfig} />
-        </div>
+        <Header />
+        <main>
+          <div className="container">{children}</div>
+        </main>
+        <Footer />
+        <ToastContainer {...toastContainerConfig} />
       </body>
     </html>
   );
