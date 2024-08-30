@@ -3,6 +3,7 @@ import { HeaderUnLoggedUser } from "../HeaderTemplates/HeaderUnLoggedUser";
 import { cookies } from "next/headers";
 import { getTokens } from "next-firebase-auth-edge";
 import { clientConfig, serverConfig } from "@/config";
+import { HeaderContainer } from "./HeaderContainer";
 
 export const Header = async () => {
   const tokens = await getTokens(cookies(), {
@@ -13,8 +14,16 @@ export const Header = async () => {
   });
 
   if (tokens) {
-    return <HeaderLoggedUser />;
+    return (
+      <HeaderContainer>
+        <HeaderLoggedUser />
+      </HeaderContainer>
+    );
   }
 
-  return <HeaderUnLoggedUser />;
+  return (
+    <HeaderContainer>
+      <HeaderUnLoggedUser />
+    </HeaderContainer>
+  );
 };
