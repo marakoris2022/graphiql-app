@@ -24,7 +24,7 @@ export const BodyEditor = ({
 }: BodyEditorProps) => {
   const [body, setBody] = useState<string>("");
 
-  const bodyFromUrl = usePathname().split("/")[3]; // Extract and capitalize path method
+  const bodyFromUrl = usePathname().split("/")[3];
 
   useEffect(() => {
     if (bodyFromUrl) {
@@ -34,15 +34,14 @@ export const BodyEditor = ({
     }
   }, [bodyFromUrl]);
 
-  // Функция для форматирования JSON текста
   const formatJson = () => {
     try {
-      const parsed = JSON.parse(body); // Парсинг строки в объект
-      const formatted = JSON.stringify(parsed, null, 2); // Форматирование с отступами
-      setBody(formatted); // Обновление содержимого
+      const parsed = JSON.parse(body);
+      const formatted = JSON.stringify(parsed, null, 2);
+      setBody(formatted);
       setBodyError("");
     } catch {
-      setBodyError("Невалидный JSON формат."); // Если текст не является JSON
+      setBodyError("Невалидный JSON формат.");
     }
   };
 
@@ -57,8 +56,6 @@ export const BodyEditor = ({
         {...register("body")}
         value={body}
         onChange={(e) => {
-          console.log(e.target.value);
-
           setBody(e.target.value);
         }}
         rows={10}

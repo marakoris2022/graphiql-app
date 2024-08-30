@@ -8,7 +8,7 @@ type EndpointURLProps = {
 };
 
 export const EndpointURL = ({ register }: EndpointURLProps) => {
-  const url = usePathname().split("/")[2]; // Extract and capitalize path method
+  const url = usePathname().split("/")[2];
   const decodedUrl =
     url === "_blank" ? "" : decodeBase64(decodeURIComponent(url));
 

@@ -14,9 +14,8 @@ enum METHOD {
 }
 
 export const SelectMethod = ({ register }: SelectMethodProps) => {
-  const pathMethod = usePathname().split("/")[1].toUpperCase(); // Extract and capitalize path method
+  const pathMethod = usePathname().split("/")[1].toUpperCase();
 
-  // Check if the extracted method is a valid HTTP method, otherwise default to GET
   const selectedMethod = Object.values(METHOD).includes(pathMethod as METHOD)
     ? pathMethod
     : METHOD.GET;

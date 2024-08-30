@@ -34,17 +34,13 @@ export const MainForm = () => {
 
     if (data.body !== "") {
       try {
-        const parsedBody = JSON.parse(data.body); // Parse the JSON string
-        console.log("Parsed body:", parsedBody);
-        // Handle the parsed body as needed (send to API, etc.)
+        const parsedBody = JSON.parse(data.body);
         data = { ...data, body: parsedBody };
       } catch {
-        setBodyError("Невалидный JSON формат."); // Если текст не является JSON
+        setBodyError("Невалидный JSON формат.");
         return;
       }
     }
-
-    console.log("data", data);
 
     const generatedURL = generateURL(data);
     setUrlError("");
