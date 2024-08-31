@@ -1,9 +1,4 @@
-import {
-  FieldValues,
-  UseFormRegister,
-  UseFormSetValue,
-  useForm,
-} from "react-hook-form";
+import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./BodyEditor.module.css";
 import { usePathname } from "next/navigation";
@@ -36,11 +31,20 @@ export const BodyEditor = ({
 
   const formatJson = () => {
     try {
-      const parsed = JSON.parse(body);
-      const formatted = JSON.stringify(parsed, null, 2);
-      setBody(formatted);
+      let formattedInput = body.replace(/'/g, '"');
+
+      formattedInput = formattedInput.replace(/(\w+)\s*:/g, '"$1":');
+
+      formattedInput = formattedInput.replace(/,\s*([\]}])/g, "$1");
+
+      const parsedObject = JSON.parse(formattedInput);
+
+      const jsonString = JSON.stringify(parsedObject, null, 2);
+
+      setBody(jsonString);
+      setValue("body", jsonString);
       setBodyError("");
-    } catch {
+    } catch (error) {
       setBodyError("Невалидный JSON формат.");
     }
   };
