@@ -9,8 +9,7 @@ type EndpointURLProps = {
 
 export const EndpointURL = ({ register }: EndpointURLProps) => {
   const url = usePathname().split("/")[2];
-  const decodedUrl =
-    url === "_blank" ? "" : decodeBase64(decodeURIComponent(url));
+  const decodedUrl = url ? decodeBase64(decodeURIComponent(url)) : "";
 
   return (
     <div className={styles.wrapper}>
