@@ -4,17 +4,8 @@ import { clientConfig, serverConfig } from "./config";
 import { RoutePath } from "./utils/utils";
 
 const PUBLIC_PATHS: string[] = [RoutePath.SIGN_IN, RoutePath.SIGN_UP];
-const PROTECTED_PATHS: string[] = [
-  RoutePath.REST_CLIENT_GET,
-  RoutePath.REST_CLIENT_POST,
-  RoutePath.REST_CLIENT_PUT,
-  RoutePath.REST_CLIENT_PATCH,
-  RoutePath.REST_CLIENT_DELETE,
-  RoutePath.GRAPHIQL_CLIENT,
-  RoutePath.HISTORY,
-  "/graphiql-client", // NEED TO REMOVE
-  "/rest-client", // NEED TO REMOVE
-];
+const protectedPathsRegex =
+  /^(\/GET|\/POST|\/PUT|\/PATCH|\/DELETE|\/GRAPHQL|\/history)(\/.*)?$/;
 
 export async function middleware(request: NextRequest) {
   return authMiddleware(request, {
@@ -33,7 +24,7 @@ export async function middleware(request: NextRequest) {
       }
 
       if (
-        !PROTECTED_PATHS.some((path) => pathname.startsWith(path)) &&
+        !protectedPathsRegex.test(pathname) &&
         pathname !== "/404" &&
         pathname !== RoutePath.HOME
       ) {
@@ -56,7 +47,7 @@ export async function middleware(request: NextRequest) {
         currentPath !== RoutePath.HOME &&
         currentPath !== "/404"
       ) {
-        if (PROTECTED_PATHS.some((path) => currentPath.startsWith(path))) {
+        if (protectedPathsRegex.test(currentPath)) {
           return NextResponse.redirect(new URL(RoutePath.HOME, request.url));
         }
 
