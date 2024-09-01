@@ -1,0 +1,7 @@
+.pageWrapper {
+  padding-top: 20px;
+
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}

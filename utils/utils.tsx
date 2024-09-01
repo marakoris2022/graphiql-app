@@ -31,18 +31,10 @@ export enum RoutePath {
   SIGN_IN = '/sign-in',
   SIGN_UP = '/sign-up',
   HISTORY = '/history',
-  REST_CLIENT_GET = '/GET/',
-  REST_CLIENT_POST = '/POST/',
-  REST_CLIENT_PUT = '/PUT/',
-  REST_CLIENT_PATCH = '/PATCH/',
-  REST_CLIENT_DELETE = '/DELETE/',
-  GRAPHIQL_CLIENT = '/GRAPHQL/',
-}
-
-export function encodeBase64(str: string) {
-  return Buffer.from(str).toString('base64');
-}
-
-export function decodeBase64(base64Str: string) {
-  return Buffer.from(base64Str, 'base64').toString('ascii');
+  REST_CLIENT_GET = '/GET',
+  REST_CLIENT_POST = '/POST',
+  REST_CLIENT_PUT = '/PUT',
+  REST_CLIENT_PATCH = '/PATCH',
+  REST_CLIENT_DELETE = '/DELETE',
+  GRAPHIQL_CLIENT = '/GRAPHQL',
 }

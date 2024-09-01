@@ -1,0 +1,21 @@
+.wrapper {
+  padding-top: 10px;
+}
+.title {
+}
+.example {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.textarea {
+  width: 100%;
+}
+.formatWrapper {
+}
+.formatBtn {
+  margin-right: 10px;
+}
+.errorSpan {
+  font-size: 14px;
+  color: red;
+}

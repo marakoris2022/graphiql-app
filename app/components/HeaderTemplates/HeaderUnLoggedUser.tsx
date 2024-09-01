@@ -4,7 +4,7 @@ import styles from "./headerTemplates.module.css";
 
 export const HeaderUnLoggedUser = () => {
   return (
-    <header>
+    <>
       <div>Logo</div>
       <div>Toggle Language</div>
       <nav>
@@ -20,6 +20,6 @@ export const HeaderUnLoggedUser = () => {
           </li>
         </ul>
       </nav>
-    </header>
+    </>
   );
 };
