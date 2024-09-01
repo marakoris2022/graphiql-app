@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import type { FormCheckResult } from "@/lib/types";
-import { encodeBase64, RoutePath } from "@/utils/utils";
 
 type GraphQLRequest = {
   endpointURL: string;
@@ -63,13 +62,13 @@ export async function createQuery(
       }
   } else {
       const responseOfJSONFormat = await response.json();
-      const endpointURLEncoded = encodeBase64(endpointURL);
-    const queryEncoded = encodeBase64(query);
+      /* const endpointURLEncoded = encodeBase64(endpointURL); */
+    /* const queryEncoded = encodeBase64(query); */
        return {
         status: response.status,
          message: `${JSON.stringify(responseOfJSONFormat, null, 2)}`,
-         endpointURLEncoded,
-        queryEncoded
+         /* endpointURLEncoded,
+        queryEncoded */
       }
   }
   } catch (error) {

@@ -5,23 +5,22 @@ import { useEffect, useRef, useState } from 'react';
 import SubmitButton from './SubmitButton';
 import styles from './gqlForm.module.css';
 import { useFormState } from 'react-dom';
-import { useRouter } from 'next/router';
 
 const Form = () => {
+  /* const router = useRouter(); */
   const ref = useRef<HTMLFormElement>(null);
   const [data, action] = useFormState(createQuery, {
     status: null,
     message: '',
   });
   const [headers, setHeaders] = useState([{ key: '', value: '' }]);
-  const router = useRouter();
 
   useEffect(() => {
     if (data.endpointURLEncoded && data.queryEncoded) {
       /* ref.current?.reset(); */
-      router.push(`/GRAPHQL/${data.endpointURLEncoded}/${data.queryEncoded}`);
+      /* router.push(`/GRAPHQL/${data.endpointURLEncoded}/${data.queryEncoded}`); */
     }
-  }, [data, router]);
+  }, [data]);
 
   const addHeader = () => {
     setHeaders([...headers, { key: '', value: '' }]);
@@ -85,7 +84,12 @@ const Form = () => {
         </fieldset>
         <fieldset>
           <legend>Variables</legend>
-          <textarea name="variables" id="variables" placeholder="Variables..."></textarea>
+          <textarea
+            className={styles.variablesGraphQL}
+            name="variables"
+            id="variables"
+            placeholder="Variables..."
+          ></textarea>
         </fieldset>
         <div className={styles.submit}>
           <SubmitButton />
