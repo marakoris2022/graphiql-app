@@ -1,19 +1,19 @@
-import { Bounce, ToastContainerProps, ToastPosition } from "react-toastify";
+import { Bounce, ToastContainerProps, ToastPosition } from 'react-toastify';
 
 export const toastifyMessage = {
-  position: "bottom-center" as ToastPosition,
+  position: 'bottom-center' as ToastPosition,
   autoClose: 5000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
-  theme: "light",
+  theme: 'light',
   transition: Bounce,
 };
 
 export const toastContainerConfig: ToastContainerProps = {
-  position: "bottom-center",
+  position: 'bottom-center',
   autoClose: 5000,
   hideProgressBar: false,
   newestOnTop: false,
@@ -22,19 +22,27 @@ export const toastContainerConfig: ToastContainerProps = {
   pauseOnFocusLoss: true,
   draggable: true,
   pauseOnHover: true,
-  theme: "light",
+  theme: 'light',
   transition: Bounce,
 };
 
 export enum RoutePath {
-  HOME = "/",
-  SIGN_IN = "/sign-in",
-  SIGN_UP = "/sign-up",
-  HISTORY = "/history",
-  REST_CLIENT_GET = "/GET/",
-  REST_CLIENT_POST = "/POST/",
-  REST_CLIENT_PUT = "/PUT/",
-  REST_CLIENT_PATCH = "/PATCH/",
-  REST_CLIENT_DELETE = "/DELETE/",
-  GRAPHIQL_CLIENT = "/GRAPHQL/",
+  HOME = '/',
+  SIGN_IN = '/sign-in',
+  SIGN_UP = '/sign-up',
+  HISTORY = '/history',
+  REST_CLIENT_GET = '/GET/',
+  REST_CLIENT_POST = '/POST/',
+  REST_CLIENT_PUT = '/PUT/',
+  REST_CLIENT_PATCH = '/PATCH/',
+  REST_CLIENT_DELETE = '/DELETE/',
+  GRAPHIQL_CLIENT = '/GRAPHQL/',
+}
+
+export function encodeBase64(str: string) {
+  return Buffer.from(str).toString('base64');
+}
+
+export function decodeBase64(base64Str: string) {
+  return Buffer.from(base64Str, 'base64').toString('ascii');
 }

@@ -1,0 +1,15 @@
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.queryArea {
+    width: 400px;
+    height: 400px;
+}
+
+.responseArea {
+    width: 400px;
+    height: 800px;
+}

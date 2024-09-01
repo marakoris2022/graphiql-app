@@ -12,7 +12,6 @@ const PROTECTED_PATHS: string[] = [
   RoutePath.REST_CLIENT_DELETE,
   RoutePath.GRAPHIQL_CLIENT,
   RoutePath.HISTORY,
-  "/graphiql-client", // NEED TO REMOVE
   "/rest-client", // NEED TO REMOVE
 ];
 
