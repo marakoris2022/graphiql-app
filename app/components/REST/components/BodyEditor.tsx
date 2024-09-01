@@ -2,7 +2,12 @@ import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./BodyEditor.module.css";
 import { usePathname } from "next/navigation";
-import { decodeBase64, encodeBase64 } from "@/app/[...rest]/utils";
+import {
+  decodeBase64,
+  encodeBase64,
+  replaceVariables,
+  stringToJSONString,
+} from "@/app/[...rest]/utils";
 
 type BodyEditorProps = {
   register: UseFormRegister<FieldValues>;
@@ -30,30 +35,27 @@ export const BodyEditor = ({
   }, [bodyFromUrl]);
 
   const formatJson = () => {
-    try {
-      let formattedInput = body.replace(/'/g, '"');
+    const variables = JSON.parse(localStorage.getItem("RESTVariables") ?? "");
+    const replacedString = replaceVariables(body, variables);
 
-      formattedInput = formattedInput.replace(/(\w+)\s*:/g, '"$1":');
+    const JSONString = stringToJSONString(replacedString);
 
-      formattedInput = formattedInput.replace(/,\s*([\]}])/g, "$1");
-
-      const parsedObject = JSON.parse(formattedInput);
-
-      const jsonString = JSON.stringify(parsedObject, null, 2);
-
-      setBody(jsonString);
-      setValue("body", jsonString);
-      setBodyError("");
-    } catch (error) {
+    if (!JSONString) {
       setBodyError("Невалидный JSON формат.");
+      return;
     }
+
+    setBody(replacedString);
+    setValue("body", replacedString);
+    setBodyError("");
+    return;
   };
 
   return (
     <div className={styles.wrapper}>
       <h5 className={styles.title}>Body:</h5>
       <p className={styles.example}>
-        Пример: {JSON.stringify({ name: "pikachu" })}
+        Пример: {`{ "name": "pikachu", "count": {{variableName}} }`}
       </p>
       <textarea
         className={styles.textarea}

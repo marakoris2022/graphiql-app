@@ -10,6 +10,7 @@ import { generateURL } from "@/app/[...rest]/utils";
 
 import styles from "./MainForm.module.css";
 import { useState } from "react";
+import { Variables } from "./components/Variables";
 
 export const MainForm = () => {
   const [urlError, setUrlError] = useState("");
@@ -62,6 +63,7 @@ export const MainForm = () => {
       </div>
       <p className={styles.error}>{urlError}</p>
       <Headers register={register} unregister={unregister} />
+      <Variables />
       <BodyEditor
         errorBody={errorBody}
         setBodyError={setBodyError}

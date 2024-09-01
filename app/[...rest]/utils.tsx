@@ -16,10 +16,44 @@ export function decodeBase64(base64Str: string) {
   return Buffer.from(base64Str, "base64").toString("ascii");
 }
 
+export const stringToJSONString = (rawString: string) => {
+  try {
+    let formattedInput = rawString.replace(/'/g, '"');
+
+    formattedInput = formattedInput.replace(/(\w+)\s*:/g, '"$1":');
+
+    formattedInput = formattedInput.replace(/,\s*([\]}])/g, "$1");
+
+    const parsedObject = JSON.parse(formattedInput);
+
+    const jsonString = JSON.stringify(parsedObject, null, 2);
+
+    return jsonString;
+  } catch {
+    return null;
+  }
+};
+
+export const replaceVariables = (str: string, variables: string[][]) => {
+  let newStr = str;
+  variables.forEach(([key, value]) => {
+    const regex = new RegExp(`{{${key}}}`, "g"); // ищем {{key}}
+    newStr = newStr.replace(regex, `"${value}"`); // заменяем на значение
+  });
+  return newStr;
+};
+
 export function generateURL(data: FormData | FieldValues) {
   const { EndpointURL, method, body, ...headers } = data as FormData;
 
-  const encodedURL = encodeBase64(EndpointURL);
+  const variables = JSON.parse(localStorage.getItem("RESTVariables") ?? "");
+  const variableURL = replaceVariables(EndpointURL, variables).replaceAll(
+    '"',
+    ""
+  );
+
+  const encodedURL = encodeBase64(variableURL);
+
   const encodedBody = body ? encodeBase64(JSON.stringify(body)) : null;
 
   const headerParams = Object.keys(headers)
