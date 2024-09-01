@@ -1,0 +1,9 @@
+.errorWrapper {
+  width: 100%;
+}
+.title {
+}
+.textarea {
+  width: 100%;
+  min-height: 200px;
+}
