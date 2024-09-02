@@ -6,6 +6,7 @@ import "../styles/globals.css";
 import { ToastContainer } from "react-toastify";
 import { toastContainerConfig } from "@/utils/utils";
 import "react-toastify/dist/ReactToastify.css";
+import { getLocale } from "@/i18n/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +20,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = getLocale();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={inter.className}>
         <Header />
         <main>

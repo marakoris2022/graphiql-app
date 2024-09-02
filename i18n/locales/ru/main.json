@@ -1,0 +1,13 @@
+{
+  "mainLoggedUser": {
+    "title": "Приветсвуем вас, ",
+    "rest": "REST Клиент",
+    "graphiql": "GraphiQL Клиент",
+    "history": "История"
+  },
+  "mainUnLoggedUser": {
+    "title": "Добро пожаловать!",
+    "signIn": "Вход",
+    "signUp": "Регистрация"
+  }
+}

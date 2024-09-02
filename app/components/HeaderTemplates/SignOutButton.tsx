@@ -5,7 +5,12 @@ import { getAuth, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-export const SignOutButton = () => {
+type SignOutButtonProps = {
+  title: string;
+  toastMsg: string;
+};
+
+export const SignOutButton = ({ title, toastMsg }: SignOutButtonProps) => {
   const router = useRouter();
 
   async function handleLogout() {
@@ -15,12 +20,12 @@ export const SignOutButton = () => {
 
     router.push(RoutePath.HOME);
     router.refresh();
-    toast.success("You are successfully signed out!", toastifyMessage);
+    toast.success(toastMsg, toastifyMessage);
   }
 
   return (
     <button className="linkDefault" onClick={handleLogout}>
-      Sign Out
+      {title}
     </button>
   );
 };

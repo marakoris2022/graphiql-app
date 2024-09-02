@@ -1,0 +1,13 @@
+{
+  "mainLoggedUser": {
+    "title": "Welcome back, ",
+    "rest": "REST Client",
+    "graphiql": "GraphiQL Client",
+    "history": "History"
+  },
+  "mainUnLoggedUser": {
+    "title": "Welcome!",
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  }
+}

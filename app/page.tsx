@@ -3,6 +3,7 @@ import { MainLoggedUser } from "./components/MainTemplates/MainLoggedUser";
 import { cookies } from "next/headers";
 import { getTokens } from "next-firebase-auth-edge";
 import { clientConfig, serverConfig } from "@/config";
+import { createTranslation } from "../i18n/server";
 
 export default async function Home() {
   const tokens = await getTokens(cookies(), {

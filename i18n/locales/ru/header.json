@@ -1,0 +1,12 @@
+{
+  "loggedUserHeader": {
+    "signOut": "Выйти",
+    "main": "Главная",
+    "toastLogOut": "Вы успешно вышли из системы!"
+  },
+  "unLoggedUserHeader": {
+    "signUp": "Регистрация",
+    "signIn": "Вход",
+    "main": "Главная"
+  }
+}

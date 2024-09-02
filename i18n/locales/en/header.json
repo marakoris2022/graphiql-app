@@ -1,0 +1,12 @@
+{
+  "loggedUserHeader": {
+    "signOut": "Sign Out",
+    "main": "Main",
+    "toastLogOut": "You are successfully signed out!"
+  },
+  "unLoggedUserHeader": {
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "main": "Main"
+  }
+}
