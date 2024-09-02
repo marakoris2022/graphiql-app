@@ -9,12 +9,12 @@ import { useRouter } from "next/navigation";
 import { generateURL } from "@/app/[...rest]/utils";
 
 import styles from "./MainForm.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Variables } from "./components/Variables";
 import { useTranslation } from "@/i18n/client";
 
 export const MainForm = () => {
-  const { t } = useTranslation("rest");
+  const { t, i18n } = useTranslation("rest");
   const [urlError, setUrlError] = useState("");
   const [errorBody, setBodyError] = useState("");
 
@@ -28,6 +28,15 @@ export const MainForm = () => {
   } = useForm();
 
   const navigate = useRouter();
+
+  useEffect(() => {
+    if (urlError) {
+      setUrlError(t("errEmptyUrl"));
+    }
+    if (errorBody) {
+      setBodyError(t("errInvalidJson"));
+    }
+  }, [i18n.resolvedLanguage]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (data.EndpointURL === "") {
