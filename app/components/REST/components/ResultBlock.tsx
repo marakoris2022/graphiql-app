@@ -1,15 +1,14 @@
-"use client";
-import { useTranslation } from "@/i18n/client";
 import styles from "./ResultBlock.module.css";
+import { createTranslation } from "@/i18n/server";
 
-export const ResultBlock = ({
+export const ResultBlock = async ({
   responseData,
 }: {
   responseData: typeof Object | string;
 }) => {
   let resData = "";
 
-  const { t } = useTranslation("rest");
+  const { t } = await createTranslation("rest");
 
   if (typeof responseData === "string") {
     resData = responseData;
