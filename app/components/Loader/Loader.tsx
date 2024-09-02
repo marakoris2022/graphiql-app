@@ -1,6 +1,9 @@
+"use client";
+import { useTranslation } from "@/i18n/client";
 import { Box, CircularProgress } from "@mui/material";
 
 export default function Loader() {
+  const { t } = useTranslation("loader");
   return (
     <Box
       sx={{
@@ -18,7 +21,7 @@ export default function Loader() {
         backgroundColor: "white",
       }}
     >
-      <div style={{ fontSize: "25px" }}>Loading...</div>
+      <div style={{ fontSize: "25px" }}>{t("title")}</div>
       <CircularProgress />
     </Box>
   );
