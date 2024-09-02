@@ -17,7 +17,10 @@ export const MainLoggedUser = ({ userName }: MainLoggedUserProps) => {
             <CustomLink href={"/graphiql-client"} title={"graphiql-client"} />
           </li>
           <li>
-            <CustomLink href={"/GET/_blank"} title={"rest-client"} />
+            <CustomLink
+              href={RoutePath.REST_CLIENT_GET}
+              title={"rest-client"}
+            />
           </li>
           <li>
             <CustomLink href={RoutePath.HISTORY} title={"history"} />

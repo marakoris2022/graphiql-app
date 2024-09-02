@@ -69,7 +69,7 @@ export default async function RestClient({
     }
   }
 
-  if (encodedUrl === "_blank") {
+  if (rest.length === 1) {
     errorData = "";
     responseData = "Fill data to send REST request.";
   }
