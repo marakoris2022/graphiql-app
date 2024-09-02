@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { toastContainerConfig } from "@/utils/utils";
 import "react-toastify/dist/ReactToastify.css";
 import { getLocale } from "@/i18n/server";
+import { LocaleProvider } from "@/hooks/locale-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <Header />
-        <main>
-          <div className="container">{children}</div>
-        </main>
-        <Footer />
-        <ToastContainer {...toastContainerConfig} />
+        <LocaleProvider value={locale}>
+          <Header />
+          <main>
+            <div className="container">{children}</div>
+          </main>
+          <Footer />
+          <ToastContainer {...toastContainerConfig} />
+        </LocaleProvider>
       </body>
     </html>
   );

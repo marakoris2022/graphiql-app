@@ -1,17 +1,22 @@
 "use client";
-import { ChangeEventHandler } from "react";
+import React from "react";
 import { switchLocaleAction } from "../../../actions/switch-locale";
+import { useTranslation } from "../../../i18n/client";
 
-export default function ChangeLocale({ locale }: { locale: string }) {
-  const handleLocaleChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
-    switchLocaleAction(event.target.value);
-  };
+// We removed the `locale` prop because we can get it from the hook
+export default function ChangeLocale() {
+  const { i18n, t } = useTranslation("common");
+  // You can also use our custom hook instead of `i18n.resolvedLanguage`
+  // const locale = useLocale();
 
   return (
     <div>
-      <select onChange={handleLocaleChange} value={locale}>
-        <option value="en">🇺🇸 English</option>
-        <option value="ru">RU</option>
+      <select
+        onChange={(e) => switchLocaleAction(e.target.value)}
+        value={i18n.resolvedLanguage}
+      >
+        <option value="en">🇺🇸 {t("english")}</option>
+        <option value="ru">ru {t("russian")}</option>
       </select>
     </div>
   );

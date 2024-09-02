@@ -12,7 +12,7 @@ export const HeaderLoggedUser = async () => {
   return (
     <>
       <div>Logo</div>
-      <ChangeLocale locale={locale} />
+      <ChangeLocale />
       <nav>
         <ul className={styles.buttonsContainer}>
           <li>

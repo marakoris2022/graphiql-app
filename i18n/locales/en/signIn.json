@@ -1,0 +1,14 @@
+{
+  "title": "Sign In",
+  "main": "To Main",
+  "email": "E-mail",
+  "password": "Password",
+  "signIn": "Sign In",
+  "toastMsg": "You are successfully signed in!",
+  "invalidEmail": "Invalid email",
+  "passwordRequired": "Password is required",
+  "passwordOneLetter": "Password must contain at least one letter (a-z, A-Z)",
+  "passwordNumber": "Password must contain at least one number (0-9)",
+  "passwordSpecialCharacter": "Password must contain at least one special character (e.g. !@#$%^&*)",
+  "passwordLength": "Password must be at least 8 characters long"
+}

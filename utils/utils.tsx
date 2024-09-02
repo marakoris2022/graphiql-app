@@ -38,26 +38,3 @@ export enum RoutePath {
   REST_CLIENT_DELETE = "/DELETE/",
   GRAPHIQL_CLIENT = "/GRAPHQL/",
 }
-
-export function getCookie(name: string) {
-  let matches = document.cookie.match(
-    new RegExp(
-      "(?:^|; )" +
-        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
-        "=([^;]*)"
-    )
-  );
-  return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
-export function setCookie(name: string, value: string, options = {}) {
-  options = {
-    path: "/",
-    ...options,
-  };
-
-  let updatedCookie =
-    encodeURIComponent(name) + "=" + encodeURIComponent(value);
-
-  document.cookie = updatedCookie;
-}
