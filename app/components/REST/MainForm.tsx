@@ -11,8 +11,10 @@ import { generateURL } from "@/app/[...rest]/utils";
 import styles from "./MainForm.module.css";
 import { useState } from "react";
 import { Variables } from "./components/Variables";
+import { useTranslation } from "@/i18n/client";
 
 export const MainForm = () => {
+  const { t } = useTranslation("rest");
   const [urlError, setUrlError] = useState("");
   const [errorBody, setBodyError] = useState("");
 
@@ -29,7 +31,7 @@ export const MainForm = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (data.EndpointURL === "") {
-      setUrlError("URL can't be empty.");
+      setUrlError(t("errEmptyUrl"));
       return;
     }
 
@@ -38,7 +40,7 @@ export const MainForm = () => {
         const parsedBody = JSON.parse(data.body);
         data = { ...data, body: parsedBody };
       } catch {
-        setBodyError("Невалидный JSON формат.");
+        setBodyError(t("errInvalidJson"));
         return;
       }
     }
@@ -58,7 +60,7 @@ export const MainForm = () => {
           className={styles.sendBtn}
           type="submit"
         >
-          SEND
+          {t("send")}
         </button>
       </div>
       <p className={styles.error}>{urlError}</p>

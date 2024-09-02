@@ -1,3 +1,4 @@
+import { useTranslation } from "@/i18n/client";
 import { useEffect, useState } from "react";
 
 const getVariablesFromLS = () => {
@@ -13,6 +14,7 @@ const getVariablesFromLS = () => {
 export const Variables = () => {
   const [variables, setVariables] = useState<string[][]>([]);
   const [didMount, setDidMount] = useState(false);
+  const { t } = useTranslation("rest");
 
   function handleDelete(indexToDelete: number) {
     setVariables((prevState) => {
@@ -46,9 +48,9 @@ export const Variables = () => {
   return (
     <div>
       <div>
-        <h5>Variables:</h5>
+        <h5>{t("variables")}</h5>
         <button type="button" onClick={handleAdd}>
-          Add
+          {t("add")}
         </button>
       </div>
 

@@ -1,0 +1,15 @@
+{
+  "responseTitle": "Fill data to send REST request.",
+  "errEmptyUrl": "URL can't be empty.",
+  "errInvalidJson": "Invalid JSON format.",
+  "urlPlaceholder": "Endpoint URL",
+  "send": "Send",
+  "headers": "Headers:",
+  "variables": "Variables:",
+  "add": "Add",
+  "body": "Body:",
+  "example": "Example: { \"name\": \"pikachu\", \"count\": {{variableName}} }",
+  "bodyPlaceholder": "Type JSON",
+  "format": "FORMAT",
+  "response": "Response:"
+}

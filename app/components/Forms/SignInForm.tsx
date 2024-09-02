@@ -16,8 +16,6 @@ export const SignInForm = () => {
   const { t, i18n } = useTranslation("signIn");
   const validationSchema = createValidationSchema(t);
 
-  console.log(t("title"));
-
   const {
     handleSubmit,
     control,

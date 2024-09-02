@@ -1,3 +1,4 @@
+import { useTranslation } from "@/i18n/client";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import {
@@ -15,6 +16,7 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
   const params = useSearchParams();
   const arrayFromSearchParams = Array.from(params.keys());
   const paramsCount = arrayFromSearchParams.length;
+  const { t } = useTranslation("rest");
 
   const [count, setCount] = useState<number[]>(
     Array.from({ length: paramsCount }, (_, i) => i)
@@ -29,13 +31,13 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
   return (
     <div>
       <div>
-        <h5>Headers:</h5>
+        <h5>{t("headers")}</h5>
 
         <button
           type="button"
           onClick={() => setCount((state) => [...state, state.length])}
         >
-          Add
+          {t("add")}
         </button>
       </div>
 

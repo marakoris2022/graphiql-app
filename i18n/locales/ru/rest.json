@@ -1,0 +1,15 @@
+{
+  "responseTitle": "Заполните данные для отправки REST запроса.",
+  "errEmptyUrl": "URL не может быть пустым.",
+  "errInvalidJson": "Невалидный JSON формат.",
+  "urlPlaceholder": "Адрес URL",
+  "send": "Отправить",
+  "headers": "Заголовки:",
+  "variables": "Переменные:",
+  "add": "Добавить",
+  "body": "Тело:",
+  "example": "Пример: { \"name\": \"pikachu\", \"count\": {{variableName}} }",
+  "bodyPlaceholder": "Введите JSON",
+  "format": "ФОРМАТИРОВАТЬ",
+  "response": "Ответ:"
+}

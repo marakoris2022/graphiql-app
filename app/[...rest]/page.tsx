@@ -5,6 +5,7 @@ import { ErrorBlock } from "../components/REST/components/ErrorBlock";
 import { ResultBlock } from "../components/REST/components/ResultBlock";
 
 import styles from "./page.module.css";
+import { createTranslation } from "@/i18n/server";
 
 type RestClientProps = {
   params: {
@@ -18,6 +19,8 @@ export default async function RestClient({
   searchParams,
 }: RestClientProps) {
   const { rest } = params;
+
+  const { t } = await createTranslation("rest");
 
   let responseData = null;
   let errorData: null | string = null;
@@ -71,7 +74,7 @@ export default async function RestClient({
 
   if (rest.length === 1) {
     errorData = "";
-    responseData = "Fill data to send REST request.";
+    responseData = t("responseTitle");
   }
 
   return (
