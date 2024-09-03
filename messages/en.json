@@ -47,7 +47,8 @@
     "response": "Response:",
     "key": "key",
     "value": "value",
-    "delete": "del"
+    "delete": "del",
+    "error": "Error:"
   },
   "signUser": {
     "titleSignUp": "Sign Up",

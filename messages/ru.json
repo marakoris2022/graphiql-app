@@ -47,7 +47,8 @@
     "response": "Ответ:",
     "key": "ключ",
     "value": "значение",
-    "delete": "удалить"
+    "delete": "удалить",
+    "error": "Ошибка:"
   },
   "signUser": {
     "titleSignUp": "Регистрация",
