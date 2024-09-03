@@ -37,7 +37,7 @@ export const BodyEditor = ({
     const pathArray = pathname.split("/");
     console.log("pathArray", pathArray);
 
-    if (!pathArray[2]) pathArray[2] = "empty";
+    if (!pathArray[2]) pathArray[2] = "";
 
     pathArray[3] = encodeBase64(e.target.value);
     let newPath = pathArray.join("/");
