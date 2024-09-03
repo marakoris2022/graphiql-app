@@ -33,15 +33,15 @@ export const MainForm = () => {
       return;
     }
 
-    if (data.body !== "") {
-      try {
-        const parsedBody = JSON.parse(data.body);
-        data = { ...data, body: parsedBody };
-      } catch {
-        setBodyError("Невалидный JSON формат.");
-        return;
-      }
-    }
+    // if (data.body !== "") {
+    //   try {
+    //     const parsedBody = JSON.parse(data.body);
+    //     data = { ...data, body: parsedBody };
+    //   } catch {
+    //     setBodyError("Невалидный JSON формат.");
+    //     return;
+    //   }
+    // }
 
     const generatedURL = generateURL(data);
     setUrlError("");
@@ -52,7 +52,9 @@ export const MainForm = () => {
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.topWrapper}>
         <SelectMethod register={register} />
+
         <EndpointURL register={register} />
+
         <button
           {...register("submit")}
           className={styles.sendBtn}
@@ -61,9 +63,13 @@ export const MainForm = () => {
           SEND
         </button>
       </div>
+
       <p className={styles.error}>{urlError}</p>
+
       <Headers register={register} unregister={unregister} />
+
       <Variables />
+
       <BodyEditor
         errorBody={errorBody}
         setBodyError={setBodyError}

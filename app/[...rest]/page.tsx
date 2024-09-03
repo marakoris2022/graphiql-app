@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { decodeBase64 } from "@/app/[...rest]/utils";
 import { MainForm } from "../components/REST/MainForm";
 import { ErrorBlock } from "../components/REST/components/ErrorBlock";
@@ -20,7 +20,8 @@ export default async function RestClient({
   const { rest } = params;
 
   let responseData = null;
-  let errorData: null | string = null;
+  let responseStatusCode = "";
+  let errorData = null;
   let body = null;
   let url = undefined;
 
@@ -61,8 +62,9 @@ export default async function RestClient({
     });
 
     responseData = response.data;
+    responseStatusCode = String(response.status);
   } catch (error) {
-    if (error instanceof Error) {
+    if (error instanceof AxiosError) {
       errorData = error.message;
     } else {
       errorData = String(error);
@@ -77,7 +79,12 @@ export default async function RestClient({
   return (
     <section className={styles.pageWrapper}>
       <MainForm />
-      {responseData && <ResultBlock responseData={responseData} />}
+      {responseData && (
+        <ResultBlock
+          responseData={responseData}
+          statusCode={responseStatusCode}
+        />
+      )}
       <ErrorBlock errorText={errorData!} />
     </section>
   );

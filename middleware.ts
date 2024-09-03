@@ -5,7 +5,7 @@ import { RoutePath } from "./utils/utils";
 
 const PUBLIC_PATHS: string[] = [RoutePath.SIGN_IN, RoutePath.SIGN_UP];
 const protectedPathsRegex =
-  /^(\/GET|\/POST|\/PUT|\/PATCH|\/DELETE|\/GRAPHQL|\/history)(\/.*)?$/;
+  /^(\/GET|\/POST|\/PUT|\/PATCH|\/DELETE|\/GRAPHQL|\/HEAD|\/CONNECT|\/OPTIONS|\/TRACE|\/history)(\/.*)?$/;
 
 export async function middleware(request: NextRequest) {
   return authMiddleware(request, {
