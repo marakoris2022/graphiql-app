@@ -1,0 +1,71 @@
+{
+  "localeSwitcher": {
+    "en": "English",
+    "ru": "Russian"
+  },
+  "404": {
+    "title": "404 Page not found",
+    "main": "Back to main"
+  },
+  "loggedUserHeader": {
+    "signOut": "Sign Out",
+    "main": "Main",
+    "toastMsg": "You are successfully signed out!"
+  },
+  "unLoggedUserHeader": {
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "main": "Main"
+  },
+  "loader": {
+    "title": "Loading..."
+  },
+  "mainLoggedUser": {
+    "title": "Welcome back, ",
+    "rest": "REST Client",
+    "graphiql": "GraphiQL Client",
+    "history": "History"
+  },
+  "mainUnLoggedUser": {
+    "title": "Welcome!",
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+  "rest": {
+    "responseTitle": "Fill data to send REST request.",
+    "errEmptyUrl": "URL can't be empty.",
+    "errInvalidJson": "Invalid JSON format.",
+    "urlPlaceholder": "Endpoint URL",
+    "send": "Send",
+    "headers": "Headers:",
+    "variables": "Variables:",
+    "add": "Add",
+    "body": "Body:",
+    "bodyExample": "Example: ",
+    "bodyPlaceholder": "Type JSON",
+    "format": "FORMAT",
+    "response": "Response:",
+    "key": "key",
+    "value": "value",
+    "delete": "del"
+  },
+  "signUser": {
+    "titleSignUp": "Sign Up",
+    "titleSignIn": "Sign In",
+    "main": "To Main",
+    "email": "E-mail",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "name": "Your Name",
+    "toastMsgSignIn": "You are successfully signed in!",
+    "toastMsgSignUp": "You are successfully signed up!",
+    "invalidEmail": "Invalid email",
+    "passwordRequired": "Password is required",
+    "passwordOneLetter": "Password must contain at least one letter or unicode symbol",
+    "passwordNumber": "Password must contain at least one number (0-9)",
+    "passwordSpecialCharacter": "Password must contain at least one special character (e.g. !@#$%^&*)",
+    "passwordLength": "Password must be at least 8 characters long",
+    "nameRequired": "Name is required"
+  }
+}

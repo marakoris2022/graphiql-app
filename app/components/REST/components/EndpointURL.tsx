@@ -2,6 +2,7 @@ import { FieldValues, UseFormRegister } from "react-hook-form";
 import styles from "./EndpointURL.module.css";
 import { usePathname } from "next/navigation";
 import { decodeBase64 } from "@/app/[...rest]/utils";
+import { useTranslations } from "next-intl";
 
 type EndpointURLProps = {
   register: UseFormRegister<FieldValues>;
@@ -10,6 +11,7 @@ type EndpointURLProps = {
 export const EndpointURL = ({ register }: EndpointURLProps) => {
   const url = usePathname().split("/")[2];
   const decodedUrl = url ? decodeBase64(decodeURIComponent(url)) : "";
+  const t = useTranslations("rest");
 
   return (
     <div className={styles.wrapper}>
@@ -17,7 +19,7 @@ export const EndpointURL = ({ register }: EndpointURLProps) => {
         defaultValue={decodedUrl}
         className={styles.input}
         {...register("EndpointURL")}
-        placeholder="Endpoint URL"
+        placeholder={t("urlPlaceholder")}
       ></input>
     </div>
   );

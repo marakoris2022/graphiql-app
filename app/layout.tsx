@@ -6,6 +6,8 @@ import "../styles/globals.css";
 import { ToastContainer } from "react-toastify";
 import { toastContainerConfig } from "@/utils/utils";
 import "react-toastify/dist/ReactToastify.css";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,20 +16,25 @@ export const metadata: Metadata = {
   description: "Application made for education purpose.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={inter.className}>
-        <Header />
-        <main>
-          <div className="container">{children}</div>
-        </main>
-        <Footer />
-        <ToastContainer {...toastContainerConfig} />
+        <NextIntlClientProvider messages={messages}>
+          <Header />
+          <main>
+            <div className="container">{children}</div>
+          </main>
+          <Footer />
+          <ToastContainer {...toastContainerConfig} />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

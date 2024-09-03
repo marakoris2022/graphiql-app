@@ -8,6 +8,7 @@ import {
   replaceVariables,
   stringToJSONString,
 } from "@/app/[...rest]/utils";
+import { useTranslations } from "next-intl";
 
 type BodyEditorProps = {
   register: UseFormRegister<FieldValues>;
@@ -26,6 +27,8 @@ export const BodyEditor = ({
 
   const bodyFromUrl = usePathname().split("/")[3];
 
+  const t = useTranslations("rest");
+
   useEffect(() => {
     if (bodyFromUrl) {
       const decodedBodyFromUrl = decodeBase64(decodeURIComponent(bodyFromUrl));
@@ -41,7 +44,7 @@ export const BodyEditor = ({
     const JSONString = stringToJSONString(replacedString);
 
     if (!JSONString) {
-      setBodyError("Невалидный JSON формат.");
+      setBodyError(t("errInvalidJson"));
       return;
     }
 
@@ -53,9 +56,9 @@ export const BodyEditor = ({
 
   return (
     <div className={styles.wrapper}>
-      <h5 className={styles.title}>Body:</h5>
+      <h5 className={styles.title}>{t("body")}</h5>
       <p className={styles.example}>
-        Пример: {`{ "name": "pikachu", "count": {{variableName}} }`}
+        {t("bodyExample")} {`{ "name": "pikachu", "count": {{variableName}} }`}
       </p>
       <textarea
         className={styles.textarea}
@@ -66,11 +69,11 @@ export const BodyEditor = ({
         }}
         rows={10}
         cols={50}
-        placeholder="Введите JSON"
+        placeholder={t("bodyPlaceholder")}
       ></textarea>
       <div className={styles.formatWrapper}>
         <button className={styles.formatBtn} type="button" onClick={formatJson}>
-          FORMAT
+          {t("format")}
         </button>
         <span className={styles.errorSpan}>{errorBody ?? ""}</span>
       </div>

@@ -5,6 +5,7 @@ import { ErrorBlock } from "../components/REST/components/ErrorBlock";
 import { ResultBlock } from "../components/REST/components/ResultBlock";
 
 import styles from "./page.module.css";
+import { getTranslations } from "next-intl/server";
 
 type RestClientProps = {
   params: {
@@ -23,6 +24,8 @@ export default async function RestClient({
   let errorData: null | string = null;
   let body = null;
   let url = undefined;
+
+  const t = await getTranslations("rest");
 
   const method = decodeURIComponent(rest?.[0]) || "GET";
   const encodedUrl = decodeURIComponent(rest?.[1]);
@@ -71,7 +74,7 @@ export default async function RestClient({
 
   if (rest.length === 1) {
     errorData = "";
-    responseData = "Fill data to send REST request.";
+    responseData = t("responseTitle");
   }
 
   return (

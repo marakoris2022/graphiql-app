@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 const getVariablesFromLS = () => {
@@ -13,6 +14,7 @@ const getVariablesFromLS = () => {
 export const Variables = () => {
   const [variables, setVariables] = useState<string[][]>([]);
   const [didMount, setDidMount] = useState(false);
+  const t = useTranslations("rest");
 
   function handleDelete(indexToDelete: number) {
     setVariables((prevState) => {
@@ -46,9 +48,9 @@ export const Variables = () => {
   return (
     <div>
       <div>
-        <h5>Variables:</h5>
+        <h5>{t("variables")}</h5>
         <button type="button" onClick={handleAdd}>
-          Add
+          {t("add")}
         </button>
       </div>
 
@@ -58,17 +60,17 @@ export const Variables = () => {
             <input
               value={variables[index][0]}
               onChange={(e) => handleChange(index, e.target.value, 0)}
-              placeholder="key"
+              placeholder={t("key")}
             />
 
             <input
               value={variables[index][1]}
               onChange={(e) => handleChange(index, e.target.value, 1)}
-              placeholder="value"
+              placeholder={t("value")}
             />
 
             <button type="button" onClick={() => handleDelete(index)}>
-              Del
+              {t("delete")}
             </button>
           </div>
         );
