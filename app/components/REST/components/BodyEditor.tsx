@@ -1,7 +1,13 @@
 import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FocusEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import styles from "./BodyEditor.module.css";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import {
   decodeBase64,
   encodeBase64,
@@ -23,8 +29,22 @@ export const BodyEditor = ({
   setBodyError,
 }: BodyEditorProps) => {
   const [body, setBody] = useState<string>("");
+  const pathname = usePathname();
+  const bodyFromUrl = pathname.split("/")[3];
+  const searchParams = useSearchParams().toString();
 
-  const bodyFromUrl = usePathname().split("/")[3];
+  function handleBlur(e: FocusEvent<HTMLTextAreaElement, Element>) {
+    const pathArray = pathname.split("/");
+    console.log("pathArray", pathArray);
+
+    if (!pathArray[2]) pathArray[2] = "empty";
+
+    pathArray[3] = encodeBase64(e.target.value);
+    let newPath = pathArray.join("/");
+    if (searchParams) newPath = newPath + `?${searchParams}`;
+
+    history.replaceState(null, "", newPath);
+  }
 
   useEffect(() => {
     if (bodyFromUrl) {
@@ -64,6 +84,7 @@ export const BodyEditor = ({
         onChange={(e) => {
           setBody(e.target.value);
         }}
+        onBlur={handleBlur}
         rows={10}
         cols={50}
         placeholder="Введите JSON"

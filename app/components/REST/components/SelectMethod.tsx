@@ -25,7 +25,7 @@ export const SelectMethod = ({ register }: SelectMethodProps) => {
     let newPath = pathArray.join("/");
     if (searchParams) newPath = newPath + `?${searchParams}`;
 
-    history.pushState(history.state, "", newPath);
+    history.replaceState(null, "", newPath);
   }
 
   const selectedMethod = Object.values(METHOD).includes(pathMethod as METHOD)
