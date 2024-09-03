@@ -35,7 +35,6 @@ export const BodyEditor = ({
 
   function handleBlur(e: FocusEvent<HTMLTextAreaElement, Element>) {
     const pathArray = pathname.split("/");
-    console.log("pathArray", pathArray);
 
     if (!pathArray[2]) pathArray[2] = "";
 
