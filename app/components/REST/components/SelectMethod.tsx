@@ -12,6 +12,10 @@ enum METHOD {
   PUT = "PUT",
   PATCH = "PATCH",
   DELETE = "DELETE",
+  HEAD = "HEAD",
+  CONNECT = "CONNECT",
+  OPTIONS = "OPTIONS",
+  TRACE = "TRACE",
 }
 
 export const SelectMethod = ({ register }: SelectMethodProps) => {
@@ -39,11 +43,11 @@ export const SelectMethod = ({ register }: SelectMethodProps) => {
         onChange={handleChange}
         defaultValue={selectedMethod}
       >
-        <option value={METHOD.GET}>{METHOD.GET}</option>
-        <option value={METHOD.POST}>{METHOD.POST}</option>
-        <option value={METHOD.PUT}>{METHOD.PUT}</option>
-        <option value={METHOD.PATCH}>{METHOD.PATCH}</option>
-        <option value={METHOD.DELETE}>{METHOD.DELETE}</option>
+        {Object.values(METHOD).map((method) => (
+          <option key={method} value={method}>
+            {method}
+          </option>
+        ))}
       </select>
     </div>
   );
