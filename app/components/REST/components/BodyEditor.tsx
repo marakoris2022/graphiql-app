@@ -45,8 +45,8 @@ export const BodyEditor = ({
       return;
     }
 
-    setBody(replacedString);
-    setValue("body", replacedString);
+    setBody(JSONString);
+    setValue("body", JSONString);
     setBodyError("");
     return;
   };
