@@ -16,6 +16,7 @@
     "@mui/material": "^5.16.7",
     "axios": "^1.7.5",
     "firebase": "^10.13.0",
+    "graphql-prettier": "^1.0.6",
     "next": "14.2.6",
     "next-firebase-auth-edge": "^1.4.1",
     "react": "^18",

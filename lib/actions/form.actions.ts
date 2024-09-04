@@ -1,13 +1,12 @@
- "use server";
+"use server";
 
-import { revalidatePath } from "next/cache";
 import type { FormCheckResult } from "@/lib/types";
 
 type GraphQLRequest = {
   endpointURL: string;
   query: string;
   queryHeaders: { [key: string]: string },
-  variablesOfJSONFormat: { [key: string]: string }
+  variablesOfJSONFormat: { [key: string]: string | number }
 }
 
 const makeRequest = ({ endpointURL, query, queryHeaders={}, variablesOfJSONFormat = {} }: GraphQLRequest): Promise<Response>  => {
@@ -17,7 +16,7 @@ const makeRequest = ({ endpointURL, query, queryHeaders={}, variablesOfJSONForma
       ...queryHeaders,
       "Content-type": "application/json",
     },
-    body: JSON.stringify({ query, variablesOfJSONFormat})
+    body: JSON.stringify({ query, variables: variablesOfJSONFormat})
   });
 };
 
@@ -62,13 +61,9 @@ export async function createQuery(
       }
   } else {
       const responseOfJSONFormat = await response.json();
-      /* const endpointURLEncoded = encodeBase64(endpointURL); */
-    /* const queryEncoded = encodeBase64(query); */
        return {
         status: response.status,
          message: `${JSON.stringify(responseOfJSONFormat, null, 2)}`,
-         /* endpointURLEncoded,
-        queryEncoded */
       }
   }
   } catch (error) {
@@ -76,5 +71,47 @@ export async function createQuery(
       status: null,
       message: error instanceof Error ? error.message : 'Something went wrong',
     };
+  }
+}
+
+
+
+import { getIntrospectionQuery } from 'graphql/utilities';
+
+export async function createSDLQuery(endpointSDL: string): Promise<string | typeof Object> {
+  try {
+    const response = await fetch(endpointSDL, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: getIntrospectionQuery(),
+      }),
+    });
+
+    if (response.status >= 500 && response.status <= 599) {
+      return '500 Internal Server Error';
+    }
+
+    if (response.status >= 400 && response.status <= 499) {
+      return `Client Error: ${response.status} ${response.statusText}`;
+    }
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    if (!result.data) {
+      throw new Error('No data found in the response.');
+    }
+
+    return result.data;
+
+  } catch (error) {
+    throw error;
   }
 }

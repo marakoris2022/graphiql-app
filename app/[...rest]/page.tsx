@@ -1,10 +1,10 @@
-import axios from "axios";
-import { decodeBase64 } from "@/app/[...rest]/utils";
-import { MainForm } from "../components/REST/MainForm";
-import { ErrorBlock } from "../components/REST/components/ErrorBlock";
-import { ResultBlock } from "../components/REST/components/ResultBlock";
+import axios from 'axios';
+import { decodeBase64 } from '@/app/[...rest]/utils';
+import { MainForm } from '../components/REST/MainForm';
+import { ErrorBlock } from '../components/REST/components/ErrorBlock';
+import { ResultBlock } from '../components/REST/components/ResultBlock';
 
-import styles from "./page.module.css";
+import styles from './page.module.css';
 
 type RestClientProps = {
   params: {
@@ -13,10 +13,7 @@ type RestClientProps = {
   searchParams: { [K: string]: string };
 };
 
-export default async function RestClient({
-  params,
-  searchParams,
-}: RestClientProps) {
+export default async function RestClient({ params, searchParams }: RestClientProps) {
   const { rest } = params;
 
   let responseData = null;
@@ -24,7 +21,7 @@ export default async function RestClient({
   let body = null;
   let url = undefined;
 
-  const method = decodeURIComponent(rest?.[0]) || "GET";
+  const method = decodeURIComponent(rest?.[0]) || 'GET';
   const encodedUrl = decodeURIComponent(rest?.[1]);
   const encodedBody = decodeURIComponent(rest?.[2]);
 
@@ -70,8 +67,8 @@ export default async function RestClient({
   }
 
   if (rest.length === 1) {
-    errorData = "";
-    responseData = "Fill data to send REST request.";
+    errorData = '';
+    responseData = 'Fill data to send REST request.';
   }
 
   return (
