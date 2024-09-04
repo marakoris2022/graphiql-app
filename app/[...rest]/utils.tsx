@@ -54,7 +54,7 @@ export function generateURL(data: FormData | FieldValues) {
 
   const encodedURL = encodeBase64(variableURL);
 
-  const encodedBody = body ? encodeBase64(JSON.stringify(body)) : null;
+  const encodedBody = body ? encodeBase64(body) : null;
 
   const headerParams = Object.keys(headers)
     .filter(
