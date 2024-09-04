@@ -1,6 +1,13 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 import { ChangeEvent } from "react";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 
 type SelectMethodProps = {
   register: UseFormRegister<FieldValues>;
@@ -23,7 +30,7 @@ export const SelectMethod = ({ register }: SelectMethodProps) => {
   const pathMethod = pathname.split("/")[1].toUpperCase();
   const searchParams = useSearchParams().toString();
 
-  function handleChange(e: ChangeEvent<HTMLSelectElement>) {
+  function handleChange(e: SelectChangeEvent<string>) {
     const pathArray = pathname.split("/");
     pathArray[1] = e.target.value;
     let newPath = pathArray.join("/");
@@ -37,18 +44,20 @@ export const SelectMethod = ({ register }: SelectMethodProps) => {
     : METHOD.GET;
 
   return (
-    <div>
-      <select
+    <FormControl sx={{ minWidth: "140px" }}>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
         {...register("method")}
         onChange={handleChange}
         defaultValue={selectedMethod}
       >
         {Object.values(METHOD).map((method) => (
-          <option key={method} value={method}>
+          <MenuItem key={method} value={method}>
             {method}
-          </option>
+          </MenuItem>
         ))}
-      </select>
-    </div>
+      </Select>
+    </FormControl>
   );
 };

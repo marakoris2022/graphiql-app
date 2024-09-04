@@ -7,10 +7,12 @@ import { Headers } from "./components/Headers";
 import { BodyEditor } from "./components/BodyEditor";
 import { useRouter } from "next/navigation";
 import { generateURL } from "@/app/[...rest]/utils";
+import SendIcon from "@mui/icons-material/Send";
 
 import styles from "./MainForm.module.css";
 import { useState } from "react";
 import { Variables } from "./components/Variables";
+import { Button } from "@mui/material";
 
 export const MainForm = () => {
   const [urlError, setUrlError] = useState("");
@@ -55,13 +57,15 @@ export const MainForm = () => {
 
         <EndpointURL register={register} />
 
-        <button
+        <Button
+          sx={{ minWidth: "80px" }}
           {...register("submit")}
-          className={styles.sendBtn}
           type="submit"
+          variant="contained"
+          endIcon={<SendIcon />}
         >
-          SEND
-        </button>
+          Send
+        </Button>
       </div>
 
       <p className={styles.error}>{urlError}</p>

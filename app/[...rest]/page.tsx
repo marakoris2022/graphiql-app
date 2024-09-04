@@ -79,7 +79,7 @@ export default async function RestClient({
   return (
     <section className={styles.pageWrapper}>
       <MainForm />
-      {responseData && (
+      {Boolean(responseData) && (
         <ResultBlock
           responseData={responseData}
           statusCode={responseStatusCode}

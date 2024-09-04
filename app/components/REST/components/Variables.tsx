@@ -1,3 +1,16 @@
+import {
+  Accordion,
+  AccordionActions,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 import { useEffect, useState } from "react";
 
 const getVariablesFromLS = () => {
@@ -45,34 +58,59 @@ export const Variables = () => {
 
   return (
     <div>
-      <div>
-        <h5>Variables:</h5>
-        <button type="button" onClick={handleAdd}>
-          Add
-        </button>
-      </div>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel3-content"
+          id="panel3-header"
+        >
+          Variables
+        </AccordionSummary>
+        <AccordionDetails>
+          {variables.length > 0 ? (
+            variables.map((_, index) => {
+              return (
+                <div key={index}>
+                  <TextField
+                    label="key"
+                    id="outlined-size-small"
+                    size="small"
+                    defaultValue={variables[index][0] || ""}
+                    onChange={(e) => handleChange(index, e.target.value, 0)}
+                  />
 
-      {variables.map((_, index) => {
-        return (
-          <div key={index}>
-            <input
-              value={variables[index][0]}
-              onChange={(e) => handleChange(index, e.target.value, 0)}
-              placeholder="key"
-            />
+                  <TextField
+                    label="value"
+                    id="outlined-size-small"
+                    size="small"
+                    defaultValue={variables[index][1] || ""}
+                    onChange={(e) => handleChange(index, e.target.value, 1)}
+                  />
 
-            <input
-              value={variables[index][1]}
-              onChange={(e) => handleChange(index, e.target.value, 1)}
-              placeholder="value"
-            />
-
-            <button type="button" onClick={() => handleDelete(index)}>
-              Del
-            </button>
-          </div>
-        );
-      })}
+                  <IconButton
+                    onClick={() => handleDelete(index)}
+                    aria-label="delete"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              );
+            })
+          ) : (
+            <Typography
+              gutterBottom
+              sx={{ color: "text.secondary", fontSize: 14 }}
+            >
+              No any Variables. Press ADD button.
+            </Typography>
+          )}
+        </AccordionDetails>
+        <AccordionActions>
+          <Button variant="contained" type="button" onClick={handleAdd}>
+            Add
+          </Button>
+        </AccordionActions>
+      </Accordion>
     </div>
   );
 };

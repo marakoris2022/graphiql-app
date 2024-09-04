@@ -1,3 +1,15 @@
+import {
+  Accordion,
+  AccordionActions,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import {
@@ -29,44 +41,70 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
   return (
     <div>
       <div>
-        <h5>Headers:</h5>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3-content"
+            id="panel3-header"
+          >
+            Headers
+          </AccordionSummary>
+          <AccordionDetails>
+            {count.length > 0 ? (
+              count.map((_, index) => {
+                const key = arrayFromSearchParams[index];
+                const value = key ? params.get(key) : "";
 
-        <button
-          type="button"
-          onClick={() => setCount((state) => [...state, state.length])}
-        >
-          Add
-        </button>
-      </div>
+                return (
+                  <div key={index}>
+                    <TextField
+                      label="key"
+                      id="outlined-size-small"
+                      size="small"
+                      defaultValue={key || ""}
+                      {...register(`headerKey_${index}`)}
+                    />
+                    <TextField
+                      label="value"
+                      id="outlined-size-small"
+                      size="small"
+                      defaultValue={value || ""}
+                      {...register(`headerValue_${index}`)}
+                    />
 
-      {count.map((_, index) => {
-        const key = arrayFromSearchParams[index];
-        const value = key ? params.get(key) : "";
-
-        return (
-          <div key={index}>
-            <input
-              placeholder="key"
-              defaultValue={key || ""}
-              {...register(`headerKey_${index}`)}
-            ></input>
-
-            <input
-              placeholder="value"
-              defaultValue={value || ""}
-              {...register(`headerValue_${index}`)}
-            ></input>
-
-            {index === count.length - 1 ? (
-              <button type="button" onClick={() => handleDelete(index)}>
-                Del
-              </button>
+                    {index === count.length - 1 ? (
+                      <IconButton
+                        onClick={() => handleDelete(index)}
+                        aria-label="delete"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                );
+              })
             ) : (
-              ""
+              <Typography
+                gutterBottom
+                sx={{ color: "text.secondary", fontSize: 14 }}
+              >
+                No any Headers. Press ADD button.
+              </Typography>
             )}
-          </div>
-        );
-      })}
+          </AccordionDetails>
+          <AccordionActions>
+            <Button
+              variant="contained"
+              type="button"
+              onClick={() => setCount((state) => [...state, state.length])}
+            >
+              Add
+            </Button>
+          </AccordionActions>
+        </Accordion>
+      </div>
     </div>
   );
 };
