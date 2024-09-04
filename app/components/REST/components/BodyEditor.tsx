@@ -14,7 +14,8 @@ import {
   replaceVariables,
   stringToJSONString,
 } from "@/app/[...rest]/utils";
-import { Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import ExampleJSON from "./ExampleJSON";
 
 type BodyEditorProps = {
   register: UseFormRegister<FieldValues>;
@@ -73,9 +74,7 @@ export const BodyEditor = ({
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.example}>
-        Пример: {`{ "name": "pikachu", "count": {{variableName}} }`}
-      </p>
+      <ExampleJSON />
 
       <TextField
         {...register("body")}
@@ -102,7 +101,11 @@ export const BodyEditor = ({
           FORMAT
         </Button>
 
-        <span className={styles.errorSpan}>{errorBody ?? ""}</span>
+        <Typography
+          sx={{ color: "red", textAlign: "center", fontSize: "14px" }}
+        >
+          {Boolean(errorBody) ? errorBody : ""}
+        </Typography>
       </div>
     </div>
   );

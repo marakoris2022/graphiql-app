@@ -12,7 +12,7 @@ import SendIcon from "@mui/icons-material/Send";
 import styles from "./MainForm.module.css";
 import { useState } from "react";
 import { Variables } from "./components/Variables";
-import { Button } from "@mui/material";
+import { Box, Button, colors, Typography } from "@mui/material";
 
 export const MainForm = () => {
   const [urlError, setUrlError] = useState("");
@@ -21,7 +21,6 @@ export const MainForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     unregister,
     setValue,
     formState: { errors },
@@ -42,13 +41,19 @@ export const MainForm = () => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.topWrapper}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "15px",
+          flexDirection: { lg: "row", md: "column", xs: "column" },
+        }}
+      >
         <SelectMethod register={register} />
 
         <EndpointURL register={register} />
 
         <Button
-          sx={{ minWidth: "80px" }}
+          sx={{ minWidth: "fit-content" }}
           {...register("submit")}
           type="submit"
           variant="contained"
@@ -56,9 +61,11 @@ export const MainForm = () => {
         >
           Send
         </Button>
-      </div>
+      </Box>
 
-      <p className={styles.error}>{urlError}</p>
+      <Typography sx={{ color: "red", textAlign: "center", fontSize: "14px" }}>
+        {Boolean(urlError) ? urlError : ""}
+      </Typography>
 
       <Headers register={register} unregister={unregister} />
 

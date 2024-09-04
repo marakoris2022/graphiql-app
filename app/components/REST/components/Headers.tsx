@@ -3,6 +3,7 @@ import {
   AccordionActions,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Button,
   IconButton,
   TextField,
@@ -39,72 +40,75 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
   }
 
   return (
-    <div>
-      <div>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3-content"
-            id="panel3-header"
-          >
-            Headers
-          </AccordionSummary>
-          <AccordionDetails>
-            {count.length > 0 ? (
-              count.map((_, index) => {
-                const key = arrayFromSearchParams[index];
-                const value = key ? params.get(key) : "";
+    <Box>
+      <Accordion sx={{ "&:hover": { backgroundColor: "#ECECEC" } }}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel3-content"
+          id="panel3-header"
+        >
+          Headers
+        </AccordionSummary>
+        <AccordionDetails>
+          {count.length > 0 ? (
+            count.map((_, index) => {
+              const key = arrayFromSearchParams[index];
+              const value = key ? params.get(key) : "";
 
-                return (
-                  <div key={index}>
-                    <TextField
-                      label="key"
-                      id="outlined-size-small"
-                      size="small"
-                      defaultValue={key || ""}
-                      {...register(`headerKey_${index}`)}
-                    />
-                    <TextField
-                      label="value"
-                      id="outlined-size-small"
-                      size="small"
-                      defaultValue={value || ""}
-                      {...register(`headerValue_${index}`)}
-                    />
+              return (
+                <Box
+                  sx={{ display: "flex", gap: "10px", mb: "5px" }}
+                  key={index}
+                >
+                  <TextField
+                    sx={{ width: "45%" }}
+                    label="key"
+                    id="outlined-size-small"
+                    size="small"
+                    defaultValue={key || ""}
+                    {...register(`headerKey_${index}`)}
+                  />
+                  <TextField
+                    sx={{ width: "45%" }}
+                    label="value"
+                    id="outlined-size-small"
+                    size="small"
+                    defaultValue={value || ""}
+                    {...register(`headerValue_${index}`)}
+                  />
 
-                    {index === count.length - 1 ? (
-                      <IconButton
-                        onClick={() => handleDelete(index)}
-                        aria-label="delete"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                );
-              })
-            ) : (
-              <Typography
-                gutterBottom
-                sx={{ color: "text.secondary", fontSize: 14 }}
-              >
-                No any Headers. Press ADD button.
-              </Typography>
-            )}
-          </AccordionDetails>
-          <AccordionActions>
-            <Button
-              variant="contained"
-              type="button"
-              onClick={() => setCount((state) => [...state, state.length])}
+                  {index === count.length - 1 ? (
+                    <IconButton
+                      onClick={() => handleDelete(index)}
+                      aria-label="delete"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  ) : (
+                    ""
+                  )}
+                </Box>
+              );
+            })
+          ) : (
+            <Typography
+              gutterBottom
+              sx={{ color: "text.secondary", fontSize: 14 }}
             >
-              Add
-            </Button>
-          </AccordionActions>
-        </Accordion>
-      </div>
-    </div>
+              No any Headers. Press ADD button.
+            </Typography>
+          )}
+        </AccordionDetails>
+        <AccordionActions>
+          <Button
+            variant="contained"
+            type="button"
+            onClick={() => setCount((state) => [...state, state.length])}
+          >
+            Add
+          </Button>
+        </AccordionActions>
+      </Accordion>
+    </Box>
   );
 };

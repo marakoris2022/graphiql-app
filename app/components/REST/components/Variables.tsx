@@ -3,6 +3,7 @@ import {
   AccordionActions,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Button,
   IconButton,
   TextField,
@@ -57,8 +58,8 @@ export const Variables = () => {
   }, [didMount, variables]);
 
   return (
-    <div>
-      <Accordion>
+    <Box>
+      <Accordion sx={{ "&:hover": { backgroundColor: "#ECECEC" } }}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3-content"
@@ -70,8 +71,12 @@ export const Variables = () => {
           {variables.length > 0 ? (
             variables.map((_, index) => {
               return (
-                <div key={index}>
+                <Box
+                  sx={{ display: "flex", gap: "10px", mb: "5px" }}
+                  key={index}
+                >
                   <TextField
+                    sx={{ width: "45%" }}
                     label="key"
                     id="outlined-size-small"
                     size="small"
@@ -80,6 +85,7 @@ export const Variables = () => {
                   />
 
                   <TextField
+                    sx={{ width: "45%" }}
                     label="value"
                     id="outlined-size-small"
                     size="small"
@@ -93,7 +99,7 @@ export const Variables = () => {
                   >
                     <DeleteIcon />
                   </IconButton>
-                </div>
+                </Box>
               );
             })
           ) : (
@@ -111,6 +117,6 @@ export const Variables = () => {
           </Button>
         </AccordionActions>
       </Accordion>
-    </div>
+    </Box>
   );
 };
