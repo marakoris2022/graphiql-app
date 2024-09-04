@@ -35,16 +35,6 @@ export const MainForm = () => {
       return;
     }
 
-    // if (data.body !== "") {
-    //   try {
-    //     const parsedBody = JSON.parse(data.body);
-    //     data = { ...data, body: parsedBody };
-    //   } catch {
-    //     setBodyError("Невалидный JSON формат.");
-    //     return;
-    //   }
-    // }
-
     const generatedURL = generateURL(data);
     setUrlError("");
     navigate.push(generatedURL);

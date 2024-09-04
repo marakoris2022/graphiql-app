@@ -16,6 +16,10 @@
   margin-right: 10px;
 }
 .errorSpan {
+  display: inline-block;
   font-size: 14px;
   color: red;
+  width: 100%;
+  text-align: center;
+  padding: 5px;
 }
