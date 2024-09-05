@@ -5,6 +5,9 @@ import { ResultBlock } from "../components/REST/components/ResultBlock";
 
 import styles from "./page.module.css";
 import { getTranslations } from "next-intl/server";
+import { getTokens } from "next-firebase-auth-edge";
+import { cookies } from "next/headers";
+import { clientConfig, serverConfig } from "@/config";
 
 type RestClientProps = {
   params: {
@@ -17,6 +20,13 @@ export default async function RestClient({
   params,
   searchParams,
 }: RestClientProps) {
+  const tokens = await getTokens(cookies(), {
+    apiKey: clientConfig.apiKey,
+    cookieName: serverConfig.cookieName,
+    cookieSignatureKeys: serverConfig.cookieSignatureKeys,
+    serviceAccount: serverConfig.serviceAccount,
+  });
+
   const { rest } = params;
 
   const t = await getTranslations("apiClient");
@@ -87,7 +97,7 @@ export default async function RestClient({
 
   return (
     <section className={styles.pageWrapper}>
-      <MainForm />
+      <MainForm userEmail={tokens?.decodedToken.email} />
 
       <ResultBlock
         title={responseTitle}

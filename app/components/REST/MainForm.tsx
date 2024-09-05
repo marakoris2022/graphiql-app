@@ -20,7 +20,7 @@ import { Variables } from "./components/Variables";
 import { Box, Button, colors, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
-export const MainForm = () => {
+export const MainForm = ({ userEmail }: { userEmail: string | undefined }) => {
   const t = useTranslations("apiClient");
 
   const [urlError, setUrlError] = useState("");
@@ -55,7 +55,7 @@ export const MainForm = () => {
 
     const generatedURL = generateURL(data);
     setUrlError("");
-    saveRequestToLS({ ...data, generatedURL });
+    saveRequestToLS({ ...data, generatedURL, email: userEmail });
     navigate.push(generatedURL);
   };
 

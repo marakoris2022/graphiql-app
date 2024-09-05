@@ -96,28 +96,31 @@ export function saveRequestToLS({
   method,
   generatedURL,
   EndpointURL,
+  email,
 }: {
   method: string;
   generatedURL: string;
   EndpointURL: string;
+  email: string | undefined;
 }) {
-  const history = localStorage.getItem("requestHistory");
-
-  if (!history) {
-    localStorage.setItem(
-      "requestHistory",
-      JSON.stringify([{ method, generatedURL, EndpointURL, Date: Date.now() }])
-    );
+  if (!email) {
     return;
   }
 
-  const parsedHistory = JSON.parse(history);
-  parsedHistory.unshift({
+  const history = localStorage.getItem("requestHistory");
+  const parsedHistory = history ? JSON.parse(history) : {};
+
+  if (!parsedHistory[email]) {
+    parsedHistory[email] = [];
+  }
+
+  parsedHistory[email].unshift({
     method,
     generatedURL,
     EndpointURL,
     Date: Date.now(),
   });
+
   localStorage.setItem("requestHistory", JSON.stringify(parsedHistory));
 }
 
