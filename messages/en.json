@@ -75,5 +75,12 @@
     "passwordSpecialCharacter": "Password must contain at least one special character (e.g. !@#$%^&*)",
     "passwordLength": "Password must be at least 8 characters long",
     "nameRequired": "Name is required"
+  },
+  "metaMain": {
+    "title": "RSTeam REST & GraphiQL Client",
+    "description": "Application made for education purpose."
+  },
+  "metaRest": {
+    "title": "REST Client"
   }
 }
