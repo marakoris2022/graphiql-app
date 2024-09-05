@@ -112,7 +112,12 @@ export function saveRequestToLS({
   }
 
   const parsedHistory = JSON.parse(history);
-  parsedHistory.push({ method, generatedURL, EndpointURL, Date: Date.now() });
+  parsedHistory.unshift({
+    method,
+    generatedURL,
+    EndpointURL,
+    Date: Date.now(),
+  });
   localStorage.setItem("requestHistory", JSON.stringify(parsedHistory));
 }
 

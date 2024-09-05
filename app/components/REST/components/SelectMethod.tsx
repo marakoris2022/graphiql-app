@@ -1,9 +1,8 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { FieldValues, UseFormRegister } from "react-hook-form";
-import { ChangeEvent } from "react";
+import { useState, useEffect } from "react";
 import {
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -27,30 +26,46 @@ enum METHOD {
 
 export const SelectMethod = ({ register }: SelectMethodProps) => {
   const pathname = usePathname();
-  const pathMethod = pathname.split("/")[1].toUpperCase();
   const searchParams = useSearchParams().toString();
 
-  function handleChange(e: SelectChangeEvent<string>) {
+  const pathMethod = pathname.split("/")[1].toUpperCase();
+
+  const [selectedMethod, setSelectedMethod] = useState(
+    Object.values(METHOD).includes(pathMethod as METHOD)
+      ? pathMethod
+      : METHOD.GET
+  );
+
+  const handleChange = (e: SelectChangeEvent<string>) => {
+    const newMethod = e.target.value;
+    setSelectedMethod(newMethod);
+
     const pathArray = pathname.split("/");
-    pathArray[1] = e.target.value;
+    pathArray[1] = newMethod;
     let newPath = pathArray.join("/");
-    if (searchParams) newPath = newPath + `?${searchParams}`;
+    if (searchParams) {
+      newPath = `${newPath}?${searchParams}`;
+    }
 
     history.replaceState(null, "", newPath);
-  }
+  };
 
-  const selectedMethod = Object.values(METHOD).includes(pathMethod as METHOD)
-    ? pathMethod
-    : METHOD.GET;
+  useEffect(() => {
+    setSelectedMethod(
+      Object.values(METHOD).includes(pathMethod as METHOD)
+        ? pathMethod
+        : METHOD.GET
+    );
+  }, [pathname]);
 
   return (
     <FormControl sx={{ minWidth: "140px" }}>
       <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
+        labelId="method-select-label"
+        id="method-select"
         {...register("method")}
+        value={selectedMethod}
         onChange={handleChange}
-        defaultValue={selectedMethod}
       >
         {Object.values(METHOD).map((method) => (
           <MenuItem key={method} value={method}>
