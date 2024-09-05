@@ -43,7 +43,7 @@ export const BodyEditor = ({
 
     if (!pathArray[2]) pathArray[2] = "";
 
-    pathArray[3] = encodeBase64(encodeURIComponent(e.target.value));
+    pathArray[3] = encodeURIComponent(encodeBase64(e.target.value));
     let newPath = pathArray.join("/");
     if (searchParams) newPath = newPath + `?${searchParams}`;
 
