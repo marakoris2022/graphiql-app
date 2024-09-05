@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "REST Client",
-};
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({ locale, namespace: "metaRest" });
+
+  return {
+    title: t("title"),
+  };
+}
 
 export default function RootLayout({
   children,

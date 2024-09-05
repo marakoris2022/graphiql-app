@@ -1,0 +1,86 @@
+{
+  "localeSwitcher": {
+    "en": "Английский",
+    "ru": "Русский"
+  },
+  "404": {
+    "title": "404 Страница не найдена",
+    "main": "Назад на главную"
+  },
+  "loggedUserHeader": {
+    "signOut": "Выйти",
+    "main": "Главная",
+    "toastMsg": "Вы успешно вышли из системы!"
+  },
+  "unLoggedUserHeader": {
+    "signUp": "Регистрация",
+    "signIn": "Вход",
+    "main": "Главная"
+  },
+  "loader": {
+    "title": "Загрузка..."
+  },
+  "mainLoggedUser": {
+    "title": "С возвращением, ",
+    "rest": "REST Клиент",
+    "graphiql": "GraphiQL Клиент",
+    "history": "История"
+  },
+  "mainUnLoggedUser": {
+    "title": "Добро пожаловать!",
+    "signIn": "Вход",
+    "signUp": "Регистрация"
+  },
+  "apiClient": {
+    "responseTitle": "Заполните данные для отправки REST запроса.",
+    "restTitle": "REST Клиент",
+    "errEmptyUrl": "URL не может быть пустым.",
+    "errInvalidJson": "Невалидный JSON формат.",
+    "urlPlaceholder": "Адрес URL",
+    "send": "Отправить",
+    "headers": "Заголовки",
+    "variables": "Переменные",
+    "add": "Добавить",
+    "body": "Тело:",
+    "bodyExample": "Пример: ",
+    "bodyPlaceholder": "Введите JSON",
+    "format": "ФОРМАТИРОВАТЬ",
+    "response": "Ответ:",
+    "key": "ключ",
+    "value": "значение",
+    "delete": "удалить",
+    "error": "Ошибка:",
+    "result": "Результат:",
+    "emptyHeaders": "Заголовков нет. Нажмите кнопку «ДОБАВИТЬ».",
+    "emptyVariables": "Переменных нет. Нажмите кнопку «ДОБАВИТЬ».",
+    "requestBody": "Тело Запроса",
+    "statusCode": "Код Статуса: ",
+    "responseData": "Данные ответа"
+  },
+  "signUser": {
+    "titleSignUp": "Регистрация",
+    "titleSignIn": "Вход",
+    "main": "На Главную",
+    "email": "Почта",
+    "password": "Пароль",
+    "signIn": "Войти",
+    "signUp": "Зарегистрироваться",
+    "name": "Ваше Имя",
+    "toastMsgSignIn": "Вы успешно вошли в систему!",
+    "toastMsgSignUp": "Вы успешно зарегистрировались!",
+    "invalidEmail": "Неверная почта",
+    "passwordRequired": "Пароль обязателен",
+    "passwordOneLetter": "Пароль должен содержать минимум одну букву или символ Unicode",
+    "passwordNumber": "Пароль должен содержать минимум одну цифру (0-9)",
+    "passwordSpecialCharacter": "Пароль должен содержать минимум один специальный символ (!@#$%^&*)",
+    "passwordLength": "Пароль должен содержать минимум 8 символов",
+    "nameRequired": "Имя обязательно"
+  },
+  "metaMain": {
+    "title": "RSTeam REST & GraphiQL Клиент",
+    "description": "Приложение создано в учебных целях."
+  },
+  "metaRest": {
+    "title": "REST Клиент"
+  }
+}

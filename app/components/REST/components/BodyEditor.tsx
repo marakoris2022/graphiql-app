@@ -16,6 +16,7 @@ import {
 } from "@/app/[...rest]/utils";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import ExampleJSON from "./ExampleJSON";
+import { useTranslations } from "next-intl";
 
 type BodyEditorProps = {
   register: UseFormRegister<FieldValues>;
@@ -30,6 +31,8 @@ export const BodyEditor = ({
   errorBody,
   setBodyError,
 }: BodyEditorProps) => {
+  const t = useTranslations("apiClient");
+
   const [body, setBody] = useState<string>("");
   const pathname = usePathname();
   const bodyFromUrl = pathname.split("/")[3];
@@ -62,7 +65,7 @@ export const BodyEditor = ({
     const JSONString = stringToJSONString(replacedString);
 
     if (!JSONString) {
-      setBodyError("Невалидный JSON формат.");
+      setBodyError(t("errInvalidJson"));
       return;
     }
 
@@ -85,8 +88,8 @@ export const BodyEditor = ({
         onBlur={handleBlur}
         fullWidth={true}
         id="outlined-multiline-static"
-        placeholder="Введите JSON"
-        label="Request Body"
+        placeholder={t("bodyPlaceholder")}
+        label={t("requestBody")}
         multiline
         rows={10}
       />
@@ -98,7 +101,7 @@ export const BodyEditor = ({
           variant="outlined"
           color="primary"
         >
-          FORMAT
+          {t("format")}
         </Button>
 
         <Typography

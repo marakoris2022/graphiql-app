@@ -13,18 +13,20 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const getVariablesFromLS = () => {
   try {
     const variablesStringFromLS = localStorage.getItem("RESTVariables");
     return variablesStringFromLS ? JSON.parse(variablesStringFromLS) : [];
   } catch (error) {
-    console.error("Ошибка при получении данных из localStorage:", error);
     return [];
   }
 };
 
 export const Variables = () => {
+  const t = useTranslations("apiClient");
+
   const [variables, setVariables] = useState<string[][]>([]);
   const [didMount, setDidMount] = useState(false);
 
@@ -65,7 +67,7 @@ export const Variables = () => {
           aria-controls="panel3-content"
           id="panel3-header"
         >
-          Variables
+          {t("variables")}
         </AccordionSummary>
         <AccordionDetails>
           {variables.length > 0 ? (
@@ -77,7 +79,7 @@ export const Variables = () => {
                 >
                   <TextField
                     sx={{ width: "45%" }}
-                    label="key"
+                    label={t("key")}
                     id="outlined-size-small"
                     size="small"
                     defaultValue={variables[index][0] || ""}
@@ -86,7 +88,7 @@ export const Variables = () => {
 
                   <TextField
                     sx={{ width: "45%" }}
-                    label="value"
+                    label={t("value")}
                     id="outlined-size-small"
                     size="small"
                     defaultValue={variables[index][1] || ""}
@@ -107,13 +109,13 @@ export const Variables = () => {
               gutterBottom
               sx={{ color: "text.secondary", fontSize: 14 }}
             >
-              No any Variables. Press ADD button.
+              {t("emptyVariables")}
             </Typography>
           )}
         </AccordionDetails>
         <AccordionActions>
           <Button variant="contained" type="button" onClick={handleAdd}>
-            Add
+            {t("add")}
           </Button>
         </AccordionActions>
       </Accordion>

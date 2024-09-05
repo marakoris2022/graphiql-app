@@ -23,7 +23,7 @@ export const Footer = () => {
             />
           </div>
           <div className={styles.rsschoolLogo}>
-            <a href="https://rs.school/react/">
+            <a href="https://rs.school/courses/reactjs">
               <Image
                 src="/rss-logo.svg"
                 alt="logo"
