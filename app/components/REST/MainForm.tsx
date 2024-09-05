@@ -10,11 +10,14 @@ import { generateURL } from "@/app/[...rest]/utils";
 import SendIcon from "@mui/icons-material/Send";
 
 import styles from "./MainForm.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Variables } from "./components/Variables";
 import { Box, Button, colors, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export const MainForm = () => {
+  const t = useTranslations("apiClient");
+
   const [urlError, setUrlError] = useState("");
   const [errorBody, setBodyError] = useState("");
 
@@ -28,9 +31,18 @@ export const MainForm = () => {
 
   const navigate = useRouter();
 
+  useEffect(() => {
+    if (urlError) {
+      setUrlError(t("errEmptyUrl"));
+    }
+    if (errorBody) {
+      setBodyError(t("errInvalidJson"));
+    }
+  }, [t]);
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (data.EndpointURL === "") {
-      setUrlError("URL can't be empty.");
+      setUrlError(t("errEmptyUrl"));
       return;
     }
 
@@ -59,7 +71,7 @@ export const MainForm = () => {
           variant="contained"
           endIcon={<SendIcon />}
         >
-          Send
+          {t("send")}
         </Button>
       </Box>
 

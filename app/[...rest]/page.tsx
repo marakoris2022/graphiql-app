@@ -4,6 +4,7 @@ import { MainForm } from "../components/REST/MainForm";
 import { ResultBlock } from "../components/REST/components/ResultBlock";
 
 import styles from "./page.module.css";
+import { getTranslations } from "next-intl/server";
 
 type RestClientProps = {
   params: {
@@ -17,6 +18,8 @@ export default async function RestClient({
   searchParams,
 }: RestClientProps) {
   const { rest } = params;
+
+  const t = await getTranslations("apiClient");
 
   let responseTitle = "";
   let responseData = null;
@@ -34,7 +37,7 @@ export default async function RestClient({
       body = decodeBase64(encodedBody);
     }
   } catch (error) {
-    responseTitle = "Error:";
+    responseTitle = t("error");
     if (error instanceof Error) {
       responseData = error.message;
     } else {
@@ -61,11 +64,11 @@ export default async function RestClient({
       headers: Object.keys(headers).length > 0 ? headers : undefined,
     });
 
-    responseTitle = "Result:";
+    responseTitle = t("result");
     responseData = response.data;
     responseStatusCode = String(response.status);
   } catch (error) {
-    responseTitle = "Error:";
+    responseTitle = t("error");
 
     if (error instanceof AxiosError) {
       responseData = error.message;
@@ -76,8 +79,8 @@ export default async function RestClient({
   }
 
   if (rest.length === 1) {
-    responseTitle = "Rest Client";
-    responseData = "Fill data to send REST request.";
+    responseTitle = t("restTitle");
+    responseData = t("responseTitle");
   }
 
   return (

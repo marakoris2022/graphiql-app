@@ -32,14 +32,14 @@
     "signUp": "Sign Up"
   },
   "apiClient": {
-    "responseData": "Fill data to send REST request.",
+    "responseTitle": "Fill data to send REST request.",
     "restTitle": "REST Client",
     "errEmptyUrl": "URL can't be empty.",
     "errInvalidJson": "Invalid JSON format.",
     "urlPlaceholder": "Endpoint URL",
     "send": "Send",
-    "headers": "Headers:",
-    "variables": "Variables:",
+    "headers": "Headers",
+    "variables": "Variables",
     "add": "Add",
     "body": "Body:",
     "bodyExample": "Example: ",
@@ -50,7 +50,12 @@
     "value": "value",
     "delete": "del",
     "error": "Error:",
-    "result": "Result:"
+    "result": "Result:",
+    "emptyHeaders": "No any Headers. Press «ADD» button.",
+    "emptyVariables": "No any Variables. Press «ADD» button.",
+    "requestBody": "Request Body",
+    "statusCode": "Status Code: ",
+    "responseData": "Response Data"
   },
   "signUser": {
     "titleSignUp": "Sign Up",

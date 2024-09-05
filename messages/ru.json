@@ -32,14 +32,14 @@
     "signUp": "Регистрация"
   },
   "apiClient": {
-    "responseData": "Заполните данные для отправки REST запроса.",
+    "responseTitle": "Заполните данные для отправки REST запроса.",
     "restTitle": "REST Клиент",
     "errEmptyUrl": "URL не может быть пустым.",
     "errInvalidJson": "Невалидный JSON формат.",
     "urlPlaceholder": "Адрес URL",
     "send": "Отправить",
-    "headers": "Заголовки:",
-    "variables": "Переменные:",
+    "headers": "Заголовки",
+    "variables": "Переменные",
     "add": "Добавить",
     "body": "Тело:",
     "bodyExample": "Пример: ",
@@ -50,7 +50,12 @@
     "value": "значение",
     "delete": "удалить",
     "error": "Ошибка:",
-    "result": "Результат:"
+    "result": "Результат:",
+    "emptyHeaders": "Заголовков нет. Нажмите кнопку «ДОБАВИТЬ».",
+    "emptyVariables": "Переменных нет. Нажмите кнопку «ДОБАВИТЬ».",
+    "requestBody": "Тело Запроса",
+    "statusCode": "Код Статуса: ",
+    "responseData": "Данные ответа"
   },
   "signUser": {
     "titleSignUp": "Регистрация",

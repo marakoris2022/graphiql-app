@@ -1,4 +1,5 @@
 import { Box, Typography, TextField } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export const ResultBlock = ({
   title,
@@ -9,6 +10,8 @@ export const ResultBlock = ({
   responseData: string;
   statusCode: string;
 }) => {
+  const t = useTranslations("apiClient");
+
   return (
     <Box sx={{ paddingBottom: "10px" }} width={"100%"}>
       <Typography variant="h4" gutterBottom>
@@ -17,7 +20,7 @@ export const ResultBlock = ({
 
       {Boolean(statusCode) && (
         <Typography sx={{ mb: "20px" }} variant="body1">
-          Status Code: {statusCode}
+          {t("statusCode")} {statusCode}
         </Typography>
       )}
 
@@ -28,7 +31,7 @@ export const ResultBlock = ({
         value={responseData}
         disabled
         variant="outlined"
-        label="Response Data"
+        label={t("responseData")}
       />
     </Box>
   );

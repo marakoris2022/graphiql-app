@@ -4,12 +4,15 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { decodeBase64, encodeBase64 } from "@/app/[...rest]/utils";
 import { ChangeEvent, FocusEvent } from "react";
 import { TextField } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 type EndpointURLProps = {
   register: UseFormRegister<FieldValues>;
 };
 
 export const EndpointURL = ({ register }: EndpointURLProps) => {
+  const t = useTranslations("apiClient");
+
   const pathname = usePathname().split("/");
   const url = pathname[2];
   const searchParams = useSearchParams().toString();
@@ -31,7 +34,7 @@ export const EndpointURL = ({ register }: EndpointURLProps) => {
       onChange={handleChange}
       defaultValue={decodedUrl}
       id="outlined-search"
-      label="Endpoint URL"
+      label={t("urlPlaceholder")}
       type="search"
     />
   );

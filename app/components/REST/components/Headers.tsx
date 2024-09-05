@@ -18,6 +18,7 @@ import {
   UseFormRegister,
   UseFormUnregister,
 } from "react-hook-form";
+import { useTranslations } from "next-intl";
 
 type HeadersProps = {
   register: UseFormRegister<FieldValues>;
@@ -25,6 +26,8 @@ type HeadersProps = {
 };
 
 export const Headers = ({ register, unregister }: HeadersProps) => {
+  const t = useTranslations("apiClient");
+
   const params = useSearchParams();
   const arrayFromSearchParams = Array.from(params.keys());
   const paramsCount = arrayFromSearchParams.length;
@@ -47,7 +50,7 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
           aria-controls="panel3-content"
           id="panel3-header"
         >
-          Headers
+          {t("headers")}
         </AccordionSummary>
         <AccordionDetails>
           {count.length > 0 ? (
@@ -62,7 +65,7 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
                 >
                   <TextField
                     sx={{ width: "45%" }}
-                    label="key"
+                    label={t("key")}
                     id="outlined-size-small"
                     size="small"
                     defaultValue={key || ""}
@@ -70,7 +73,7 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
                   />
                   <TextField
                     sx={{ width: "45%" }}
-                    label="value"
+                    label={t("value")}
                     id="outlined-size-small"
                     size="small"
                     defaultValue={value || ""}
@@ -95,7 +98,7 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
               gutterBottom
               sx={{ color: "text.secondary", fontSize: 14 }}
             >
-              No any Headers. Press ADD button.
+              {t("emptyHeaders")}
             </Typography>
           )}
         </AccordionDetails>
@@ -105,7 +108,7 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
             type="button"
             onClick={() => setCount((state) => [...state, state.length])}
           >
-            Add
+            {t("add")}
           </Button>
         </AccordionActions>
       </Accordion>

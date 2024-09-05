@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 const TypographyStyle = {
   display: "inline",
@@ -9,9 +10,11 @@ const TypographyStyle = {
 };
 
 export default function ExampleJSON() {
+  const t = useTranslations("apiClient");
+
   return (
     <Box sx={{ width: "100%", textAlign: "center", mb: "10px" }}>
-      <Typography sx={TypographyStyle}>Пример:</Typography>
+      <Typography sx={TypographyStyle}>{t("bodyExample")}</Typography>
       <Typography
         sx={{
           ...TypographyStyle,
