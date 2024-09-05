@@ -7,10 +7,12 @@ import { Headers } from "./components/Headers";
 import { BodyEditor } from "./components/BodyEditor";
 import { useRouter } from "next/navigation";
 import { generateURL } from "@/app/[...rest]/utils";
+import SendIcon from "@mui/icons-material/Send";
 
 import styles from "./MainForm.module.css";
 import { useState } from "react";
 import { Variables } from "./components/Variables";
+import { Box, Button, colors, Typography } from "@mui/material";
 
 export const MainForm = () => {
   const [urlError, setUrlError] = useState("");
@@ -19,7 +21,6 @@ export const MainForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     unregister,
     setValue,
     formState: { errors },
@@ -33,16 +34,6 @@ export const MainForm = () => {
       return;
     }
 
-    // if (data.body !== "") {
-    //   try {
-    //     const parsedBody = JSON.parse(data.body);
-    //     data = { ...data, body: parsedBody };
-    //   } catch {
-    //     setBodyError("Невалидный JSON формат.");
-    //     return;
-    //   }
-    // }
-
     const generatedURL = generateURL(data);
     setUrlError("");
     navigate.push(generatedURL);
@@ -50,21 +41,31 @@ export const MainForm = () => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.topWrapper}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "15px",
+          flexDirection: { lg: "row", md: "column", xs: "column" },
+        }}
+      >
         <SelectMethod register={register} />
 
         <EndpointURL register={register} />
 
-        <button
+        <Button
+          sx={{ minWidth: "fit-content" }}
           {...register("submit")}
-          className={styles.sendBtn}
           type="submit"
+          variant="contained"
+          endIcon={<SendIcon />}
         >
-          SEND
-        </button>
-      </div>
+          Send
+        </Button>
+      </Box>
 
-      <p className={styles.error}>{urlError}</p>
+      <Typography sx={{ color: "red", textAlign: "center", fontSize: "14px" }}>
+        {Boolean(urlError) ? urlError : ""}
+      </Typography>
 
       <Headers register={register} unregister={unregister} />
 

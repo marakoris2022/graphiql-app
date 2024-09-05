@@ -1,27 +1,35 @@
-import styles from "./ResultBlock.module.css";
+import { Box, Typography, TextField } from "@mui/material";
 
 export const ResultBlock = ({
+  title,
   responseData,
   statusCode,
 }: {
-  responseData: typeof Object | string;
+  title: string;
+  responseData: string;
   statusCode: string;
 }) => {
-  let resData = "";
-
-  if (typeof responseData === "string") {
-    resData = responseData;
-  } else {
-    resData = JSON.stringify(responseData, null, 2);
-  }
-
   return (
-    <div className={styles.resultWrapper}>
-      <h1 className={styles.title}>Result:</h1>
+    <Box sx={{ paddingBottom: "10px" }} width={"100%"}>
+      <Typography variant="h4" gutterBottom>
+        {title}
+      </Typography>
+
       {Boolean(statusCode) && (
-        <p className={styles.title}>Status Code: {statusCode}</p>
+        <Typography sx={{ mb: "20px" }} variant="body1">
+          Status Code: {statusCode}
+        </Typography>
       )}
-      <textarea className={styles.textarea} value={resData} disabled />
-    </div>
+
+      <TextField
+        fullWidth
+        multiline
+        rows={18}
+        value={responseData}
+        disabled
+        variant="outlined"
+        label="Response Data"
+      />
+    </Box>
   );
 };

@@ -3,6 +3,7 @@ import styles from "./EndpointURL.module.css";
 import { usePathname, useSearchParams } from "next/navigation";
 import { decodeBase64, encodeBase64 } from "@/app/[...rest]/utils";
 import { ChangeEvent, FocusEvent } from "react";
+import { TextField } from "@mui/material";
 
 type EndpointURLProps = {
   register: UseFormRegister<FieldValues>;
@@ -24,14 +25,14 @@ export const EndpointURL = ({ register }: EndpointURLProps) => {
   }
 
   return (
-    <div className={styles.wrapper}>
-      <input
-        defaultValue={decodedUrl}
-        className={styles.input}
-        {...register("EndpointURL")}
-        onChange={handleChange}
-        placeholder="Endpoint URL"
-      ></input>
-    </div>
+    <TextField
+      sx={{ width: "100%" }}
+      {...register("EndpointURL")}
+      onChange={handleChange}
+      defaultValue={decodedUrl}
+      id="outlined-search"
+      label="Endpoint URL"
+      type="search"
+    />
   );
 };

@@ -1,5 +1,10 @@
 .form {
   min-width: 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  padding-bottom: 20px;
 }
 .error {
   font-size: 14px;

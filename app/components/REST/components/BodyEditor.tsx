@@ -14,6 +14,8 @@ import {
   replaceVariables,
   stringToJSONString,
 } from "@/app/[...rest]/utils";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import ExampleJSON from "./ExampleJSON";
 
 type BodyEditorProps = {
   register: UseFormRegister<FieldValues>;
@@ -72,27 +74,38 @@ export const BodyEditor = ({
 
   return (
     <div className={styles.wrapper}>
-      <h5 className={styles.title}>Body:</h5>
-      <p className={styles.example}>
-        Пример: {`{ "name": "pikachu", "count": {{variableName}} }`}
-      </p>
-      <textarea
-        className={styles.textarea}
+      <ExampleJSON />
+
+      <TextField
         {...register("body")}
         value={body}
         onChange={(e) => {
           setBody(e.target.value);
         }}
         onBlur={handleBlur}
-        rows={10}
-        cols={50}
+        fullWidth={true}
+        id="outlined-multiline-static"
         placeholder="Введите JSON"
-      ></textarea>
+        label="Request Body"
+        multiline
+        rows={10}
+      />
+
       <div className={styles.formatWrapper}>
-        <button className={styles.formatBtn} type="button" onClick={formatJson}>
+        <Button
+          sx={{ width: "100%" }}
+          onClick={formatJson}
+          variant="outlined"
+          color="primary"
+        >
           FORMAT
-        </button>
-        <span className={styles.errorSpan}>{errorBody ?? ""}</span>
+        </Button>
+
+        <Typography
+          sx={{ color: "red", textAlign: "center", fontSize: "14px" }}
+        >
+          {Boolean(errorBody) ? errorBody : ""}
+        </Typography>
       </div>
     </div>
   );
