@@ -1,14 +1,14 @@
 import { create } from 'zustand';
-import { GraphQLSchema } from 'graphql';
+/* import { GraphQLSchema } from 'graphql'; */
 
 type SDLStore = {
-  documentationSDL: GraphQLSchema | null;
-  addDocumentationSDL: (data: GraphQLSchema) => void;
+  documentationSDL: string | null;
+  addDocumentationSDL: (data: string) => void;
 };
 
 export const useSDLStore = create<SDLStore>()((set) => ({
   documentationSDL: null,
-  addDocumentationSDL: (data: GraphQLSchema) => {
+  addDocumentationSDL: (data: string) => {
     set({ documentationSDL: data });
   }
 }));

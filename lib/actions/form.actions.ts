@@ -78,7 +78,7 @@ export async function createQuery(
 
 import { getIntrospectionQuery } from 'graphql/utilities';
 
-export async function createSDLQuery(endpointSDL: string): Promise<string | typeof Object> {
+export async function createSDLQuery(endpointSDL: string): Promise<typeof Object> {
   try {
     const response = await fetch(endpointSDL, {
       method: 'POST',
@@ -92,11 +92,11 @@ export async function createSDLQuery(endpointSDL: string): Promise<string | type
     });
 
     if (response.status >= 500 && response.status <= 599) {
-      return '500 Internal Server Error';
+      throw new Error ( '500 Internal Server Error');
     }
 
     if (response.status >= 400 && response.status <= 499) {
-      return `Client Error: ${response.status} ${response.statusText}`;
+      throw new Error (`Client Error: ${response.status} ${response.statusText}`);
     }
 
     if (!response.ok) {

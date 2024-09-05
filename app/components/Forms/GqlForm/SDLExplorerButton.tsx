@@ -70,8 +70,9 @@ const SDLExplorerButton = ({ open, setOpen, endpointSDL }: SDLExplorerButtonProp
           const result = await createSDLQuery(`${endpointSDL}`);
 
           if (result && typeof result === 'object' && '__schema' in result) {
-            const builtSchema = buildClientSchema(result as IntrospectionQuery);
-            addDocumentationSDL(builtSchema);
+            /*  const builtSchema = buildClientSchema(result as IntrospectionQuery);
+            addDocumentationSDL(builtSchema); */
+            addDocumentationSDL(JSON.stringify(result, null, 2));
             setOpen(true);
           }
         });
