@@ -1,14 +1,21 @@
 import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FocusEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import styles from "./BodyEditor.module.css";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import {
   decodeBase64,
   encodeBase64,
   replaceVariables,
   stringToJSONString,
 } from "@/app/[...rest]/utils";
-import { useTranslations } from "next-intl";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import ExampleJSON from "./ExampleJSON";
 
 type BodyEditorProps = {
   register: UseFormRegister<FieldValues>;
@@ -24,10 +31,21 @@ export const BodyEditor = ({
   setBodyError,
 }: BodyEditorProps) => {
   const [body, setBody] = useState<string>("");
+  const pathname = usePathname();
+  const bodyFromUrl = pathname.split("/")[3];
+  const searchParams = useSearchParams().toString();
 
-  const bodyFromUrl = usePathname().split("/")[3];
+  function handleBlur(e: FocusEvent<HTMLTextAreaElement, Element>) {
+    const pathArray = pathname.split("/");
 
-  const t = useTranslations("rest");
+    if (!pathArray[2]) pathArray[2] = "";
+
+    pathArray[3] = encodeBase64(e.target.value);
+    let newPath = pathArray.join("/");
+    if (searchParams) newPath = newPath + `?${searchParams}`;
+
+    history.replaceState(null, "", newPath);
+  }
 
   useEffect(() => {
     if (bodyFromUrl) {
@@ -44,38 +62,50 @@ export const BodyEditor = ({
     const JSONString = stringToJSONString(replacedString);
 
     if (!JSONString) {
-      setBodyError(t("errInvalidJson"));
+      setBodyError("Невалидный JSON формат.");
       return;
     }
 
-    setBody(replacedString);
-    setValue("body", replacedString);
+    setBody(JSONString);
+    setValue("body", JSONString);
     setBodyError("");
     return;
   };
 
   return (
     <div className={styles.wrapper}>
-      <h5 className={styles.title}>{t("body")}</h5>
-      <p className={styles.example}>
-        {t("bodyExample")} {`{ "name": "pikachu", "count": {{variableName}} }`}
-      </p>
-      <textarea
-        className={styles.textarea}
+      <ExampleJSON />
+
+      <TextField
         {...register("body")}
         value={body}
         onChange={(e) => {
           setBody(e.target.value);
         }}
+        onBlur={handleBlur}
+        fullWidth={true}
+        id="outlined-multiline-static"
+        placeholder="Введите JSON"
+        label="Request Body"
+        multiline
         rows={10}
-        cols={50}
-        placeholder={t("bodyPlaceholder")}
-      ></textarea>
+      />
+
       <div className={styles.formatWrapper}>
-        <button className={styles.formatBtn} type="button" onClick={formatJson}>
-          {t("format")}
-        </button>
-        <span className={styles.errorSpan}>{errorBody ?? ""}</span>
+        <Button
+          sx={{ width: "100%" }}
+          onClick={formatJson}
+          variant="outlined"
+          color="primary"
+        >
+          FORMAT
+        </Button>
+
+        <Typography
+          sx={{ color: "red", textAlign: "center", fontSize: "14px" }}
+        >
+          {Boolean(errorBody) ? errorBody : ""}
+        </Typography>
       </div>
     </div>
   );

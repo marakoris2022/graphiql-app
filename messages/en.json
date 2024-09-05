@@ -31,8 +31,9 @@
     "signIn": "Sign In",
     "signUp": "Sign Up"
   },
-  "rest": {
-    "responseTitle": "Fill data to send REST request.",
+  "apiClient": {
+    "responseData": "Fill data to send REST request.",
+    "restTitle": "REST Client",
     "errEmptyUrl": "URL can't be empty.",
     "errInvalidJson": "Invalid JSON format.",
     "urlPlaceholder": "Endpoint URL",
@@ -48,7 +49,8 @@
     "key": "key",
     "value": "value",
     "delete": "del",
-    "error": "Error:"
+    "error": "Error:",
+    "result": "Result:"
   },
   "signUser": {
     "titleSignUp": "Sign Up",

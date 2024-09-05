@@ -1,11 +1,9 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { decodeBase64 } from "@/app/[...rest]/utils";
 import { MainForm } from "../components/REST/MainForm";
-import { ErrorBlock } from "../components/REST/components/ErrorBlock";
 import { ResultBlock } from "../components/REST/components/ResultBlock";
 
 import styles from "./page.module.css";
-import { getTranslations } from "next-intl/server";
 
 type RestClientProps = {
   params: {
@@ -20,12 +18,11 @@ export default async function RestClient({
 }: RestClientProps) {
   const { rest } = params;
 
+  let responseTitle = "";
   let responseData = null;
-  let errorData: null | string = null;
+  let responseStatusCode = "";
   let body = null;
   let url = undefined;
-
-  const t = await getTranslations("rest");
 
   const method = decodeURIComponent(rest?.[0]) || "GET";
   const encodedUrl = decodeURIComponent(rest?.[1]);
@@ -37,10 +34,11 @@ export default async function RestClient({
       body = decodeBase64(encodedBody);
     }
   } catch (error) {
+    responseTitle = "Error:";
     if (error instanceof Error) {
-      errorData = error.message;
+      responseData = error.message;
     } else {
-      errorData = String(error);
+      responseData = String(error);
     }
   }
 
@@ -63,25 +61,34 @@ export default async function RestClient({
       headers: Object.keys(headers).length > 0 ? headers : undefined,
     });
 
+    responseTitle = "Result:";
     responseData = response.data;
+    responseStatusCode = String(response.status);
   } catch (error) {
-    if (error instanceof Error) {
-      errorData = error.message;
+    responseTitle = "Error:";
+
+    if (error instanceof AxiosError) {
+      responseData = error.message;
+      responseStatusCode = String(error.response?.status);
     } else {
-      errorData = String(error);
+      responseData = (error as Error).message;
     }
   }
 
   if (rest.length === 1) {
-    errorData = "";
-    responseData = t("responseTitle");
+    responseTitle = "Rest Client";
+    responseData = "Fill data to send REST request.";
   }
 
   return (
     <section className={styles.pageWrapper}>
       <MainForm />
-      {responseData && <ResultBlock responseData={responseData} />}
-      <ErrorBlock errorText={errorData!} />
+
+      <ResultBlock
+        title={responseTitle}
+        responseData={JSON.stringify(responseData, null, 2)}
+        statusCode={responseStatusCode}
+      />
     </section>
   );
 }

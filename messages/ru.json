@@ -31,8 +31,9 @@
     "signIn": "Вход",
     "signUp": "Регистрация"
   },
-  "rest": {
-    "responseTitle": "Заполните данные для отправки REST запроса.",
+  "apiClient": {
+    "responseData": "Заполните данные для отправки REST запроса.",
+    "restTitle": "REST Клиент",
     "errEmptyUrl": "URL не может быть пустым.",
     "errInvalidJson": "Невалидный JSON формат.",
     "urlPlaceholder": "Адрес URL",
@@ -48,7 +49,8 @@
     "key": "ключ",
     "value": "значение",
     "delete": "удалить",
-    "error": "Ошибка:"
+    "error": "Ошибка:",
+    "result": "Результат:"
   },
   "signUser": {
     "titleSignUp": "Регистрация",

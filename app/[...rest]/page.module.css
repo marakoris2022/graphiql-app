@@ -5,3 +5,9 @@
   flex-direction: row;
   gap: 20px;
 }
+
+@media screen and (max-width: 900px) {
+  .pageWrapper {
+    flex-direction: column;
+  }
+}
