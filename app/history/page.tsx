@@ -7,8 +7,11 @@ import { HistoryPops } from "../interface/interface";
 import HistoryItems from "../components/HISTORY/HistoryItems";
 import EmptyHistory from "../components/HISTORY/EmptyHistory";
 import HistoryLinks from "../components/HISTORY/HistoryLinks";
+import { useTranslations } from "next-intl";
 
 export default function History() {
+  const t = useTranslations("history");
+
   const [history, setHistory] = useState<HistoryPops>([]);
   const [mount, setMount] = useState(false);
 
@@ -41,7 +44,7 @@ export default function History() {
           variant="h1"
           sx={{ fontSize: { lg: "4rem", md: "3rem", xs: "2rem" }, mb: "20px" }}
         >
-          Request History
+          {t("title")}
         </Typography>
 
         {Boolean(history.length) ? (

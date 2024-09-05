@@ -4,6 +4,7 @@ import SendIcon from "@mui/icons-material/Send";
 import AutoDeleteIcon from "@mui/icons-material/AutoDelete";
 import { HistoryPops } from "@/app/interface/interface";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const styleFlexCenter = {
   display: "flex",
@@ -18,6 +19,7 @@ export default function HistoryItems({
   history: HistoryPops;
   removeHistoryItem: (date: number) => void;
 }) {
+  const t = useTranslations("history");
   const { push } = useRouter();
 
   return (
@@ -84,14 +86,14 @@ export default function HistoryItems({
                   }}
                   endIcon={<SendIcon />}
                 >
-                  Repeat
+                  {t("repeat")}
                 </Button>
                 <Button
                   sx={{ color: "darkred" }}
                   endIcon={<AutoDeleteIcon />}
                   onClick={() => removeHistoryItem(historyItem.Date)}
                 >
-                  Remove
+                  {t("remove")}
                 </Button>
               </Box>
             </Box>

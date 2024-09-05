@@ -1,14 +1,13 @@
 import { Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export default function EmptyHistory() {
+  const t = useTranslations("history");
+
   return (
     <>
-      <Typography variant="body1">
-        There are no requests in the history.
-      </Typography>
-      <Typography variant="body1">
-        Please select a client and make your first request.
-      </Typography>
+      <Typography variant="body1">{t("desc1")}</Typography>
+      <Typography variant="body1">{t("desc2")}</Typography>
     </>
   );
 }

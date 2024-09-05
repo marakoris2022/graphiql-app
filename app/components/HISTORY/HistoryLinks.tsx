@@ -2,8 +2,11 @@ import { Box, Button } from "@mui/material";
 import Link from "next/link";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import StreamIcon from "@mui/icons-material/Stream";
+import { useTranslations } from "next-intl";
 
 export default function HistoryLinks() {
+  const t = useTranslations("history");
+
   return (
     <Box
       sx={{
@@ -20,13 +23,13 @@ export default function HistoryLinks() {
           variant="outlined"
           startIcon={<StreamIcon />}
         >
-          GraphQL Client
+          {t("graphqlClient")}
         </Button>
       </Link>
 
       <Link href={"/GET"}>
         <Button variant="outlined" startIcon={<SyncAltIcon />}>
-          REST Client
+          {t("restClient")}
         </Button>
       </Link>
     </Box>
