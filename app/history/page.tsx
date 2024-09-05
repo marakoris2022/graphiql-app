@@ -20,15 +20,15 @@ function EmptyHistory() {
         variant="h1"
         sx={{ fontSize: { lg: "4rem", md: "3rem", xs: "2rem" }, mb: "20px" }}
       >
-        History Page
+        Request History
       </Typography>
 
       <Typography variant="body1">
-        There is no any requests in the history.
+        There are no requests in the history.
       </Typography>
 
       <Typography variant="body1">
-        Please, choose a client and made your first request.
+        Please select a client and make your first request.
       </Typography>
 
       <Box

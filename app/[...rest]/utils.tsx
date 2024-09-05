@@ -1,6 +1,6 @@
 import { FieldValues } from "react-hook-form";
 
-interface FormData {
+export interface FormData {
   method: string;
   EndpointURL: string;
   body?: string;
@@ -43,20 +43,11 @@ export const replaceVariables = (str: string, variables: string[][]) => {
   return newStr;
 };
 
-export function generateURL(data: FormData | FieldValues) {
-  const { EndpointURL, method, body, ...headers } = data as FormData;
-
-  const variables = JSON.parse(localStorage.getItem("RESTVariables") ?? "");
-  const variableURL = replaceVariables(EndpointURL, variables).replaceAll(
-    '"',
-    ""
-  );
-
-  const encodedURL = encodeBase64(variableURL);
-
-  const encodedBody = body ? encodeBase64(body) : null;
-
-  const headerParams = Object.keys(headers)
+export function generateHeaders(headers: {
+  [key: `headerKey_${number}`]: string;
+  [key: `headerValue_${number}`]: string;
+}) {
+  return Object.keys(headers)
     .filter(
       (key) =>
         key.startsWith("headerKey_") && headers[key as keyof typeof headers]
@@ -72,6 +63,22 @@ export function generateURL(data: FormData | FieldValues) {
       return `${headerKey}=${headerValue}`;
     })
     .join("&");
+}
+
+export function generateURL(data: FormData | FieldValues) {
+  const { EndpointURL, method, body, ...headers } = data as FormData;
+
+  const variables = JSON.parse(localStorage.getItem("RESTVariables") ?? "");
+  const variableURL = replaceVariables(EndpointURL, variables).replaceAll(
+    '"',
+    ""
+  );
+
+  const encodedURL = encodeBase64(variableURL);
+
+  const encodedBody = body ? encodeBase64(body) : null;
+
+  const headerParams = generateHeaders(headers);
 
   let generatedURL = `/${method}/${encodedURL}`;
 
@@ -83,4 +90,28 @@ export function generateURL(data: FormData | FieldValues) {
   }
 
   return generatedURL;
+}
+
+export function saveRequestToLS({
+  method,
+  generatedURL,
+  EndpointURL,
+}: {
+  method: string;
+  generatedURL: string;
+  EndpointURL: string;
+}) {
+  const history = localStorage.getItem("requestHistory");
+
+  if (!history) {
+    localStorage.setItem(
+      "requestHistory",
+      JSON.stringify([{ method, generatedURL, EndpointURL, Date: Date.now() }])
+    );
+    return;
+  }
+
+  const parsedHistory = JSON.parse(history);
+  parsedHistory.push({ method, generatedURL, EndpointURL, Date: Date.now() });
+  localStorage.setItem("requestHistory", JSON.stringify(parsedHistory));
 }
