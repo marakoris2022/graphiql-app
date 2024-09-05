@@ -2,11 +2,13 @@
 import { app } from "@/firebase";
 import { RoutePath, toastifyMessage } from "@/utils/utils";
 import { getAuth, signOut } from "firebase/auth";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 export const SignOutButton = () => {
   const router = useRouter();
+  const t = useTranslations("loggedUserHeader");
 
   async function handleLogout() {
     await signOut(getAuth(app));
@@ -15,12 +17,12 @@ export const SignOutButton = () => {
 
     router.push(RoutePath.HOME);
     router.refresh();
-    toast.success("You are successfully signed out!", toastifyMessage);
+    toast.success(t("toastMsg"), toastifyMessage);
   }
 
   return (
     <button className="linkDefault" onClick={handleLogout}>
-      Sign Out
+      {t("signOut")}
     </button>
   );
 };

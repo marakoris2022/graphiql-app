@@ -1,22 +1,38 @@
-import styles from "./ResultBlock.module.css";
+import { Box, Typography, TextField } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export const ResultBlock = ({
+  title,
   responseData,
+  statusCode,
 }: {
-  responseData: typeof Object | string;
+  title: string;
+  responseData: string;
+  statusCode: string;
 }) => {
-  let resData = "";
-
-  if (typeof responseData === "string") {
-    resData = responseData;
-  } else {
-    resData = JSON.stringify(responseData, null, 2);
-  }
+  const t = useTranslations("apiClient");
 
   return (
-    <div className={styles.resultWrapper}>
-      <h1 className={styles.title}>Result:</h1>
-      <textarea className={styles.textarea} value={resData} disabled />
-    </div>
+    <Box sx={{ paddingBottom: "10px" }} width={"100%"}>
+      <Typography variant="h4" gutterBottom>
+        {title}
+      </Typography>
+
+      {Boolean(statusCode) && (
+        <Typography sx={{ mb: "20px" }} variant="body1">
+          {t("statusCode")} {statusCode}
+        </Typography>
+      )}
+
+      <TextField
+        fullWidth
+        multiline
+        rows={18}
+        value={responseData}
+        disabled
+        variant="outlined"
+        label={t("responseData")}
+      />
+    </Box>
   );
 };
