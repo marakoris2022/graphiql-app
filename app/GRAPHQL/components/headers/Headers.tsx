@@ -1,13 +1,37 @@
-import { FC, useState } from 'react';
+import { FC, MouseEventHandler, useCallback, useEffect, useState } from 'react';
 import styles from './headers.module.css';
 import { IoIosArrowDown, IoIosArrowBack } from 'react-icons/io';
 import { IoMdClose } from 'react-icons/io';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 type HeadersProps = {};
 
 const Headers: FC<HeadersProps> = ({}) => {
-  const [headers, setHeaders] = useState([{ key: '', value: '' }]);
+  const search = useSearchParams();
+
+  const [headers, setHeaders] = useState(() => {
+    if (!search.toString()) return [{ key: '', value: '' }];
+    const arr = [];
+    for (const [key, value] of search.entries()) {
+      arr.push({ key, value });
+    }
+    return arr;
+  });
+
   const [showHeaders, setShowHeaders] = useState<boolean>(false);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    headers.forEach((header) => {
+      if (header.key && header.value) {
+        params.set(encodeURIComponent(header.key), encodeURIComponent(header.value));
+      }
+    });
+    const pewPath = pathname + '?' + params.toString();
+    history.replaceState(null, '', pewPath);
+  }, [headers]);
 
   const addHeader = () => {
     setHeaders([...headers, { key: '', value: '' }]);
