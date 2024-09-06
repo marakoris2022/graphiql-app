@@ -1,14 +1,8 @@
-import axios from 'axios';
-import { decodeBase64 } from '@/app/[...rest]/utils';
-import { MainForm } from '../components/REST/MainForm';
-import { ErrorBlock } from '../components/REST/components/ErrorBlock';
-import { ResultBlock } from '../components/REST/components/ResultBlock';
 import axios, { AxiosError } from 'axios';
 import { decodeBase64 } from '@/app/[...rest]/utils';
 import { MainForm } from '../components/REST/MainForm';
 import { ResultBlock } from '../components/REST/components/ResultBlock';
 
-import styles from './page.module.css';
 import styles from './page.module.css';
 import { getTranslations } from 'next-intl/server';
 
@@ -82,8 +76,6 @@ export default async function RestClient({ params, searchParams }: RestClientPro
   }
 
   if (rest.length === 1) {
-    errorData = '';
-    responseData = 'Fill data to send REST request.';
     responseTitle = t('restTitle');
     responseData = t('responseTitle');
   }

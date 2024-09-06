@@ -6,13 +6,15 @@
 
 .form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: flex-start;
 }
 
-.queryArea {
-    width: 400px;
-    height: 200px;
+.SDLContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .responseArea {
@@ -20,16 +22,7 @@
     height: 800px;
 }
 
-.variablesGraphQL {
-    width: 100%;
-    height: 100px;
-}
-
 .buttonContainer {
     display: flex;
     column-gap: 10px;
-}
-
-.sdlContainer {
-    width: 30%;
 }

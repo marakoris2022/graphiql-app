@@ -1,4 +1,4 @@
-import GQLForm from '../../components/Forms/GqlForm/GQLForm';
+import GQLForm from '../components/GqlForm/GQLForm';
 import styles from './page.module.css';
 
 export default function GraphiQLClient() {

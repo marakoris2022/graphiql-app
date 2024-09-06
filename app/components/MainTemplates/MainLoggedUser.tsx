@@ -2,10 +2,6 @@ import React from 'react';
 import styles from './mainTemplates.module.css';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { RoutePath } from '@/utils/utils';
-import React from 'react';
-import styles from './mainTemplates.module.css';
-import { CustomLink } from '../CustomLink/CustomLink';
-import { RoutePath } from '@/utils/utils';
 import { useTranslations } from 'next-intl';
 
 type MainLoggedUserProps = {
@@ -22,14 +18,12 @@ export const MainLoggedUser = ({ userName }: MainLoggedUserProps) => {
       <nav>
         <ul>
           <li>
-            <CustomLink href={'/graphiql-client'} title={t('graphiql')} />
+            <CustomLink href={RoutePath.GRAPHIQL_CLIENT} title={t('graphiql')} />
           </li>
           <li>
-            <CustomLink href={RoutePath.REST_CLIENT_GET} title={'rest-client'} />
             <CustomLink href={RoutePath.REST_CLIENT_GET} title={t('rest')} />
           </li>
           <li>
-            <CustomLink href={RoutePath.HISTORY} title={'history'} />
             <CustomLink href={RoutePath.HISTORY} title={t('history')} />
           </li>
         </ul>
