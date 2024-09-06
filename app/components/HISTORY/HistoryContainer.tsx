@@ -22,7 +22,13 @@ export const HistoryContainer = ({
   const removeHistoryItem = (date: number) => {
     const updatedHistory = history.filter((item) => item.Date !== date);
     setHistory(updatedHistory);
-    localStorage.setItem("requestHistory", JSON.stringify(updatedHistory));
+    const historyFromLS = localStorage.getItem("requestHistory");
+
+    if (historyFromLS && currUser) {
+      const parsedHistory = JSON.parse(historyFromLS);
+      parsedHistory[currUser] = updatedHistory;
+      localStorage.setItem("requestHistory", JSON.stringify(parsedHistory));
+    }
   };
 
   useEffect(() => {
@@ -32,8 +38,9 @@ export const HistoryContainer = ({
       const parsedHistory = JSON.parse(historyFromLS);
       const userHistory = parsedHistory[currUser] || [];
       setHistory(userHistory);
-      setMount(true);
     }
+
+    setMount(true);
   }, [currUser]);
 
   if (!mount) return <Loading />;
