@@ -7,6 +7,9 @@ vi.mock("next-intl", async () => {
   return {
     ...actual,
     useTranslations: vi.fn(),
+    getTranslations: vi
+      .fn()
+      .mockResolvedValue((namespace: string) => (key: string) => key),
   };
 });
 

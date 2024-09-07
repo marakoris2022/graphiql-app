@@ -21,6 +21,9 @@ export default async function RestClient({
 
   const t = await getTranslations("apiClient");
 
+  console.log("params", params);
+  console.log("searchParams", searchParams);
+
   let responseTitle = "";
   let responseData = null;
   let responseStatusCode = "";
