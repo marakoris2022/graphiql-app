@@ -82,5 +82,14 @@
   },
   "metaRest": {
     "title": "REST Client"
+  },
+  "history": {
+    "title": "Request History",
+    "desc1": "There are no requests in the history.",
+    "desc2": "Please select a client and make your first request.",
+    "restClient": "REST Client",
+    "graphqlClient": "GraphQL Client",
+    "repeat": "Repeat",
+    "remove": "Remove"
   }
 }

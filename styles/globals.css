@@ -74,6 +74,8 @@ main {
   background-color: inherit;
   border: none;
   color: black;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .linkDefault:hover {

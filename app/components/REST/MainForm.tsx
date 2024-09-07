@@ -6,7 +6,12 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Headers } from "./components/Headers";
 import { BodyEditor } from "./components/BodyEditor";
 import { useRouter } from "next/navigation";
-import { generateURL } from "@/app/[...rest]/utils";
+import {
+  FormData,
+  generateHeaders,
+  generateURL,
+  saveRequestToLS,
+} from "@/app/[...rest]/utils";
 import SendIcon from "@mui/icons-material/Send";
 
 import styles from "./MainForm.module.css";
@@ -40,7 +45,9 @@ export const MainForm = () => {
     }
   }, [t]);
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (fromData) => {
+    const data = fromData as FormData;
+
     if (data.EndpointURL === "") {
       setUrlError(t("errEmptyUrl"));
       return;
@@ -48,6 +55,7 @@ export const MainForm = () => {
 
     const generatedURL = generateURL(data);
     setUrlError("");
+    saveRequestToLS({ ...data, generatedURL });
     navigate.push(generatedURL);
   };
 

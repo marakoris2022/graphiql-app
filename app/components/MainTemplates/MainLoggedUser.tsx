@@ -18,7 +18,7 @@ export const MainLoggedUser = ({ userName }: MainLoggedUserProps) => {
       <nav>
         <ul>
           <li>
-            <CustomLink href={RoutePath.GRAPHIQL_CLIENT} title={t('graphiql')} />
+            <CustomLink href={'/GRAPHQL'} title={t('graphiql')} />
           </li>
           <li>
             <CustomLink href={RoutePath.REST_CLIENT_GET} title={t('rest')} />

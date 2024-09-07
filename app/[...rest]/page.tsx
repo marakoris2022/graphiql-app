@@ -26,7 +26,7 @@ export default async function RestClient({ params, searchParams }: RestClientPro
 
   const method = decodeURIComponent(rest?.[0]) || 'GET';
   const encodedUrl = decodeURIComponent(rest?.[1]);
-  const encodedBody = decodeURIComponent(rest?.[2]);
+  const encodedBody = Boolean(rest?.[2]) ? decodeURIComponent(rest?.[2]) : null;
 
   try {
     url = decodeBase64(encodedUrl);
@@ -53,13 +53,15 @@ export default async function RestClient({ params, searchParams }: RestClientPro
     });
   }
 
+  const requestData = {
+    method: method.toLowerCase(),
+    url,
+    data: body || undefined,
+    headers: Object.keys(headers).length > 0 ? headers : undefined,
+  };
+
   try {
-    const response = await axios({
-      method: method.toLowerCase(),
-      url,
-      data: body || undefined,
-      headers: Object.keys(headers).length > 0 ? headers : undefined,
-    });
+    const response = await axios(requestData);
 
     responseTitle = t('result');
     responseData = response.data;
