@@ -11,9 +11,9 @@ type ExplorerButtonProps = {
 const ExplorerButton = ({ showFn }: ExplorerButtonProps) => {
   return (
     <Button
-      sx={{ color: 'white', background: 'grey' }}
+      sx={{ color: 'white' }}
       variant="contained"
-      color="primary"
+      color="success"
       type="button"
       onClick={showFn}
     >

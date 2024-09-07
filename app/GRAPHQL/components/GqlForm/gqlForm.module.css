@@ -27,6 +27,14 @@
     width: 100%;
 }
 
+.docsContainer {
+    height: 80vh;
+    width: 25%;
+    min-width: 100px;
+    padding: 10px;
+    overflow: auto;
+}
+
 .responseArea {
     width: 400px;
     height: 800px;

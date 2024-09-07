@@ -45,15 +45,11 @@ const GQLForm = () => {
 
   return (
     <div className={styles.graphiqlContainer}>
-      <article className={styles.sdlContainer}>
-        {open && (
-          <div>
-            <div>
-              {show && <SchemaDocumentation valueSDL={endpointSDL ? endpointSDL : endpointURL} />}
-            </div>
-          </div>
-        )}
-      </article>
+      {open && show && (
+        <article className={styles.docsContainer}>
+          {<SchemaDocumentation valueSDL={endpointSDL ? endpointSDL : endpointURL} />}
+        </article>
+      )}
       <form className={styles.form} ref={ref} action={action} noValidate>
         <EndpointURL setURL={setEndpointURL} />
         <EndpointSDL setSDL={setEndpointSDL} />
@@ -69,7 +65,7 @@ const GQLForm = () => {
             valueSDL={endpointSDL ? endpointSDL : endpointURL}
           />
           <PrettifyButton handler={formatQuery} />
-          <ExplorerButton showFn={() => setShow((prev) => !prev)} />
+          {open && <ExplorerButton showFn={() => setShow((prev) => !prev)} />}
         </div>
         <QuerySection variables={variablesArea} />
         <VariablesSection setVariables={setVariablesArea} />
