@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "types": ["vitest/globals", "@testing-library/jest-dom"], // Include Vitest and jest-dom types
+
     "lib": ["dom", "dom.iterable", "esnext"],
-    "target": "es6",
+    "target": "es2017",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -22,6 +24,13 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts,",
+    "vitest-setup.ts",
+    "./__tests__" // Test folder (if necessary)
+  ],
   "exclude": ["node_modules"]
 }
