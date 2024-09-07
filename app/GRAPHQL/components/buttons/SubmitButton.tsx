@@ -1,15 +1,21 @@
 'use client';
 
 import { useFormStatus } from 'react-dom';
-import styles from './buttons.module.css';
+import { Button } from '@mui/material';
 
 const SubmitButton = () => {
   const { pending } = useFormStatus();
 
   return (
-    <button className={styles.submitBtn} type="submit" disabled={pending}>
+    <Button
+      sx={{ color: 'white', background: 'grey' }}
+      variant="contained"
+      color="primary"
+      type="submit"
+      disabled={pending}
+    >
       {pending ? 'Submitting...' : 'Submit'}
-    </button>
+    </Button>
   );
 };
 

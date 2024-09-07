@@ -1,11 +1,9 @@
 'use client';
 
-import { buildClientSchema, printIntrospectionSchema } from 'graphql/utilities';
 import { useTransition } from 'react';
 import styles from './SDLButton.module.css';
 import { createSDLQuery } from '@/lib/actions/form.actions';
-import { useSDLStore } from '../../../store/useSDLStore';
-import { IntrospectionQuery, GraphQLSchema } from 'graphql';
+import Button from '@mui/material/Button';
 
 type SDLExplorerButtonProps = {
   open: boolean;
@@ -15,11 +13,13 @@ type SDLExplorerButtonProps = {
 
 const SDLButton = ({ open, setOpen, valueSDL }: SDLExplorerButtonProps) => {
   const [isPending, startTransition] = useTransition();
-  const addDocumentationSDL = useSDLStore((state) => state.addDocumentationSDL);
-  const addIntrospectionQuery = useSDLStore((state) => state.addIntrospectionQuery);
 
   return (
-    <button
+    <Button
+      sx={{ color: 'white', background: 'grey' }}
+      disabled={isPending}
+      variant="contained"
+      color="primary"
       className={styles.sdlDocBtn}
       type="button"
       onClick={async () => {
@@ -34,15 +34,11 @@ const SDLButton = ({ open, setOpen, valueSDL }: SDLExplorerButtonProps) => {
           if (result && '__schema' in result) {
             setOpen(true);
           }
-          /* if (result && '__schema' in result) {
-            addIntrospectionQuery(result as IntrospectionQuery);
-            setOpen(true);
-          } */
         });
       }}
     >
       {isPending ? 'Downloading...' : 'Get Schema'}
-    </button>
+    </Button>
   );
 };
 

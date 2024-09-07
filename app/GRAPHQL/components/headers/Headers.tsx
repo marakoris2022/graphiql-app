@@ -1,8 +1,10 @@
-import { FC, MouseEventHandler, useCallback, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styles from './headers.module.css';
-import { IoIosArrowDown, IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import { IoMdClose } from 'react-icons/io';
 import { usePathname, useSearchParams } from 'next/navigation';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 type HeadersProps = {};
 
@@ -50,43 +52,85 @@ const Headers: FC<HeadersProps> = ({}) => {
   return (
     <div className={styles.headersContainer}>
       <div className={styles.headersTitleBlock}>
-        <button type="button" onClick={() => setShowHeaders((prev) => !prev)}>
-          {showHeaders ? <IoIosArrowDown /> : <IoIosArrowBack />}
-        </button>
+        <Button
+          variant="text"
+          type="button"
+          onClick={() => setShowHeaders((prev) => !prev)}
+          size="small"
+          sx={{
+            color: 'grey',
+            border: '1px solid grey',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '20px',
+            height: '20px',
+            minWidth: '20px',
+            padding: 0,
+            marginRight: '10px',
+          }}
+        >
+          {showHeaders ? <IoIosArrowDown /> : <IoIosArrowForward />}
+        </Button>
         <h3>Request Headers</h3>
       </div>
       {showHeaders && (
         <fieldset>
           {headers.map((header, index) => (
-            <div key={index}>
-              <label htmlFor={`headerKey${index}`}>
-                Key:
-                <input
-                  type="text"
-                  name="headerKey"
-                  id={`headerKey${index}`}
-                  value={header.key}
-                  onChange={(e) => handleHeaderChange(index, 'key', e.target.value)}
-                />
-              </label>
-              <label htmlFor={`headerValue${index}`}>
-                Value:
-                <input
-                  type="text"
-                  name="headerValue"
-                  id={`headerValue${index}`}
-                  value={header.value}
-                  onChange={(e) => handleHeaderChange(index, 'value', e.target.value)}
-                />
-              </label>
-              <button type="button">
-                <IoMdClose onClick={() => deleteHeader(index)} />
-              </button>
+            <div className={styles.headerWrapper} key={index}>
+              <TextField
+                label="Key:"
+                variant="outlined"
+                name="headerKey"
+                id={`headerKey${index}`}
+                value={header.key}
+                onChange={(e) => handleHeaderChange(index, 'key', e.target.value)}
+                sx={{ flex: '1' }}
+              />
+              <TextField
+                label="Value:"
+                variant="outlined"
+                name="headerValue"
+                id={`headerValue${index}`}
+                value={header.value}
+                onChange={(e) => handleHeaderChange(index, 'value', e.target.value)}
+                sx={{ flex: '1' }}
+              />
+              <Button
+                variant="text"
+                size="small"
+                sx={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '30%',
+                  color: 'grey',
+                  border: '1px solid grey',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '20px',
+                  height: '20px',
+                  minWidth: '20px',
+                  padding: 0,
+                  marginRight: '10px',
+                }}
+                type="button"
+                onClick={() => deleteHeader(index)}
+              >
+                <IoMdClose />
+              </Button>
             </div>
           ))}
-          <button type="button" onClick={addHeader}>
+          <Button
+            size="small"
+            sx={{ color: 'white', background: 'grey' }}
+            variant="contained"
+            color="primary"
+            type="button"
+            onClick={addHeader}
+          >
             Add Header
-          </button>
+          </Button>
         </fieldset>
       )}
     </div>

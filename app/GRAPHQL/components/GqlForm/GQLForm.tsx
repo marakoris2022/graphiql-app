@@ -18,8 +18,6 @@ import Headers from '../headers/Headers';
 import SchemaDocumentation from '../schemaDocumentation/SchemaDocumentation';
 
 const GQLForm = () => {
-  const documentationSDL = useSDLStore((state) => state.documentationSDL);
-
   const ref = useRef<HTMLFormElement>(null);
   const [data, action] = useFormState(createQuery, {
     status: null,
@@ -31,39 +29,50 @@ const GQLForm = () => {
   const [variablesArea, setVariablesArea] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
-  const introspectionQuery = useSDLStore((state) => state.introspectionQuery);
+
   const formatQuery = () => {
     if (ref.current) {
       const queryStr = ref.current.query.value;
       const variablesStr = ref.current.variables.value;
-      ref.current.query.value = gqlPrettier(queryStr);
-      ref.current.variables.value = JSON.stringify(JSON.parse(variablesStr), null, 2);
+      if (queryStr) {
+        ref.current.query.value = gqlPrettier(queryStr);
+      }
+      if (variablesStr) {
+        ref.current.variables.value = JSON.stringify(JSON.parse(variablesStr), null, 2);
+      }
     }
   };
 
   return (
     <div className={styles.graphiqlContainer}>
+      <article className={styles.sdlContainer}>
+        {open && (
+          <div>
+            <div>
+              {show && <SchemaDocumentation valueSDL={endpointSDL ? endpointSDL : endpointURL} />}
+            </div>
+          </div>
+        )}
+      </article>
       <form className={styles.form} ref={ref} action={action} noValidate>
         <EndpointURL setURL={setEndpointURL} />
-        <div className={styles.SDLContainer}>
-          <EndpointSDL setSDL={setEndpointSDL} />
+        <EndpointSDL setSDL={setEndpointSDL} />
+        <Headers />
+        <div className={styles.buttonContainer}>
+          <span style={{ fontSize: '1.5rem' }}>
+            Graph<i>i</i>QL
+          </span>
+          <SubmitButton />
           <SDLButton
             open={open}
             setOpen={setOpen}
             valueSDL={endpointSDL ? endpointSDL : endpointURL}
           />
+          <PrettifyButton handler={formatQuery} />
+          <ExplorerButton showFn={() => setShow((prev) => !prev)} />
         </div>
-        <Headers />
         <QuerySection variables={variablesArea} />
         <VariablesSection setVariables={setVariablesArea} />
-        <div className={styles.buttonContainer}>
-          <div className={styles.submit}>
-            <SubmitButton />
-          </div>
-          <div className={styles.submit}>
-            <PrettifyButton handler={formatQuery} />
-          </div>
-        </div>
       </form>
       <div className={styles.responseField}>
         {data.message && (
@@ -73,16 +82,6 @@ const GQLForm = () => {
           </div>
         )}
       </div>
-      <article className={styles.sdlContainer}>
-        {open && (
-          <div>
-            <ExplorerButton showFn={() => setShow((prev) => !prev)} />
-            <div>
-              {show && <SchemaDocumentation valueSDL={endpointSDL ? endpointSDL : endpointURL} />}
-            </div>
-          </div>
-        )}
-      </article>
     </div>
   );
 };

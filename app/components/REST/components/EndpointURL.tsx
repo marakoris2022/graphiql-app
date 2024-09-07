@@ -20,8 +20,6 @@ export const EndpointURL = ({ register }: EndpointURLProps) => {
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const pathArray = [...pathname];
-    pathArray[2] = encodeBase64(e.target.value);
-    let newPath = pathArray.join('/');
     pathArray[2] = encodeURIComponent(encodeBase64(e.target.value));
     let newPath = pathArray.join('/');
     if (searchParams) newPath = newPath + `?${searchParams}`;

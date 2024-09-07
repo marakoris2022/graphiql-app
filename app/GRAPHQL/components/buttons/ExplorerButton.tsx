@@ -1,5 +1,6 @@
 'use client';
 
+import Button from '@mui/material/Button';
 import styles from './buttons.module.css';
 import cn from 'classnames';
 
@@ -9,9 +10,15 @@ type ExplorerButtonProps = {
 
 const ExplorerButton = ({ showFn }: ExplorerButtonProps) => {
   return (
-    <button className={cn(styles.button, styles.explorerBtn)} type="button" onClick={showFn}>
+    <Button
+      sx={{ color: 'white', background: 'grey' }}
+      variant="contained"
+      color="primary"
+      type="button"
+      onClick={showFn}
+    >
       Explorer
-    </button>
+    </Button>
   );
 };
 
