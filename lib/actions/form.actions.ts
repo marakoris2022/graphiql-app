@@ -108,7 +108,6 @@ export async function createSDLQuery(endpointSDL: string): Promise<typeof Object
     if (!result.data) {
       throw new Error('No data found in the response.');
     }
-
     return result.data;
 
   } catch (error) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { buildClientSchema } from 'graphql/utilities';
+import { buildClientSchema, printIntrospectionSchema } from 'graphql/utilities';
 import { useTransition } from 'react';
 import styles from './SDLButton.module.css';
 import { createSDLQuery } from '@/lib/actions/form.actions';
@@ -16,6 +16,7 @@ type SDLExplorerButtonProps = {
 const SDLButton = ({ open, setOpen, valueSDL }: SDLExplorerButtonProps) => {
   const [isPending, startTransition] = useTransition();
   const addDocumentationSDL = useSDLStore((state) => state.addDocumentationSDL);
+  const addIntrospectionQuery = useSDLStore((state) => state.addIntrospectionQuery);
 
   return (
     <button
@@ -30,13 +31,13 @@ const SDLButton = ({ open, setOpen, valueSDL }: SDLExplorerButtonProps) => {
         }
         startTransition(async () => {
           const result = await createSDLQuery(`${valueSDL}`);
-
-          if (result && typeof result === 'object' && '__schema' in result) {
-            /*  const builtSchema = buildClientSchema(result as IntrospectionQuery);
-            addDocumentationSDL(builtSchema); */
-            addDocumentationSDL(JSON.stringify(result));
+          if (result && '__schema' in result) {
             setOpen(true);
           }
+          /* if (result && '__schema' in result) {
+            addIntrospectionQuery(result as IntrospectionQuery);
+            setOpen(true);
+          } */
         });
       }}
     >

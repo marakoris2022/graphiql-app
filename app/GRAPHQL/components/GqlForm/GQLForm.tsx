@@ -15,9 +15,11 @@ import QuerySection from '../querySection/QuerySection';
 import VariablesSection from '../variables/VariablesSection';
 import ExplorerButton from '../buttons/ExplorerButton';
 import Headers from '../headers/Headers';
+import SchemaDocumentation from '../schemaDocumentation/SchemaDocumentation';
 
 const GQLForm = () => {
   const documentationSDL = useSDLStore((state) => state.documentationSDL);
+
   const ref = useRef<HTMLFormElement>(null);
   const [data, action] = useFormState(createQuery, {
     status: null,
@@ -29,7 +31,7 @@ const GQLForm = () => {
   const [variablesArea, setVariablesArea] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
-
+  const introspectionQuery = useSDLStore((state) => state.introspectionQuery);
   const formatQuery = () => {
     if (ref.current) {
       const queryStr = ref.current.query.value;
@@ -72,15 +74,12 @@ const GQLForm = () => {
         )}
       </div>
       <article className={styles.sdlContainer}>
-        {open && documentationSDL && (
+        {open && (
           <div>
             <ExplorerButton showFn={() => setShow((prev) => !prev)} />
-            {show && (
-              <div>
-                <h3>Documentation</h3>
-                <p>{documentationSDL}</p>
-              </div>
-            )}
+            <div>
+              {show && <SchemaDocumentation valueSDL={endpointSDL ? endpointSDL : endpointURL} />}
+            </div>
           </div>
         )}
       </article>
