@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
-    "types": ["vitest/globals", "@testing-library/jest-dom"], // Include Vitest and jest-dom types
-
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ], // Include Vitest and jest-dom types
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "target": "es2017",
     "allowJs": true,
     "skipLibCheck": true,
@@ -21,7 +27,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
   "include": [
@@ -31,6 +39,10 @@
     ".next/types/**/*.ts,",
     "vitest-setup.ts",
     "./__tests__" // Test folder (if necessary)
+    ,
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
