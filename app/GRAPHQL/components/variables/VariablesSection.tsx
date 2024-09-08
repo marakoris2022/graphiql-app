@@ -1,23 +1,19 @@
 import { decodeBase64, encodeBase64 } from '@/app/[...rest]/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { FC, useState, ChangeEvent, useCallback, FocusEventHandler } from 'react';
+import { FC, useState, ChangeEvent, useCallback } from 'react';
 import styles from './variablesSection.module.css';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
-import * as Yup from 'yup';
-import { prettifySchema } from '@/lib/formValidationSchema/validationSchema';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 
 type VariablesSectionProps = {
   setVariables: (data: string) => void;
+  variables: string;
 };
 
-const VariablesSection: FC<VariablesSectionProps> = ({ setVariables }) => {
+const VariablesSection: FC<VariablesSectionProps> = ({ setVariables, variables }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams().toString();
   const [showVariablesBox, setShowVariablesBox] = useState<boolean>(false);
-  const [value, setValue] = useState<string>('');
-  const [error, setError] = useState<string | null>(null);
 
   const getQuery = useCallback(() => {
     const pathArray = pathname.split('/');
@@ -28,40 +24,27 @@ const VariablesSection: FC<VariablesSectionProps> = ({ setVariables }) => {
     return decodedQuery;
   }, [pathname]);
 
-  function handleVariablesFocusOut() {
-    const variables = value;
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const val = e.target.value;
+    setVariables(val);
+    const query = getQuery().query;
+    if (!query) return;
 
-    const validateVariables = async (variables: string) => {
-      try {
-        await prettifySchema.validate({ variables });
+    const pathArray = pathname.split('/');
 
-        setError(null);
-        setVariables(variables);
+    if (!pathArray[2]) {
+      pathArray[2] = '';
+    }
+    pathArray[3] = val
+      ? encodeBase64(encodeURIComponent(JSON.stringify({ query, variables: val })))
+      : encodeBase64(encodeURIComponent(JSON.stringify({ query, variables: '' })));
+    let newPath = pathArray.join('/');
+    if (searchParams) {
+      newPath = newPath + `?${searchParams}`;
+    }
 
-        const query = getQuery().query;
-        if (!query) return;
-
-        const pathArray = pathname.split('/');
-
-        if (!pathArray[2]) {
-          pathArray[2] = '';
-        }
-        pathArray[3] = variables
-          ? encodeBase64(encodeURIComponent(JSON.stringify({ query, variables })))
-          : encodeBase64(encodeURIComponent(JSON.stringify({ query, variables: '' })));
-        let newPath = pathArray.join('/');
-        if (searchParams) {
-          newPath = newPath + `?${searchParams}`;
-        }
-
-        history.replaceState(null, '', newPath);
-      } catch (validationError) {
-        setError((validationError as Yup.ValidationError).errors[0]);
-      }
-    };
-
-    validateVariables(variables);
-  }
+    history.replaceState(null, '', newPath);
+  };
 
   return (
     <div>
@@ -95,11 +78,9 @@ const VariablesSection: FC<VariablesSectionProps> = ({ setVariables }) => {
             name="variables"
             id="variables"
             placeholder="Variables..."
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onBlur={handleVariablesFocusOut}
+            value={variables}
+            onChange={handleChange}
           />
-          {error && <p className={styles.errorText}>{error}</p>}
         </fieldset>
       )}
     </div>

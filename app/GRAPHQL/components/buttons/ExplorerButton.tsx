@@ -1,8 +1,6 @@
 'use client';
 
 import Button from '@mui/material/Button';
-import styles from './buttons.module.css';
-import cn from 'classnames';
 
 type ExplorerButtonProps = {
   showFn: () => void;

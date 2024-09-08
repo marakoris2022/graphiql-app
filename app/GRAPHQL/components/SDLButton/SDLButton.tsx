@@ -8,11 +8,37 @@ import Button from '@mui/material/Button';
 type SDLExplorerButtonProps = {
   open: boolean;
   setOpen: (data: boolean) => void;
-  valueSDL: string;
+  endpointURL: string;
+  endpointSDL: string;
+  setErrors: (data: Record<string, string>) => void;
 };
 
-const SDLButton = ({ open, setOpen, valueSDL }: SDLExplorerButtonProps) => {
+const SDLButton = ({
+  open,
+  setOpen,
+  endpointURL,
+  endpointSDL,
+  setErrors,
+}: SDLExplorerButtonProps) => {
   const [isPending, startTransition] = useTransition();
+
+  const handleClick = async () => {
+    if (endpointURL || endpointSDL) {
+      setErrors({});
+      if (open) {
+        setOpen(false);
+      }
+      const valueSDL = endpointSDL ? endpointSDL : endpointURL;
+      startTransition(async () => {
+        const result = await createSDLQuery(`${valueSDL}`);
+        if (result && '__schema' in result) {
+          setOpen(true);
+        }
+      });
+    } else {
+      setErrors({ endpointURL: 'Either endpointURL or endpointSDL is required' });
+    }
+  };
 
   return (
     <Button
@@ -22,20 +48,7 @@ const SDLButton = ({ open, setOpen, valueSDL }: SDLExplorerButtonProps) => {
       color="primary"
       className={styles.sdlDocBtn}
       type="button"
-      onClick={async () => {
-        if (!valueSDL) {
-          throw new Error('Endpoint must be a not empty valid string');
-        }
-        if (open) {
-          setOpen(false);
-        }
-        startTransition(async () => {
-          const result = await createSDLQuery(`${valueSDL}`);
-          if (result && '__schema' in result) {
-            setOpen(true);
-          }
-        });
-      }}
+      onClick={handleClick}
     >
       {isPending ? 'Downloading...' : 'Get Schema'}
     </Button>
