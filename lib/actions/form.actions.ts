@@ -25,9 +25,15 @@ export async function createQuery(
   data: FormData
 ): Promise<FormCheckResult> {
   try {
-    const endpointURL = data.get("endpointURL") as string;
-    const query = data.get("query") as string;
-    const variables = data.get("variables") as string || '{}';
+    const endpointURL = data.get("endpointURL") as string | null;
+    const query = data.get("query") as string | null;
+    if (!endpointURL) {
+      throw new Error('Endpoint is required')
+    }
+    if (!query) {
+      throw new Error('Body of GraphQL Query is required')
+    }
+    const variables = (data.get("variables") as string | null) || '{}';
     const headersKeys = data.getAll("headerKey") as string[];
     const headersValues = data.getAll("headerValue") as string[];
     const queryHeaders: Record<string, string> = {};
@@ -42,32 +48,43 @@ export async function createQuery(
     try {
       variablesOfJSONFormat = JSON.parse(variables);
     } catch (e) {
-      return {status: null, message: "Invalid JSON format for variables." };
+      return {title: 'Error', status: null, message: "Invalid JSON format for variables." };
     }
 
     const response = await makeRequest({ endpointURL, query, queryHeaders, variablesOfJSONFormat });
 
     if (response.status >= 400 && response.status <= 499) {
       const responseOfJSONFormat = await response.json();
-       return {
+      return {
+         title: 'Response',
          status: response.status,
          message: `${JSON.stringify(responseOfJSONFormat, null, 2)}`,
       }
   } else if (response.status >= 500 && response.status <= 599) {
       const responseOfTextFormat = await response.text();
       return {
+        title: 'Response',
          status: response.status,
          message: responseOfTextFormat,
       }
-  } else {
+  } else if(response.status >= 200 && response.status <= 299){
       const responseOfJSONFormat = await response.json();
-       return {
+      return {
+         title: 'Response',
         status: response.status,
          message: `${JSON.stringify(responseOfJSONFormat, null, 2)}`,
       }
+    } else {
+      const responseOfTextFormat = await response.text();
+      return  {
+      title: 'Error',
+      status: response.status,
+      message: responseOfTextFormat
+    };
   }
   } catch (error) {
     return {
+      title: 'Error',
       status: null,
       message: error instanceof Error ? error.message : 'Something went wrong',
     };

@@ -16,10 +16,12 @@ import VariablesSection from '../variables/VariablesSection';
 import ExplorerButton from '../buttons/ExplorerButton';
 import Headers from '../headers/Headers';
 import SchemaDocumentation from '../schemaDocumentation/SchemaDocumentation';
+import { ResultBlock } from '@/app/components/REST/components/ResultBlock';
 
 const GQLForm = () => {
   const ref = useRef<HTMLFormElement>(null);
   const [data, action] = useFormState(createQuery, {
+    title: '',
     status: null,
     message: '',
   });
@@ -72,10 +74,11 @@ const GQLForm = () => {
       </form>
       <div className={styles.responseField}>
         {data.message && (
-          <div>
-            <div>Status: {data.status}</div>
-            <textarea className={styles.responseArea} readOnly value={data.message} />
-          </div>
+          <ResultBlock
+            title={data.title}
+            responseData={data.message}
+            statusCode={`${data.status}`}
+          />
         )}
       </div>
     </div>
