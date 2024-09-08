@@ -1,10 +1,10 @@
-import axios, { AxiosError } from "axios";
-import { decodeBase64 } from "@/app/[...rest]/utils";
-import { MainForm } from "../components/REST/MainForm";
-import { ResultBlock } from "../components/REST/components/ResultBlock";
+import axios, { AxiosError } from 'axios';
+import { decodeBase64 } from '@/app/[...rest]/utils';
+import { MainForm } from '../components/REST/MainForm';
+import { ResultBlock } from '../components/REST/components/ResultBlock';
 
-import styles from "./page.module.css";
-import { getTranslations } from "next-intl/server";
+import styles from './page.module.css';
+import { getTranslations } from 'next-intl/server';
 
 type RestClientProps = {
   params: {
@@ -13,21 +13,18 @@ type RestClientProps = {
   searchParams: { [K: string]: string };
 };
 
-export default async function RestClient({
-  params,
-  searchParams,
-}: RestClientProps) {
+export default async function RestClient({ params, searchParams }: RestClientProps) {
   const { rest } = params;
 
-  const t = await getTranslations("apiClient");
+  const t = await getTranslations('apiClient');
 
-  let responseTitle = "";
+  let responseTitle = '';
   let responseData = null;
-  let responseStatusCode = "";
+  let responseStatusCode = '';
   let body = null;
   let url = undefined;
 
-  const method = decodeURIComponent(rest?.[0]) || "GET";
+  const method = decodeURIComponent(rest?.[0]) || 'GET';
   const encodedUrl = decodeURIComponent(rest?.[1]);
   const encodedBody = Boolean(rest?.[2]) ? decodeURIComponent(rest?.[2]) : null;
 
@@ -37,7 +34,7 @@ export default async function RestClient({
       body = decodeBase64(encodedBody);
     }
   } catch (error) {
-    responseTitle = t("error");
+    responseTitle = t('error');
     if (error instanceof Error) {
       responseData = error.message;
     } else {
@@ -66,11 +63,11 @@ export default async function RestClient({
   try {
     const response = await axios(requestData);
 
-    responseTitle = t("result");
+    responseTitle = t('result');
     responseData = response.data;
     responseStatusCode = String(response.status);
   } catch (error) {
-    responseTitle = t("error");
+    responseTitle = t('error');
 
     if (error instanceof AxiosError) {
       responseData = error.message;
@@ -81,8 +78,8 @@ export default async function RestClient({
   }
 
   if (rest.length === 1) {
-    responseTitle = t("restTitle");
-    responseData = t("responseTitle");
+    responseTitle = t('restTitle');
+    responseData = t('responseTitle');
   }
 
   return (
