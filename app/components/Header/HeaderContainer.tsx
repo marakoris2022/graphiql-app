@@ -26,6 +26,15 @@ export const HeaderContainer = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (!ref.current) return;
+    if (window.scrollY > 10) {
+      ref.current.classList.add('sticky');
+    } else {
+      ref.current.classList.remove('sticky');
+    }
+  }, []);
+
   return (
     <header ref={ref}>
       <div className="container">

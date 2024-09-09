@@ -1,0 +1,82 @@
+.aboutPageWrapper {
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%;
+}
+
+.aboutPageWrapper .aboutPageTitle {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+.aboutPageWrapper .aboutCardsWrapper {
+  display: flex;
+  gap: 15px;
+  padding: 15px 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .aboutPageWrapper .aboutCardsWrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.aboutPageWrapper .projectTextWrapper {
+  padding: 0 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.aboutPageWrapper .projectTextWrapper .textImages,
+.aboutPageWrapper .projectTextWrapper .reactLogo,
+.aboutPageWrapper .projectTextWrapper .zustandImg {
+  display: block;
+  width: 30%;
+  min-width: 240px;
+  margin: 0 auto;
+  border-radius: 15px;
+  max-height: 260px;
+}
+
+.aboutPageWrapper .projectTextWrapper .reactLogo {
+  width: 120px;
+}
+
+.aboutPageWrapper .projectTextWrapper .zustandImg {
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(0, 255, 68, 0.4);
+  -moz-box-shadow: 2px 2px 2px 0px rgba(0, 255, 68, 0.4);
+  box-shadow: 2px 2px 2px 0px rgba(0, 255, 68, 0.4);
+}
+
+.aboutPageWrapper .projectTextWrapper .projectText {
+  text-indent: 20px;
+  line-height: 1.4;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 1300px) {
+  .aboutPageWrapper .projectTextWrapper .projectText {
+    font-size: 1.6vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutPageWrapper .projectTextWrapper .projectText {
+    font-size: 18px;
+  }
+}
+
+.aboutPageWrapper .rsSchoolWrapper {
+  width: 100%;
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.aboutPageWrapper .rsSchoolWrapper .rsSchoolLink {
+  display: inline-block;
+  margin: 0 auto;
+}

@@ -3,7 +3,6 @@ import SchoolIcon from '@mui/icons-material/School';
 import Groups2Icon from '@mui/icons-material/Groups2';
 import TaskIcon from '@mui/icons-material/Task';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { Icon } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
 export const AboutCourse = () => {

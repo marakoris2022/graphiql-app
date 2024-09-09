@@ -46,5 +46,3 @@ export const AboutProject = () => {
     </section>
   );
 };
-
-//accessibility-logo.svg

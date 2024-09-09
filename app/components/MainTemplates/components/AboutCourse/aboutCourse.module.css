@@ -18,6 +18,7 @@
   align-items: stretch;
   gap: 20px;
 }
+
 .cardContainer {
   background-color: white;
   padding: 20px;
@@ -53,4 +54,13 @@
 
 .aboutCourseContainer a:hover {
   text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .cardsContainer {
+    flex-direction: column;
+  }
+  .cardContainer {
+    width: 100%;
+  }
 }
