@@ -111,5 +111,19 @@
     "graphqlClient": "GraphQL Client",
     "repeat": "Repeat",
     "remove": "Remove"
+  },
+  "aboutCourse": {
+    "title": "About course",
+    "everyoneTitle": "For everyone",
+    "everyoneDesc": "Everyone can study at RS School, regardless of age, professional employment, or place of residence. However, you should have sufficient base knowledge before the program begins.",
+    "educationTitle": "Free education",
+    "educationDesc": "Feel the desire to share your experience and knowledge.",
+    "certificateTitle": "Certificate",
+    "certificateDesc": "The certificate will be awarded to you once you complete the course.",
+    "materialsTitle": "Materials",
+    "materialsDesc": "All materials are publicly available on the ",
+    "schoolDocs": "School documentation",
+    "channel": "channel",
+    "and": "and"
   }
 }

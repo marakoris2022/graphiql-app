@@ -1,9 +1,5 @@
-/* .aboutCourseContainer {
-  text-align: center;
-} */
-
 .aboutCourseContainer {
-  padding: 2rem;
+  padding: 20px;
   background-color: #eee;
   border-radius: 10px;
   margin: 0 auto;
@@ -16,11 +12,18 @@
   text-align: center;
 }
 
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 20px;
+}
 .cardContainer {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   background-color: white;
   padding: 20px;
   border-radius: 5px;
+  width: calc(50% - 10px);
 }
 
 .cardTitleContainer {
@@ -39,7 +42,6 @@
   font-size: 1rem;
   line-height: 1.5;
   color: #555;
-  max-width: 80%;
 }
 
 .aboutCourseContainer a {
