@@ -3,6 +3,7 @@ import { CustomLink } from '../CustomLink/CustomLink';
 import styles from './mainTemplates.module.css';
 import { useTranslations } from 'next-intl';
 import { AboutCourse } from './components/AboutCourse/AboutCourse';
+import { About } from './components/About/About';
 
 export const MainUnLoggedUser = () => {
   const t = useTranslations('mainUnLoggedUser');
@@ -13,7 +14,7 @@ export const MainUnLoggedUser = () => {
         <CustomLink href={RoutePath.SIGN_IN} title={t('signIn')} />
         <CustomLink href={RoutePath.SIGN_UP} title={t('signUp')} />
       </div>
-      <AboutCourse />
+      <About />
     </section>
   );
 };
