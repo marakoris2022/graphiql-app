@@ -11,7 +11,7 @@ test("REST MainForm / ResultBlock render 'Endpoint URL'", async () => {
       <MainForm />
 
       <ResultBlock
-        title={"test Title"}
+        title={"result"}
         responseData={"test response"}
         statusCode={"200"}
       />

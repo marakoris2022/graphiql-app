@@ -10,13 +10,26 @@ import PrettifyButton from "@/app/GRAPHQL/components/buttons/PrettifyButton";
 import ExplorerButton from "@/app/GRAPHQL/components/buttons/ExplorerButton";
 import QuerySection from "@/app/GRAPHQL/components/querySection/QuerySection";
 import VariablesSection from "@/app/GRAPHQL/components/variables/VariablesSection";
-import DocExplorerWithErrorHandling from "@/app/GRAPHQL/components/schemaDocumentation/DocExplorerWithErrorHandling";
-import ErrorCatcher from "@/app/GRAPHQL/components/schemaDocumentation/ErrorCatcher";
 
-// Ensure mocking happens before any imports if necessary
-vi.mock("react-dom", () => ({
-  useFormStatus: () => ({ pending: false }), // Adjust this if you need to simulate different states
-}));
+// Type the actual import
+type ReactDomModule = typeof import("react-dom");
+
+vi.mock("react-dom", async (importOriginal) => {
+  const actual: ReactDomModule = await importOriginal();
+
+  return {
+    ...actual,
+    useFormStatus: () => ({ pending: false }), // Mock for useFormStatus
+    // useFormState: (action, initialState, permalink) => {
+    //   const mockState = initialState; // Set mock state as needed
+    //   const mockDispatch = vi.fn(); // Dispatch is mocked without invoking action
+    //   const isPending = false; // Set pending state according to your test scenario
+
+    //   // Simply return the mock state, mock dispatch, and the isPending flag
+    //   return [mockState, mockDispatch, isPending];
+    // },
+  };
+});
 
 test("SchemaDocumentation renders 'Error fetching schema'", async () => {
   renderWithProvider(<SchemaDocumentation valueSDL={"a"} />);
@@ -38,12 +51,12 @@ test("EndpointURL renders 'Endpoint URL:'", async () => {
   expect(element).not.toBeNull();
 });
 
-test("EndpointSDL renders 'SDL Endpoint:'", async () => {
+test("EndpointSDL renders 'Endpoint SDL:'", async () => {
   renderWithProvider(
     <EndpointSDL setSDL={() => {}} sdlValue={"SDL"} setOpen={() => {}} />
   );
 
-  const element = await screen.findAllByText("SDL Endpoint:");
+  const element = await screen.findAllByText("Endpoint SDL:");
   expect(element[0]).not.toBeNull();
 });
 
@@ -64,6 +77,7 @@ test("SDLButton renders 'Get Schema'", async () => {
       endpointURL={"a"}
       endpointSDL={"b"}
       setErrors={() => {}}
+      errors={{ a: "b" }}
     />
   );
 
@@ -116,7 +130,7 @@ test("QuerySection renders and interacts correctly", async () => {
   // You can add expectations for what should happen on blur if needed
 });
 
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 
 test("VariablesSection renders 'Explorer'", async () => {
   renderWithProvider(
@@ -126,3 +140,10 @@ test("VariablesSection renders 'Explorer'", async () => {
   const element = await screen.findByText("Explorer");
   expect(element).not.toBeNull();
 });
+
+// test("GQLForm renders 'GQLForm'", async () => {
+//   renderWithProvider(<GQLForm />);
+
+//   const element = await screen.findByText("Explorer");
+//   expect(element).not.toBeNull();
+// });
