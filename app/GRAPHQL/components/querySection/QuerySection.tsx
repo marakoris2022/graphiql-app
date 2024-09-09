@@ -1,22 +1,17 @@
-import { decodeBase64, encodeBase64 } from '@/app/[...rest]/utils';
+import { encodeBase64 } from '@/app/[...rest]/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { FC, FocusEvent, useEffect, useState } from 'react';
+import { FC, FocusEvent } from 'react';
 import styles from './querySection.module.css';
 
 type QuerySectionProps = {
   variables: string;
+  setQueryArea: (data: string) => void;
+  queryArea: string;
 };
 
-const QuerySection: FC<QuerySectionProps> = ({ variables }) => {
+const QuerySection: FC<QuerySectionProps> = ({ variables, setQueryArea, queryArea }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams().toString();
-
-  const [value, setValue] = useState<string>(() => {
-    const pathArray = pathname.split('/');
-    const query = pathArray[3];
-    const decodedQuery = query ? JSON.parse(decodeURIComponent(decodeBase64(query))).query : '';
-    return decodedQuery;
-  });
 
   function handleQueryFocusOut(e: FocusEvent<HTMLTextAreaElement>) {
     const queryStr = e.target.value;
@@ -54,8 +49,10 @@ const QuerySection: FC<QuerySectionProps> = ({ variables }) => {
         name="query"
         id="query"
         placeholder="Query..."
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={queryArea}
+        onChange={(e) => {
+          setQueryArea(e.target.value);
+        }}
         onBlur={handleQueryFocusOut}
       ></textarea>
     </fieldset>
