@@ -1,5 +1,6 @@
 import { encodeBase64 } from '@/app/[...rest]/utils';
 import TextField from '@mui/material/TextField';
+import { useTranslations } from 'next-intl';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { ChangeEvent, FC } from 'react';
 
@@ -10,6 +11,8 @@ type EndpointURLProps = {
 };
 
 const EndpointURL: FC<EndpointURLProps> = ({ setURL, urlValue, setOpen }) => {
+  const t = useTranslations('apiClient');
+
   const pathname = usePathname();
   const pathArray = pathname.split('/');
   const searchParams = useSearchParams().toString();
@@ -34,7 +37,7 @@ const EndpointURL: FC<EndpointURLProps> = ({ setURL, urlValue, setOpen }) => {
       <TextField
         required
         variant="outlined"
-        label="Endpoint URL:"
+        label={`${t('urlPlaceholder')}:`}
         type="text"
         name="endpointURL"
         id="endpointURL"

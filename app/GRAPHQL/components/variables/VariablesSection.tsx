@@ -4,13 +4,19 @@ import { FC, useState, ChangeEvent, useCallback } from 'react';
 import styles from './variablesSection.module.css';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import Button from '@mui/material/Button';
+import { useTranslations } from 'next-intl';
 
 type VariablesSectionProps = {
   setVariables: (data: string) => void;
   variables: string;
 };
 
-const VariablesSection: FC<VariablesSectionProps> = ({ setVariables, variables }) => {
+const VariablesSection: FC<VariablesSectionProps> = ({
+  setVariables,
+  variables,
+}) => {
+  const t = useTranslations('apiClient');
+
   const pathname = usePathname();
   const searchParams = useSearchParams().toString();
   const [showVariablesBox, setShowVariablesBox] = useState<boolean>(false);
@@ -36,8 +42,12 @@ const VariablesSection: FC<VariablesSectionProps> = ({ setVariables, variables }
       pathArray[2] = '';
     }
     pathArray[3] = val
-      ? encodeBase64(encodeURIComponent(JSON.stringify({ query, variables: val })))
-      : encodeBase64(encodeURIComponent(JSON.stringify({ query, variables: '' })));
+      ? encodeBase64(
+          encodeURIComponent(JSON.stringify({ query, variables: val }))
+        )
+      : encodeBase64(
+          encodeURIComponent(JSON.stringify({ query, variables: '' }))
+        );
     let newPath = pathArray.join('/');
     if (searchParams) {
       newPath = newPath + `?${searchParams}`;
@@ -69,7 +79,7 @@ const VariablesSection: FC<VariablesSectionProps> = ({ setVariables, variables }
         >
           {showVariablesBox ? <IoIosArrowDown /> : <IoIosArrowForward />}
         </Button>
-        <h3>Variables</h3>
+        <h3>{t('variables')}</h3>
       </div>
       {showVariablesBox && (
         <fieldset>
@@ -77,7 +87,7 @@ const VariablesSection: FC<VariablesSectionProps> = ({ setVariables, variables }
             className={styles.variablesGraphQL}
             name="variables"
             id="variables"
-            placeholder="Variables..."
+            placeholder={`${t('variables')}...`}
             value={variables}
             onChange={handleChange}
           />
