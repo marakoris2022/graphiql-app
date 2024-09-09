@@ -3,6 +3,7 @@ import styles from './mainTemplates.module.css';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { RoutePath } from '@/utils/utils';
 import { useTranslations } from 'next-intl';
+import { About } from './components/About/About';
 
 type MainLoggedUserProps = {
   userName: string;
@@ -31,6 +32,7 @@ export const MainLoggedUser = ({ userName }: MainLoggedUserProps) => {
           </li>
         </ul>
       </nav>
+      <About />
     </div>
   );
 };

@@ -1,0 +1,27 @@
+.aboutProjectContainer {
+  padding: 20px;
+  background-color: #eee;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+.aboutProjectContainer h3 {
+  font-size: 1.4rem;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.aboutProjectContainer p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.aboutProjectContainer p:last-child {
+  margin-bottom: 0;
+}

@@ -1,5 +1,11 @@
 import { AboutCourse } from '../AboutCourse/AboutCourse';
+import { AboutProject } from '../AboutProject/AboutProject';
 
 export const About = () => {
-  return <AboutCourse />;
+  return (
+    <>
+      <AboutProject />
+      <AboutCourse />
+    </>
+  );
 };
