@@ -1,12 +1,15 @@
 'use client';
 
 import { Button } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 type PrettifyButtonProps = {
   handler: () => void;
 };
 
 const PrettifyButton = ({ handler }: PrettifyButtonProps) => {
+  const t = useTranslations('apiClient');
+
   return (
     <Button
       sx={{ color: 'white', background: 'grey' }}
@@ -14,7 +17,7 @@ const PrettifyButton = ({ handler }: PrettifyButtonProps) => {
       color="primary"
       onClick={handler}
     >
-      Prettify
+      {t('prettify')}
     </Button>
   );
 };

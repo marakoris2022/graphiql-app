@@ -17,6 +17,10 @@ export default async function RestClient({
   params,
   searchParams,
 }: RestClientProps) {
+export default async function RestClient({
+  params,
+  searchParams,
+}: RestClientProps) {
   const { rest } = params;
 
   const t = await getTranslations("apiClient");

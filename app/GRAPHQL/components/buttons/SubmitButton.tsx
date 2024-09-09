@@ -2,8 +2,11 @@
 
 import { useFormStatus } from 'react-dom';
 import { Button } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 const SubmitButton = () => {
+  const t = useTranslations('apiClient');
+
   const { pending } = useFormStatus();
 
   return (
@@ -14,7 +17,7 @@ const SubmitButton = () => {
       type="submit"
       disabled={pending}
     >
-      {pending ? 'Submitting...' : 'Submit'}
+      {pending ? t('submitting') : t('submit')}
     </Button>
   );
 };

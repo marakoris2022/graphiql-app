@@ -5,10 +5,12 @@ import { IoMdClose } from 'react-icons/io';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { useTranslations } from 'next-intl';
 
 type HeadersProps = {};
 
 const Headers: FC<HeadersProps> = ({}) => {
+  const t = useTranslations('apiClient');
   const search = useSearchParams();
 
   const [headers, setHeaders] = useState(() => {
@@ -28,7 +30,10 @@ const Headers: FC<HeadersProps> = ({}) => {
     const params = new URLSearchParams();
     headers.forEach((header) => {
       if (header.key && header.value) {
-        params.set(encodeURIComponent(header.key), encodeURIComponent(header.value));
+        params.set(
+          encodeURIComponent(header.key),
+          encodeURIComponent(header.value)
+        );
       }
     });
     const pewPath = pathname + '?' + params.toString();
@@ -43,7 +48,11 @@ const Headers: FC<HeadersProps> = ({}) => {
     setHeaders(headers.filter((_, i) => i !== index));
   };
 
-  const handleHeaderChange = (index: number, field: 'key' | 'value', value: string) => {
+  const handleHeaderChange = (
+    index: number,
+    field: 'key' | 'value',
+    value: string
+  ) => {
     const modified = [...headers];
     modified[index][field] = value;
     setHeaders(modified);
@@ -72,28 +81,32 @@ const Headers: FC<HeadersProps> = ({}) => {
         >
           {showHeaders ? <IoIosArrowDown /> : <IoIosArrowForward />}
         </Button>
-        <h3>Request Headers</h3>
+        <h3>{t('graphHeaders')}</h3>
       </div>
       {showHeaders && (
         <fieldset>
           {headers.map((header, index) => (
             <div className={styles.headerWrapper} key={index}>
               <TextField
-                label="Key:"
+                label={`${t('keyUpper')}:`}
                 variant="outlined"
                 name="headerKey"
                 id={`headerKey${index}`}
                 value={header.key}
-                onChange={(e) => handleHeaderChange(index, 'key', e.target.value)}
+                onChange={(e) =>
+                  handleHeaderChange(index, 'key', e.target.value)
+                }
                 sx={{ flex: '1' }}
               />
               <TextField
-                label="Value:"
+                label={`${t('valueUpper')}:`}
                 variant="outlined"
                 name="headerValue"
                 id={`headerValue${index}`}
                 value={header.value}
-                onChange={(e) => handleHeaderChange(index, 'value', e.target.value)}
+                onChange={(e) =>
+                  handleHeaderChange(index, 'value', e.target.value)
+                }
                 sx={{ flex: '1' }}
               />
               <Button
@@ -129,7 +142,7 @@ const Headers: FC<HeadersProps> = ({}) => {
             type="button"
             onClick={addHeader}
           >
-            Add Header
+            {t('addHeader')}
           </Button>
         </fieldset>
       )}

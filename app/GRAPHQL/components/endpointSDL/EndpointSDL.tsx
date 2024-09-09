@@ -1,5 +1,6 @@
 import { FC, useRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
+import { useTranslations } from 'next-intl';
 
 type EndpointSDLProps = {
   setSDL: (data: string) => void;
@@ -8,6 +9,8 @@ type EndpointSDLProps = {
 };
 
 const EndpointSDL: FC<EndpointSDLProps> = ({ setSDL, sdlValue, setOpen }) => {
+  const t = useTranslations('apiClient');
+
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     setOpen(false);
@@ -18,7 +21,7 @@ const EndpointSDL: FC<EndpointSDLProps> = ({ setSDL, sdlValue, setOpen }) => {
     <div>
       <TextField
         variant="outlined"
-        label="SDL Endpoint:"
+        label={t('sdlPlaceholder')}
         type="text"
         name="endpointSDL"
         id="endpointSDL"

@@ -2,6 +2,7 @@ import { encodeBase64 } from '@/app/[...rest]/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { FC, FocusEvent } from 'react';
 import styles from './querySection.module.css';
+import { useTranslations } from 'next-intl';
 
 type QuerySectionProps = {
   variables: string;
@@ -9,7 +10,13 @@ type QuerySectionProps = {
   queryArea: string;
 };
 
-const QuerySection: FC<QuerySectionProps> = ({ variables, setQueryArea, queryArea }) => {
+const QuerySection: FC<QuerySectionProps> = ({
+  variables,
+  setQueryArea,
+  queryArea,
+}) => {
+  const t = useTranslations('apiClient');
+
   const pathname = usePathname();
   const searchParams = useSearchParams().toString();
 
@@ -21,7 +28,7 @@ const QuerySection: FC<QuerySectionProps> = ({ variables, setQueryArea, queryAre
         pathArray[2] = '';
       }
       pathArray[3] = encodeBase64(
-        encodeURIComponent(JSON.stringify({ query: queryStr, variables })),
+        encodeURIComponent(JSON.stringify({ query: queryStr, variables }))
       );
       let newPath = pathArray.join('/');
       if (searchParams) {
@@ -43,12 +50,12 @@ const QuerySection: FC<QuerySectionProps> = ({ variables, setQueryArea, queryAre
 
   return (
     <fieldset>
-      <legend>Query</legend>
+      <legend>{t('query')}</legend>
       <textarea
         className={styles.queryArea}
         name="query"
         id="query"
-        placeholder="Query..."
+        placeholder={`${t('query')}...`}
         value={queryArea}
         onChange={(e) => {
           setQueryArea(e.target.value);
