@@ -130,6 +130,9 @@
     "title": "About project",
     "p1": "This project is a lightweight application that combines a REST and GraphQL client within a single interface. Developed using Next.js, it offers efficient server-side rendering and routing. Firebase authentication is integrated to provide secure user login and session management.",
     "p2": "The app is designed to allow users to interact with REST and GraphQL APIs in a streamlined and user-friendly environment, making it an all-in-one solution for API testing and development.",
-    "p3": "In addition to its core functionality, the app features a request history functionality. After submitting a request, the details are saved and added to a history list, allowing users to review and revisit previous requests. This feature enhances the usability of the app by providing easy access to past interactions with APIs."
+    "p3": "In addition to its core functionality, the app features a request history functionality. After submitting a request, the details are saved and added to a history list, allowing users to review and revisit previous requests. This feature enhances the usability of the app by providing easy access to past interactions with APIs.",
+    "and": "and",
+    "accessibility": "Accessibility",
+    "history": "Request History"
   }
 }
