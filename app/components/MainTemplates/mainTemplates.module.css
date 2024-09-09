@@ -10,3 +10,12 @@
   display: flex;
   gap: 20px;
 }
+
+.mainLinksContainer {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 20px 40px;
+  background-color: #eee;
+  border-radius: 5px;
+}

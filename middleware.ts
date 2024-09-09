@@ -38,8 +38,6 @@ export async function middleware(request: NextRequest) {
       });
     },
     handleInvalidToken: async (reason) => {
-      console.info('Missing or malformed credentials', { reason });
-
       const currentPath = request.nextUrl.pathname;
 
       if (
@@ -57,8 +55,6 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     },
     handleError: async (error) => {
-      console.error('Unhandled authentication error', { error });
-
       return NextResponse.redirect(new URL(RoutePath.SIGN_IN, request.url));
     },
   });
