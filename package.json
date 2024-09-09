@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prepare": "husky",
     "test": "jest",
-    "test:cover": "jest --coverage"
+    "test:cover": "jest --coverage",
+    "prettier-fix": "prettier . --write"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

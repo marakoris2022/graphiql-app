@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations({ locale, namespace: "metaRest" });
+  const t = await getTranslations({ locale, namespace: 'metaRest' });
 
   return {
-    title: t("title"),
+    title: t('title'),
   };
 }
 

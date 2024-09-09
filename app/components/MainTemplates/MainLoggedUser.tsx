@@ -3,6 +3,7 @@ import styles from './mainTemplates.module.css';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { RoutePath } from '@/utils/utils';
 import { useTranslations } from 'next-intl';
+import { About } from './components/About/About';
 
 type MainLoggedUserProps = {
   userName: string;
@@ -11,14 +12,17 @@ type MainLoggedUserProps = {
 export const MainLoggedUser = ({ userName }: MainLoggedUserProps) => {
   const t = useTranslations('mainLoggedUser');
   return (
-    <section className={styles.main}>
+    <div className={styles.main}>
       <h2>
         {t('title')} {userName}
       </h2>
       <nav>
-        <ul>
+        <ul className={styles.mainLinksContainer}>
           <li>
-            <CustomLink href={'/GRAPHQL'} title={t('graphiql')} />
+            <CustomLink
+              href={RoutePath.GRAPHIQL_CLIENT}
+              title={t('graphiql')}
+            />
           </li>
           <li>
             <CustomLink href={RoutePath.REST_CLIENT_GET} title={t('rest')} />
@@ -28,6 +32,7 @@ export const MainLoggedUser = ({ userName }: MainLoggedUserProps) => {
           </li>
         </ul>
       </nav>
-    </section>
+      <About />
+    </div>
   );
 };

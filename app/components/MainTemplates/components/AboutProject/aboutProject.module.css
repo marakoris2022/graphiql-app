@@ -1,0 +1,57 @@
+.aboutProjectContainer {
+  padding: 20px;
+  background-color: #eee;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+.aboutProjectContainer h3 {
+  font-size: 1.4rem;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.aboutProjectContainer p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 20px;
+}
+.cardContainer {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.cardContainer:last-child {
+  margin-bottom: 0;
+}
+
+.cardTitleContainer {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.aboutProjectContainer h4 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  font-size: 1.25rem;
+  color: #0070f3;
+}
+
+.aboutProjectContainer span {
+  display: block;
+  margin: 0 5px;
+}

@@ -1,22 +1,27 @@
-"use server";
+'use server';
 
-import type { FormCheckResult } from "@/lib/types";
+import type { FormCheckResult } from '@/lib/types';
 
 type GraphQLRequest = {
   endpointURL: string;
   query: string;
-  queryHeaders: { [key: string]: string },
-  variablesOfJSONFormat: { [key: string]: string | number }
-}
+  queryHeaders: { [key: string]: string };
+  variablesOfJSONFormat: { [key: string]: string | number };
+};
 
-const makeRequest = ({ endpointURL, query, queryHeaders={}, variablesOfJSONFormat = {} }: GraphQLRequest): Promise<Response>  => {
+const makeRequest = ({
+  endpointURL,
+  query,
+  queryHeaders = {},
+  variablesOfJSONFormat = {},
+}: GraphQLRequest): Promise<Response> => {
   return fetch(endpointURL, {
-    method: "POST",
+    method: 'POST',
     headers: {
       ...queryHeaders,
-      "Content-type": "application/json",
+      'Content-type': 'application/json',
     },
-    body: JSON.stringify({ query, variables: variablesOfJSONFormat})
+    body: JSON.stringify({ query, variables: variablesOfJSONFormat }),
   });
 };
 
@@ -25,17 +30,17 @@ export async function createQuery(
   data: FormData
 ): Promise<FormCheckResult> {
   try {
-    const endpointURL = data.get("endpointURL") as string | null;
-    const query = data.get("query") as string | null;
+    const endpointURL = data.get('endpointURL') as string | null;
+    const query = data.get('query') as string | null;
     if (!endpointURL) {
-      throw new Error('Endpoint is required')
+      throw new Error('Endpoint is required');
     }
     if (!query) {
-      throw new Error('Body of GraphQL Query is required')
+      throw new Error('Body of GraphQL Query is required');
     }
-    const variables = (data.get("variables") as string | null) || '{}';
-    const headersKeys = data.getAll("headerKey") as string[];
-    const headersValues = data.getAll("headerValue") as string[];
+    const variables = (data.get('variables') as string | null) || '{}';
+    const headersKeys = data.getAll('headerKey') as string[];
+    const headersValues = data.getAll('headerValue') as string[];
     const queryHeaders: Record<string, string> = {};
 
     headersKeys.forEach((key, i) => {
@@ -48,40 +53,49 @@ export async function createQuery(
     try {
       variablesOfJSONFormat = JSON.parse(variables);
     } catch (e) {
-      return {title: 'Error', status: null, message: "Invalid JSON format for variables." };
+      return {
+        title: 'Error',
+        status: null,
+        message: 'Invalid JSON format for variables.',
+      };
     }
 
-    const response = await makeRequest({ endpointURL, query, queryHeaders, variablesOfJSONFormat });
+    const response = await makeRequest({
+      endpointURL,
+      query,
+      queryHeaders,
+      variablesOfJSONFormat,
+    });
 
     if (response.status >= 400 && response.status <= 499) {
       const responseOfJSONFormat = await response.json();
       return {
-         title: 'Response',
-         status: response.status,
-         message: `${JSON.stringify(responseOfJSONFormat, null, 2)}`,
-      }
-  } else if (response.status >= 500 && response.status <= 599) {
+        title: 'Response',
+        status: response.status,
+        message: `${JSON.stringify(responseOfJSONFormat, null, 2)}`,
+      };
+    } else if (response.status >= 500 && response.status <= 599) {
       const responseOfTextFormat = await response.text();
       return {
         title: 'Response',
-         status: response.status,
-         message: responseOfTextFormat,
-      }
-  } else if(response.status >= 200 && response.status <= 299){
+        status: response.status,
+        message: responseOfTextFormat,
+      };
+    } else if (response.status >= 200 && response.status <= 299) {
       const responseOfJSONFormat = await response.json();
       return {
-         title: 'Response',
+        title: 'Response',
         status: response.status,
-         message: `${JSON.stringify(responseOfJSONFormat, null, 2)}`,
-      }
+        message: `${JSON.stringify(responseOfJSONFormat, null, 2)}`,
+      };
     } else {
       const responseOfTextFormat = await response.text();
-      return  {
-      title: 'Error',
-      status: response.status,
-      message: responseOfTextFormat
-    };
-  }
+      return {
+        title: 'Error',
+        status: response.status,
+        message: responseOfTextFormat,
+      };
+    }
   } catch (error) {
     return {
       title: 'Error',
@@ -91,11 +105,11 @@ export async function createQuery(
   }
 }
 
-
-
 import { getIntrospectionQuery } from 'graphql/utilities';
 
-export async function createSDLQuery(endpointSDL: string): Promise<typeof Object> {
+export async function createSDLQuery(
+  endpointSDL: string
+): Promise<typeof Object> {
   try {
     const response = await fetch(endpointSDL, {
       method: 'POST',
@@ -109,11 +123,13 @@ export async function createSDLQuery(endpointSDL: string): Promise<typeof Object
     });
 
     if (response.status >= 500 && response.status <= 599) {
-      throw new Error ( '500 Internal Server Error');
+      throw new Error('500 Internal Server Error');
     }
 
     if (response.status >= 400 && response.status <= 499) {
-      throw new Error (`Client Error: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `Client Error: ${response.status} ${response.statusText}`
+      );
     }
 
     if (!response.ok) {
@@ -126,7 +142,6 @@ export async function createSDLQuery(endpointSDL: string): Promise<typeof Object
       throw new Error('No data found in the response.');
     }
     return result.data;
-
   } catch (error) {
     throw error;
   }

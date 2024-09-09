@@ -1,15 +1,15 @@
-import { formatTimestamp } from "@/app/[...rest]/utils";
-import { Box, Button, Divider, TextField, Typography } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import AutoDeleteIcon from "@mui/icons-material/AutoDelete";
-import { HistoryPops } from "@/app/interface/interface";
-import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { formatTimestamp } from '@/app/[...rest]/utils';
+import { Box, Button, Divider, TextField, Typography } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
+import { HistoryPops } from '@/app/interface/interface';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const styleFlexCenter = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 };
 
 export default function HistoryItems({
@@ -19,15 +19,15 @@ export default function HistoryItems({
   history: HistoryPops;
   removeHistoryItem: (date: number) => void;
 }) {
-  const t = useTranslations("history");
+  const t = useTranslations('history');
   const { push } = useRouter();
 
   return (
     <Box
       sx={{
         ...styleFlexCenter,
-        flexDirection: "column",
-        gap: "15px",
+        flexDirection: 'column',
+        gap: '15px',
       }}
     >
       {history.map((historyItem) => {
@@ -36,19 +36,19 @@ export default function HistoryItems({
             key={historyItem.Date}
             sx={{
               ...styleFlexCenter,
-              border: "solid 1px rgba(25, 118, 210, 0.5)",
+              border: 'solid 1px rgba(25, 118, 210, 0.5)',
               borderRadius: 2,
-              width: "80%",
-              gap: "5px",
-              padding: "5px 15px",
-              flexDirection: { lg: "row", md: "column", xs: "column" },
+              width: '80%',
+              gap: '5px',
+              padding: '5px 15px',
+              flexDirection: { lg: 'row', md: 'column', xs: 'column' },
             }}
           >
             <Box
               sx={{
                 ...styleFlexCenter,
-                width: "100%",
-                gap: "5px",
+                width: '100%',
+                gap: '5px',
               }}
             >
               <Typography>{historyItem.method}</Typography>
@@ -62,13 +62,13 @@ export default function HistoryItems({
                 id="standard-basic"
                 value={historyItem.EndpointURL}
                 variant="standard"
-                sx={{ width: "100%" }}
+                sx={{ width: '100%' }}
               />
             </Box>
             <Box
               sx={{
                 ...styleFlexCenter,
-                gap: "5px",
+                gap: '5px',
               }}
             >
               <Typography>{formatTimestamp(historyItem.Date)}</Typography>
@@ -76,8 +76,8 @@ export default function HistoryItems({
               <Box
                 sx={{
                   ...styleFlexCenter,
-                  flexWrap: { lg: "nowrap", md: "nowrap", xs: "wrap" },
-                  gap: "5px",
+                  flexWrap: { lg: 'nowrap', md: 'nowrap', xs: 'wrap' },
+                  gap: '5px',
                 }}
               >
                 <Button
@@ -86,14 +86,14 @@ export default function HistoryItems({
                   }}
                   endIcon={<SendIcon />}
                 >
-                  {t("repeat")}
+                  {t('repeat')}
                 </Button>
                 <Button
-                  sx={{ color: "darkred" }}
+                  sx={{ color: 'darkred' }}
                   endIcon={<AutoDeleteIcon />}
                   onClick={() => removeHistoryItem(historyItem.Date)}
                 >
-                  {t("remove")}
+                  {t('remove')}
                 </Button>
               </Box>
             </Box>

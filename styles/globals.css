@@ -71,11 +71,11 @@ main {
   font-size: 20px;
   display: block;
   transition: all 0.2s;
-  background-color: inherit;
+  background-color: white;
+  padding: 5px 10px;
   border: none;
   color: black;
-  padding-left: 0;
-  padding-right: 0;
+  border-radius: 5px;
 }
 
 .linkDefault:hover {
@@ -116,4 +116,40 @@ header {
   top: 0;
   z-index: 999;
   padding: 3px;
+}
+
+.logo {
+  position: relative;
+  display: block;
+  padding: 15px 30px;
+  padding-right: 42px;
+  padding-left: 42px;
+  text-decoration: none;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+  z-index: 5;
+  transition: all 0.2s ease;
+}
+
+.logoTitle {
+  position: relative;
+  z-index: 5;
+  color: black;
+  font-size: 20px;
+}
+
+.logo:hover {
+  transform: scale(1.02);
+  background-color: #9acc8f;
+  cursor: pointer;
+}
+
+.logo img {
+  transition: all 0.2s ease;
+}
+
+.logo:hover img {
+  filter: brightness(0) saturate(100%) invert(11%) sepia(99%) saturate(6022%)
+    hue-rotate(237deg) brightness(86%) contrast(98%);
 }

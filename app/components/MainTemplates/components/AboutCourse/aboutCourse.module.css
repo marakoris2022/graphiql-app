@@ -1,0 +1,66 @@
+.aboutCourseContainer {
+  padding: 20px;
+  background-color: #eee;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+.aboutCourseContainer h3 {
+  font-size: 1.4rem;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.cardContainer {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: calc(50% - 10px);
+}
+
+.cardTitleContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.aboutCourseContainer h4 {
+  font-size: 1.25rem;
+  color: #0070f3;
+}
+
+.aboutCourseContainer p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.aboutCourseContainer a {
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.aboutCourseContainer a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .cardsContainer {
+    flex-direction: column;
+  }
+  .cardContainer {
+    width: 100%;
+  }
+}

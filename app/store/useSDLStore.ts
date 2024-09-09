@@ -22,5 +22,5 @@ export const useSDLStore = create<SDLStore>()((set) => ({
   },
   addIntrospectionQuery: (data: IntrospectionQuery) => {
     set({ introspectionQuery: data });
-  }
+  },
 }));

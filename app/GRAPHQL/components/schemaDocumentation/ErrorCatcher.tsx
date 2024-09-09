@@ -7,7 +7,9 @@ import { useSDLStore } from '@/app/store/useSDLStore';
 type ErrorCatcherProps = {};
 
 const ErrorCatcher: FC<ErrorCatcherProps> = ({}) => {
-  const { fetchError, isFetching, schema, validationErrors } = useSchemaContext({ nonNull: true });
+  const { fetchError, isFetching, schema, validationErrors } = useSchemaContext(
+    { nonNull: true }
+  );
 
   const isOpenExplorer = useSDLStore((state) => state.isOpenExplorer);
   if (fetchError || !schema) {

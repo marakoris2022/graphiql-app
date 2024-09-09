@@ -1,5 +1,5 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
+'use client';
+import { useEffect, useRef, useState } from 'react';
 
 export const HeaderContainer = ({
   children,
@@ -13,17 +13,26 @@ export const HeaderContainer = ({
       if (!ref.current) return;
 
       if (window.scrollY > 10) {
-        ref.current.classList.add("sticky");
+        ref.current.classList.add('sticky');
       } else {
-        ref.current.classList.remove("sticky");
+        ref.current.classList.remove('sticky');
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    if (window.scrollY > 10) {
+      ref.current.classList.add('sticky');
+    } else {
+      ref.current.classList.remove('sticky');
+    }
   }, []);
 
   return (

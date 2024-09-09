@@ -1,13 +1,13 @@
-import Image from "next/image";
-import styles from "./footer.module.css";
-import { GitHubUserContainer } from "./GitHubUserContainer";
+import Image from 'next/image';
+import styles from './footer.module.css';
+import { GitHubUserContainer } from './GitHubUserContainer';
 
 export const Footer = () => {
   return (
     <footer>
       <div className="container">
         <div className={styles.footerContainer}>
-          <div style={{ fontSize: "18px" }}>2024 ©</div>
+          <div style={{ fontSize: '18px' }}>2024 ©</div>
           <div className={styles.githubContainer}>
             <GitHubUserContainer
               href="https://github.com/marakoris2022"
