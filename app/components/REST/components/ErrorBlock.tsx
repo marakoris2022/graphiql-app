@@ -1,4 +1,4 @@
-import styles from "./ErrorBlock.module.css";
+import styles from './ErrorBlock.module.css';
 
 export const ErrorBlock = ({ errorText }: { errorText: string }) => {
   if (!errorText) return <></>;

@@ -1,26 +1,26 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Header } from "./components/Header/Header";
-import { Footer } from "./components/Footer/Footer";
-import "../styles/globals.css";
-import { ToastContainer } from "react-toastify";
-import { toastContainerConfig } from "@/utils/utils";
-import "react-toastify/dist/ReactToastify.css";
-import { NextIntlClientProvider, useTranslations } from "next-intl";
-import { getLocale, getMessages, getTranslations } from "next-intl/server";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
+import '../styles/globals.css';
+import { ToastContainer } from 'react-toastify';
+import { toastContainerConfig } from '@/utils/utils';
+import 'react-toastify/dist/ReactToastify.css';
+import { NextIntlClientProvider, useTranslations } from 'next-intl';
+import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export async function generateMetadata({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations({ locale, namespace: "metaMain" });
+  const t = await getTranslations({ locale, namespace: 'metaMain' });
 
   return {
-    title: t("title"),
-    description: t("description"),
+    title: t('title'),
+    description: t('description'),
   };
 }
 

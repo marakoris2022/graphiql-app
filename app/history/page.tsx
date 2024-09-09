@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { Box, Container, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import Loading from "../loading";
-import { HistoryPops } from "../interface/interface";
-import HistoryItems from "../components/HISTORY/HistoryItems";
-import EmptyHistory from "../components/HISTORY/EmptyHistory";
-import HistoryLinks from "../components/HISTORY/HistoryLinks";
-import { useTranslations } from "next-intl";
+import { Box, Container, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import Loading from '../loading';
+import { HistoryPops } from '../interface/interface';
+import HistoryItems from '../components/HISTORY/HistoryItems';
+import EmptyHistory from '../components/HISTORY/EmptyHistory';
+import HistoryLinks from '../components/HISTORY/HistoryLinks';
+import { useTranslations } from 'next-intl';
 
 export default function History() {
-  const t = useTranslations("history");
+  const t = useTranslations('history');
 
   const [history, setHistory] = useState<HistoryPops>([]);
   const [mount, setMount] = useState(false);
@@ -18,11 +18,11 @@ export default function History() {
   const removeHistoryItem = (date: number) => {
     const updatedHistory = history.filter((item) => item.Date !== date);
     setHistory(updatedHistory);
-    localStorage.setItem("requestHistory", JSON.stringify(updatedHistory));
+    localStorage.setItem('requestHistory', JSON.stringify(updatedHistory));
   };
 
   useEffect(() => {
-    const historyFromLS = localStorage.getItem("requestHistory");
+    const historyFromLS = localStorage.getItem('requestHistory');
     if (historyFromLS) setHistory(JSON.parse(historyFromLS));
     setMount(true);
   }, []);
@@ -33,18 +33,18 @@ export default function History() {
     <Container>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          textAlign: "center",
-          padding: "30px 0px",
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          textAlign: 'center',
+          padding: '30px 0px',
         }}
       >
         <Typography
           variant="h1"
-          sx={{ fontSize: { lg: "4rem", md: "3rem", xs: "2rem" }, mb: "20px" }}
+          sx={{ fontSize: { lg: '4rem', md: '3rem', xs: '2rem' }, mb: '20px' }}
         >
-          {t("title")}
+          {t('title')}
         </Typography>
 
         {Boolean(history.length) ? (

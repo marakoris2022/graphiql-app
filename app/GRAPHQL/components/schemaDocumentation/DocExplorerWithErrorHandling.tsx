@@ -4,7 +4,9 @@ import { DocExplorer, useSchemaContext } from '@graphiql/react';
 import { useEffect } from 'react';
 
 const DocExplorerWithErrorHandling = () => {
-  const { fetchError, isFetching, schema, validationErrors } = useSchemaContext({ nonNull: true });
+  const { fetchError, isFetching, schema, validationErrors } = useSchemaContext(
+    { nonNull: true }
+  );
   const isOpenExplorer = useSDLStore((state) => state.isOpenExplorer);
 
   console.log('DocExplorerWithErrorHandling');

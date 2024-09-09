@@ -111,5 +111,40 @@
     "graphqlClient": "GraphQL Client",
     "repeat": "Repeat",
     "remove": "Remove"
+  },
+  "aboutCourse": {
+    "title": "About course",
+    "everyoneTitle": "For everyone",
+    "everyoneDesc": "Everyone can study at RS School, regardless of age, professional employment, or place of residence. However, you should have sufficient base knowledge before the program begins.",
+    "educationTitle": "Free education",
+    "educationDesc": "Feel the desire to share your experience and knowledge.",
+    "certificateTitle": "Certificate",
+    "certificateDesc": "The certificate will be awarded to you once you complete the course.",
+    "materialsTitle": "Materials",
+    "materialsDesc": "All materials are publicly available on the ",
+    "schoolDocs": "School documentation",
+    "channel": "channel",
+    "and": "and"
+  },
+  "aboutProject": {
+    "title": "About project",
+    "p1": "This project is a lightweight application that combines a REST and GraphQL client within a single interface. Developed using Next.js, it offers efficient server-side rendering and routing. Firebase authentication is integrated to provide secure user login and session management.",
+    "p2": "The app is designed to allow users to interact with REST and GraphQL APIs in a streamlined and user-friendly environment, making it an all-in-one solution for API testing and development.",
+    "p3": "In addition to its core functionality, the app features a request history functionality. After submitting a request, the details are saved and added to a history list, allowing users to review and revisit previous requests. This feature enhances the usability of the app by providing easy access to past interactions with APIs.",
+    "and": "and",
+    "accessibility": "Accessibility",
+    "history": "Request History"
+  },
+  "aboutUs": {
+    "title": "About us",
+    "olga": "Olga",
+    "olgaTitle": "Theoretical Master",
+    "olgaBio": "Intelligent and purposeful, Olga is our strategic thinker. She always thoroughly understands each issue before taking action, ensuring our solutions are well-informed and effective.",
+    "alex": "Alexander",
+    "alexTitle": "Anonymous Coder",
+    "alexBio": "Modest and persistent, Alexander is our dedicated learner. He prefers to gain knowledge through hands-on experience, bringing a practical approach to our projects.",
+    "sergey": "Sergey",
+    "sergeyTitle": "Our team lead",
+    "sergeyBio": "Confident and grounded, Sergey values everyone's input but stands firm on his convictions. His balanced approach ensures we stay true to our vision while considering all perspectives."
   }
 }
