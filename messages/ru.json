@@ -40,6 +40,8 @@
     "errEndpointUrl": "Требуется адрес URL, либо адрес SDL.",
     "errInvalidUrl": "Неправильный URL формат.",
     "errInvalidJson": "Неправильный JSON формат.",
+    "errInvalidGraphQLQuery": "Неправильный GraphQL запрос.",
+    "errRequiredQuery": "Запрос обязателен.",
     "urlPlaceholder": "Адрес URL",
     "sdlPlaceholder": "Адрес SDL:",
     "send": "Отправить",

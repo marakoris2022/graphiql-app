@@ -15,11 +15,6 @@ type SDLExplorerButtonProps = {
   errors: Record<string, string>;
 };
 
-const errMessages = [
-  'Either endpointURL or endpointSDL is required.',
-  'Требуется адрес URL, либо адрес SDL.',
-];
-
 const SDLButton = ({
   open,
   setOpen,
@@ -31,14 +26,6 @@ const SDLButton = ({
   const t = useTranslations('apiClient');
 
   const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    if (errors.endpointURL && errMessages.includes(errors.endpointURL)) {
-      setErrors({
-        endpointURL: t('errEndpointUrl'),
-      });
-    }
-  }, [t]);
 
   const handleClick = async () => {
     if (endpointURL || endpointSDL) {

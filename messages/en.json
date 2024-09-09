@@ -40,6 +40,8 @@
     "errRequiredUrl": "URL is required.",
     "errInvalidUrl": "Invalid URL format.",
     "errInvalidJson": "Invalid JSON format.",
+    "errInvalidGraphQLQuery": "Invalid GraphQL query.",
+    "errRequiredQuery": "Query is required.",
     "urlPlaceholder": "Endpoint URL",
     "sdlPlaceholder": "Endpoint SDL:",
     "send": "Send",

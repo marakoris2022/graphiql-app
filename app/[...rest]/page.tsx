@@ -13,7 +13,10 @@ type RestClientProps = {
   searchParams: { [K: string]: string };
 };
 
-export default async function RestClient({ params, searchParams }: RestClientProps) {
+export default async function RestClient({
+  params,
+  searchParams,
+}: RestClientProps) {
   const { rest } = params;
 
   const t = await getTranslations('apiClient');
@@ -63,11 +66,11 @@ export default async function RestClient({ params, searchParams }: RestClientPro
   try {
     const response = await axios(requestData);
 
-    responseTitle = t('result');
+    responseTitle = 'result';
     responseData = response.data;
     responseStatusCode = String(response.status);
   } catch (error) {
-    responseTitle = t('error');
+    responseTitle = 'error';
 
     if (error instanceof AxiosError) {
       responseData = error.message;
@@ -78,7 +81,7 @@ export default async function RestClient({ params, searchParams }: RestClientPro
   }
 
   if (rest.length === 1) {
-    responseTitle = t('restTitle');
+    responseTitle = 'result';
     responseData = t('responseTitle');
   }
 
