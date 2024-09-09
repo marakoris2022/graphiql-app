@@ -8,17 +8,17 @@ import {
   IconButton,
   TextField,
   Typography,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import {
   FieldValues,
   UseFormRegister,
   UseFormUnregister,
-} from "react-hook-form";
-import { useTranslations } from "next-intl";
+} from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 type HeadersProps = {
   register: UseFormRegister<FieldValues>;
@@ -26,7 +26,7 @@ type HeadersProps = {
 };
 
 export const Headers = ({ register, unregister }: HeadersProps) => {
-  const t = useTranslations("apiClient");
+  const t = useTranslations('apiClient');
 
   const params = useSearchParams();
   const arrayFromSearchParams = Array.from(params.keys());
@@ -44,39 +44,39 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
 
   return (
     <Box>
-      <Accordion sx={{ "&:hover": { backgroundColor: "#ECECEC" } }}>
+      <Accordion sx={{ '&:hover': { backgroundColor: '#ECECEC' } }}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3-content"
           id="panel3-header"
         >
-          {t("headers")}
+          {t('headers')}
         </AccordionSummary>
         <AccordionDetails>
           {count.length > 0 ? (
             count.map((_, index) => {
               const key = arrayFromSearchParams[index];
-              const value = key ? params.get(key) : "";
+              const value = key ? params.get(key) : '';
 
               return (
                 <Box
-                  sx={{ display: "flex", gap: "10px", mb: "5px" }}
+                  sx={{ display: 'flex', gap: '10px', mb: '5px' }}
                   key={index}
                 >
                   <TextField
-                    sx={{ width: "45%" }}
-                    label={t("key")}
+                    sx={{ width: '45%' }}
+                    label={t('key')}
                     id="outlined-size-small"
                     size="small"
-                    defaultValue={key || ""}
+                    defaultValue={key || ''}
                     {...register(`headerKey_${index}`)}
                   />
                   <TextField
-                    sx={{ width: "45%" }}
-                    label={t("value")}
+                    sx={{ width: '45%' }}
+                    label={t('value')}
                     id="outlined-size-small"
                     size="small"
-                    defaultValue={value || ""}
+                    defaultValue={value || ''}
                     {...register(`headerValue_${index}`)}
                   />
 
@@ -88,7 +88,7 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
                       <DeleteIcon />
                     </IconButton>
                   ) : (
-                    ""
+                    ''
                   )}
                 </Box>
               );
@@ -96,9 +96,9 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
           ) : (
             <Typography
               gutterBottom
-              sx={{ color: "text.secondary", fontSize: 14 }}
+              sx={{ color: 'text.secondary', fontSize: 14 }}
             >
-              {t("emptyHeaders")}
+              {t('emptyHeaders')}
             </Typography>
           )}
         </AccordionDetails>
@@ -108,7 +108,7 @@ export const Headers = ({ register, unregister }: HeadersProps) => {
             type="button"
             onClick={() => setCount((state) => [...state, state.length])}
           >
-            {t("add")}
+            {t('add')}
           </Button>
         </AccordionActions>
       </Accordion>
