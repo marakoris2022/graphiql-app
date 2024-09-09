@@ -1,9 +1,10 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
 import styles from './SDLButton.module.css';
 import { createSDLQuery } from '@/lib/actions/form.actions';
 import Button from '@mui/material/Button';
+import { useTranslations } from 'next-intl';
 
 type SDLExplorerButtonProps = {
   open: boolean;
@@ -11,6 +12,7 @@ type SDLExplorerButtonProps = {
   endpointURL: string;
   endpointSDL: string;
   setErrors: (data: Record<string, string>) => void;
+  errors: Record<string, string>;
 };
 
 const SDLButton = ({
@@ -19,7 +21,10 @@ const SDLButton = ({
   endpointURL,
   endpointSDL,
   setErrors,
+  errors,
 }: SDLExplorerButtonProps) => {
+  const t = useTranslations('apiClient');
+
   const [isPending, startTransition] = useTransition();
 
   const handleClick = async () => {
@@ -36,7 +41,9 @@ const SDLButton = ({
         }
       });
     } else {
-      setErrors({ endpointURL: 'Either endpointURL or endpointSDL is required' });
+      setErrors({
+        endpointURL: t('errEndpointUrl'),
+      });
     }
   };
 
@@ -50,7 +57,7 @@ const SDLButton = ({
       type="button"
       onClick={handleClick}
     >
-      {isPending ? 'Downloading...' : 'Get Schema'}
+      {isPending ? t('downloading') : t('getSchema')}
     </Button>
   );
 };

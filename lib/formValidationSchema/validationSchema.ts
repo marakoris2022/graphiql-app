@@ -1,54 +1,59 @@
 import * as Yup from 'yup';
 import { parse } from 'graphql';
 
-const variablesValidation = Yup.string()
+export const createVariablesValidation = (t: (key: string) => string) => {
+  return Yup.string()
     .nullable()
-    .transform(value => (value === '' ? null : value))
-    .test('isValidJSON', 'Invalid JSON format', (value) => {
-        if (!value) return true;
-        try {
-            JSON.parse(value);
-            return true;
-        } catch {
-            return false;
-        }
+    .transform((value) => (value === '' ? null : value))
+    .test('isValidJSON', t('errInvalidJson'), (value) => {
+      if (!value) return true;
+      try {
+        JSON.parse(value);
+        return true;
+      } catch {
+        return false;
+      }
     });
+};
 
-const queryValidation = Yup.string()
+export const createQueryValidation = (t: (key: string) => string) => {
+  return Yup.string()
     .nullable()
-    .transform(value => (value === '' ? null : value))
-    .test('is-valid-graphql', 'Invalid GraphQL query', (value) => {
-        if (!value) return true;
-        try {
-            parse(value);
-            return true;
-        } catch (error) {
-            return false;
-        }
+    .transform((value) => (value === '' ? null : value))
+    .test('is-valid-graphql', t('errInvalidGraphQLQuery'), (value) => {
+      if (!value) return true;
+      try {
+        parse(value);
+        return true;
+      } catch (error) {
+        return false;
+      }
     });
+};
 
-export const prettifySchema = Yup.object().shape({
-    query: queryValidation,
-    variables: variablesValidation
-});
+export const createGqlFormSchema = (t: (key: string) => string) => {
+  const variablesValidation = createVariablesValidation(t);
+  const queryValidation = createQueryValidation(t);
 
-export const gqlFormSchema = Yup.object().shape({
-    endpointURL: Yup.string().url('Invalid URL format').required('URL is required'),
+  return Yup.object().shape({
+    endpointURL: Yup.string()
+      .url(t('errInvalidUrl'))
+      .required(t('errRequiredUrl')),
     endpointSDL: Yup.string()
-        .url('Invalid URL format')
-        .nullable()
-        .transform(value => (value === '' ? null : value)),
-    query: Yup.string()
-        .required('Query is required')
-        .test('is-valid-graphql', 'Invalid GraphQL query', (value) => {
-            if (!value) return false;
-            try {
-                parse(value);
-                return true;
-            } catch (error) {
-                return false;
-            }
-        }),
-    variables: variablesValidation
-});
+      .url(t('errInvalidUrl'))
+      .nullable()
+      .transform((value) => (value === '' ? null : value)),
+    query: queryValidation,
+    variables: variablesValidation,
+  });
+};
 
+export const createPrettifySchema = (t: (key: string) => string) => {
+  const variablesValidation = createVariablesValidation(t);
+  const queryValidation = createQueryValidation(t);
+
+  return Yup.object().shape({
+    query: queryValidation,
+    variables: variablesValidation,
+  });
+};

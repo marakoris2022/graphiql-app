@@ -1,7 +1,7 @@
 'use client';
 
 import { createQuery } from '@/lib/actions/form.actions';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SubmitButton from '../buttons/SubmitButton';
 import styles from './gqlForm.module.css';
 import { useFormState } from 'react-dom';
@@ -16,12 +16,34 @@ import ExplorerButton from '../buttons/ExplorerButton';
 import Headers from '../headers/Headers';
 import SchemaDocumentation from '../schemaDocumentation/SchemaDocumentation';
 import { ResultBlock } from '@/app/components/REST/components/ResultBlock';
-import { gqlFormSchema, prettifySchema } from '@/lib/formValidationSchema/validationSchema';
+import {
+  createGqlFormSchema,
+  createPrettifySchema,
+} from '@/lib/formValidationSchema/validationSchema';
 import * as Yup from 'yup';
 import { usePathname } from 'next/navigation';
 import { decodeBase64 } from '@/app/[...rest]/utils';
+import { useTranslations } from 'next-intl';
+
+const errMessages = [
+  'Invalid URL format.',
+  'Неправильный URL формат.',
+  'Неправильный GraphQL запрос.',
+  'Invalid GraphQL query.',
+  'Invalid JSON format.',
+  'Неправильный JSON формат.',
+];
+
+const errMessagesUrl = [
+  'Either endpointURL or endpointSDL is required.',
+  'Требуется адрес URL, либо адрес SDL.',
+];
 
 const GQLForm = () => {
+  const t = useTranslations('apiClient');
+  const gqlFormSchema = createGqlFormSchema(t);
+  const prettifySchema = createPrettifySchema(t);
+
   const ref = useRef<HTMLFormElement>(null);
   const [data, action] = useFormState(createQuery, {
     title: '',
@@ -48,12 +70,40 @@ const GQLForm = () => {
   const [queryArea, setQueryArea] = useState<string>(() => {
     const pathArray = pathname.split('/');
     const query = pathArray[3];
-    const decodedQuery = query ? JSON.parse(decodeURIComponent(decodeBase64(query))).query : '';
+    const decodedQuery = query
+      ? JSON.parse(decodeURIComponent(decodeBase64(query))).query
+      : '';
     return decodedQuery;
   });
   const [open, setOpen] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const updatedErrors = { ...errors };
+
+    if (errors.endpointURL && errMessages.includes(errors.endpointURL)) {
+      updatedErrors.endpointURL = t('errInvalidUrl');
+    }
+
+    if (errors.endpointURL && errMessagesUrl.includes(errors.endpointURL)) {
+      updatedErrors.endpointURL = t('errEndpointUrl');
+    }
+
+    if (errors.query && errMessages.includes(errors.query)) {
+      updatedErrors.query = t('errInvalidGraphQLQuery');
+    }
+
+    if (errors.endpointSDL && errMessages.includes(errors.endpointSDL)) {
+      updatedErrors.endpointSDL = t('errInvalidUrl');
+    }
+
+    if (errors.variables && errMessages.includes(errors.variables)) {
+      updatedErrors.variables = t('errInvalidJson');
+    }
+
+    setErrors(updatedErrors);
+  }, [t]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -78,7 +128,7 @@ const GQLForm = () => {
             ...acc,
             [err.path!]: err.message,
           }),
-          {},
+          {}
         );
         setErrors(formErrors);
       }
@@ -109,7 +159,7 @@ const GQLForm = () => {
               ...acc,
               [err.path!]: err.message,
             }),
-            {},
+            {}
           );
           setErrors(formErrors);
         }
@@ -121,14 +171,36 @@ const GQLForm = () => {
     <div className={styles.graphiqlContainer}>
       {open && show && (
         <article className={styles.docsContainer}>
-          {<SchemaDocumentation valueSDL={endpointSDL ? endpointSDL : endpointURL} />}
+          {
+            <SchemaDocumentation
+              valueSDL={endpointSDL ? endpointSDL : endpointURL}
+            />
+          }
         </article>
       )}
-      <form className={styles.form} ref={ref} action={action} onSubmit={handleSubmit} noValidate>
-        <EndpointURL setURL={setEndpointURL} urlValue={endpointURL} setOpen={setOpen} />
-        {errors.endpointURL && <p className={styles.errorText}>{errors.endpointURL}</p>}
-        <EndpointSDL setSDL={setEndpointSDL} sdlValue={endpointSDL} setOpen={setOpen} />
-        {errors.endpointSDL && <p className={styles.errorText}>{errors.endpointSDL}</p>}
+      <form
+        className={styles.form}
+        ref={ref}
+        action={action}
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <EndpointURL
+          setURL={setEndpointURL}
+          urlValue={endpointURL}
+          setOpen={setOpen}
+        />
+        {errors.endpointURL && (
+          <p className={styles.errorText}>{errors.endpointURL}</p>
+        )}
+        <EndpointSDL
+          setSDL={setEndpointSDL}
+          sdlValue={endpointSDL}
+          setOpen={setOpen}
+        />
+        {errors.endpointSDL && (
+          <p className={styles.errorText}>{errors.endpointSDL}</p>
+        )}
         <Headers />
         <div className={styles.buttonContainer}>
           <span style={{ fontSize: '1.5rem' }}>
@@ -141,14 +213,24 @@ const GQLForm = () => {
             endpointURL={endpointURL}
             endpointSDL={endpointSDL}
             setErrors={setErrors}
+            errors={errors}
           />
           <PrettifyButton handler={formatQuery} />
           {open && <ExplorerButton showFn={() => setShow((prev) => !prev)} />}
         </div>
-        <QuerySection variables={variablesArea} setQueryArea={setQueryArea} queryArea={queryArea} />
+        <QuerySection
+          variables={variablesArea}
+          setQueryArea={setQueryArea}
+          queryArea={queryArea}
+        />
         {errors.query && <p className={styles.errorText}>{errors.query}</p>}
-        <VariablesSection setVariables={setVariablesArea} variables={variablesArea} />
-        {errors.variables && <p className={styles.errorText}>{errors.variables}</p>}
+        <VariablesSection
+          setVariables={setVariablesArea}
+          variables={variablesArea}
+        />
+        {errors.variables && (
+          <p className={styles.errorText}>{errors.variables}</p>
+        )}
       </form>
       <div className={styles.responseField}>
         {data.message && (
