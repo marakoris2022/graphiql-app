@@ -68,7 +68,9 @@ export function generateHeaders(headers: {
 export function generateURL(data: FormData | FieldValues) {
   const { EndpointURL, method, body, ...headers } = data as FormData;
 
-  const variables = JSON.parse(localStorage.getItem("RESTVariables") ?? "");
+  const localStorageData = localStorage.getItem("RESTVariables") ?? "";
+  const variables = localStorageData ? JSON.parse(localStorageData) : [];
+
   const variableURL = replaceVariables(EndpointURL, variables).replaceAll(
     '"',
     ""

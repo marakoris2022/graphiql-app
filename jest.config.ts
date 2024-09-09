@@ -15,6 +15,10 @@ const config: Config = {
   },
   setupFilesAfterEnv: ["<rootDir>/jest.config.ts"], // Uncomment if you have setup files
   // Add more setup options before each test is run
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/__tests__/utils/", // Ignore the utils folder inside __tests__
+  ],
 };
 
 export default createJestConfig(config);
