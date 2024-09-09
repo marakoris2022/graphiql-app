@@ -81,7 +81,7 @@ export default async function RestClient({
   }
 
   if (rest.length === 1) {
-    responseTitle = t("restTitle");
+    responseTitle = "result";
     responseData = t("responseTitle");
   }
 
