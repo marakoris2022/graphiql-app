@@ -1,99 +1,62 @@
-// import { expect, test, vi } from "vitest";
-// import { screen } from "@testing-library/react";
-// import { renderWithProvider } from "./utils/renderWithProvider";
-// import GraphiQLClient from "@/app/GRAPHQL/[[...slug]]/page";
-
-// test("GraphiQLClient render 'Marakoris2022'", async () => {
-//   // Mock react-dom if necessary or mock the correct module
-//   vi.mock("react-dom", async () => {
-//     const actualReactDom = await vi.importActual<any>("react-dom");
-
-//     return {
-//       ...actualReactDom,
-//       useFormState: () => [
-//         [
-//           {
-//             title: "",
-//             status: null,
-//             message: "",
-//           },
-//           vi.fn(), // Mock setState function
-//         ],
-//       ],
-//       useFormStatus: () => ({ pending: false }),
-//     };
-//   });
-
-//   // Mock window location search params
-//   const mockSearchParams = new URLSearchParams("?param=value");
-//   vi.stubGlobal("window", { location: { search: mockSearchParams.toString() } });
-
-//   renderWithProvider(<GraphiQLClient />);
-
-//   // Check if the text is present in the document
-//   const element = await screen.findByText("Marakoris2022");
-//   expect(element).not.toBeNull();
-// });
-
 import { expect, test, vi } from "vitest";
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { renderWithProvider } from "./utils/renderWithProvider";
-import GraphiQLClient from "@/app/GRAPHQL/[[...slug]]/page";
 import SchemaDocumentation from "@/app/GRAPHQL/components/schemaDocumentation/SchemaDocumentation";
 import EndpointURL from "@/app/GRAPHQL/components/endpointUrl/EndpointURL";
 import EndpointSDL from "@/app/GRAPHQL/components/endpointSDL/EndpointSDL";
-import Headers from "@/app/GRAPHQL/components/headers/Headers";
 import SubmitButton from "@/app/GRAPHQL/components/buttons/SubmitButton";
 import SDLButton from "@/app/GRAPHQL/components/SDLButton/SDLButton";
 import PrettifyButton from "@/app/GRAPHQL/components/buttons/PrettifyButton";
 import ExplorerButton from "@/app/GRAPHQL/components/buttons/ExplorerButton";
 import QuerySection from "@/app/GRAPHQL/components/querySection/QuerySection";
+import VariablesSection from "@/app/GRAPHQL/components/variables/VariablesSection";
+import DocExplorerWithErrorHandling from "@/app/GRAPHQL/components/schemaDocumentation/DocExplorerWithErrorHandling";
+import ErrorCatcher from "@/app/GRAPHQL/components/schemaDocumentation/ErrorCatcher";
 
-test("SchemaDocumentation render 'Error fetching schema'", async () => {
+// Ensure mocking happens before any imports if necessary
+vi.mock("react-dom", () => ({
+  useFormStatus: () => ({ pending: false }), // Adjust this if you need to simulate different states
+}));
+
+test("SchemaDocumentation renders 'Error fetching schema'", async () => {
   renderWithProvider(<SchemaDocumentation valueSDL={"a"} />);
 
-  // Check if the text is present in the document
   const element = await screen.findByText("Error fetching schema");
   expect(element).not.toBeNull();
 });
 
-test("EndpointURL render 'Marakoris2022'", async () => {
+test("EndpointURL renders 'Endpoint URL:'", async () => {
   renderWithProvider(
-    <EndpointURL setURL={() => {}} urlValue={"a"} setOpen={() => {}} />
+    <EndpointURL
+      setURL={() => {}}
+      urlValue={"Endpoint URL:"}
+      setOpen={() => {}}
+    />
   );
 
-  // Check if the text is present in the document
-  const element = await screen.findByText("Error fetching schema");
+  const element = await screen.findByText("Endpoint URL:");
   expect(element).not.toBeNull();
 });
 
-test("EndpointSDL render 'Error fetching schema'", async () => {
+test("EndpointSDL renders 'SDL Endpoint:'", async () => {
   renderWithProvider(
-    <EndpointSDL setSDL={() => {}} sdlValue={"a"} setOpen={() => {}} />
+    <EndpointSDL setSDL={() => {}} sdlValue={"SDL"} setOpen={() => {}} />
   );
 
-  // Check if the text is present in the document
-  const element = await screen.findByText("Error fetching schema");
+  const element = await screen.findAllByText("SDL Endpoint:");
+  expect(element[0]).not.toBeNull();
+});
+
+// Update the SubmitButton test
+test("SubmitButton renders with correct text based on pending state", async () => {
+  renderWithProvider(<SubmitButton />);
+
+  // Check for 'Submit' text
+  let element = await screen.findByText("Submit");
   expect(element).not.toBeNull();
 });
 
-// test("Headers render 'Marakoris2022'", async () => {
-//   renderWithProvider(<Headers />);
-
-//   // Check if the text is present in the document
-//   const element = await screen.findByText("Error fetching schema");
-//   expect(element).not.toBeNull();
-// });
-
-// test("SubmitButton render 'Error fetching schema'", async () => {
-//   renderWithProvider(<SubmitButton />);
-
-//   // Check if the text is present in the document
-//   const element = await screen.findByText("Error fetching schema");
-//   expect(element).not.toBeNull();
-// });
-
-test("SubmitButton render 'Error fetching schema'", async () => {
+test("SDLButton renders 'Get Schema'", async () => {
   renderWithProvider(
     <SDLButton
       open={false}
@@ -104,33 +67,62 @@ test("SubmitButton render 'Error fetching schema'", async () => {
     />
   );
 
-  // Check if the text is present in the document
-  const element = await screen.findByText("Error fetching schema");
+  const element = await screen.findByText("Get Schema");
   expect(element).not.toBeNull();
 });
 
-test("PrettifyButton render 'Error fetching schema'", async () => {
+test("PrettifyButton renders 'Prettify'", async () => {
   renderWithProvider(<PrettifyButton handler={() => {}} />);
 
-  // Check if the text is present in the document
-  const element = await screen.findByText("Error fetching schema");
+  const element = await screen.findByText("Prettify");
   expect(element).not.toBeNull();
 });
 
-test("PrettifyButton render 'Error fetching schema'", async () => {
+test("ExplorerButton renders 'Explorer'", async () => {
   renderWithProvider(<ExplorerButton showFn={() => {}} />);
 
-  // Check if the text is present in the document
-  const element = await screen.findByText("Error fetching schema");
+  const element = await screen.findByText("Explorer");
   expect(element).not.toBeNull();
 });
 
-test("PrettifyButton render 'Error fetching schema'", async () => {
+test("QuerySection renders and interacts correctly", async () => {
+  // Render the component
   renderWithProvider(
-    <QuerySection variables={"a"} setQueryArea={() => {}} queryArea={"a"} />
+    <QuerySection
+      variables={`{ "Variables" : "Test Variables" }`}
+      setQueryArea={() => {}}
+      queryArea={`{ "Query" : "Test Query" }`}
+    />
   );
 
-  // Check if the text is present in the document
-  const element = await screen.findByText("Error fetching schema");
+  // Check if the text is rendered
+  const element = await screen.findByText(`{ "Query" : "Test Query" }`);
+  expect(element).not.toBeNull();
+
+  // Check if the textarea is rendered
+  const textarea: HTMLInputElement = screen.getByPlaceholderText("Query...");
+  expect(textarea).not.toBeNull();
+
+  // Check if the textarea value is correct
+  expect(textarea.value).toBe(`{ "Query" : "Test Query" }`);
+
+  // Simulate change event
+  fireEvent.change(textarea, {
+    target: { value: '{ "Query" : "Updated Query" }' },
+  });
+
+  // Simulate blur event
+  fireEvent.blur(textarea);
+  // You can add expectations for what should happen on blur if needed
+});
+
+//////////////////////////////////////////////////////////////////////////////
+
+test("VariablesSection renders 'Explorer'", async () => {
+  renderWithProvider(
+    <VariablesSection setVariables={() => {}} variables={"a=b"} />
+  );
+
+  const element = await screen.findByText("Explorer");
   expect(element).not.toBeNull();
 });

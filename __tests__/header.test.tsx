@@ -1,10 +1,10 @@
 import { expect, test, vi } from "vitest";
 import { screen } from "@testing-library/react";
 import { renderWithProvider } from "./utils/renderWithProvider";
+import { Header } from "@/app/components/Header/Header";
 import { HeaderContainer } from "@/app/components/Header/HeaderContainer";
 import { HeaderLoggedUser } from "@/app/components/HeaderTemplates/HeaderLoggedUser";
 import { HeaderUnLoggedUser } from "@/app/components/HeaderTemplates/HeaderUnLoggedUser";
-import { Header } from "@/app/components/Header/Header";
 
 test("Header render 'HeaderLoggedUser'", async () => {
   renderWithProvider(
