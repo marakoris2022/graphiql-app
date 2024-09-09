@@ -1,7 +1,8 @@
 {
   "localeSwitcher": {
     "en": "English",
-    "ru": "Russian"
+    "ru": "Russian",
+    "language": "Language"
   },
   "404": {
     "title": "404 Page not found",
