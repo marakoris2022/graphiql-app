@@ -8,16 +8,11 @@ const DocExplorerWithErrorHandling = () => {
     { nonNull: true }
   );
   const isOpenExplorer = useSDLStore((state) => state.isOpenExplorer);
-
-  console.log('DocExplorerWithErrorHandling');
-
   useEffect(() => {
     if (fetchError) {
-      console.log('fetchError');
       isOpenExplorer(false);
     }
     if (schema) {
-      console.log('schema');
       isOpenExplorer(true);
     }
   }, [schema, fetchError, isOpenExplorer]);

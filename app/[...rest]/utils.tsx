@@ -37,8 +37,8 @@ export const stringToJSONString = (rawString: string) => {
 export const replaceVariables = (str: string, variables: string[][]) => {
   let newStr = str;
   variables.forEach(([key, value]) => {
-    const regex = new RegExp(`{{${key}}}`, 'g'); // ищем {{key}}
-    newStr = newStr.replace(regex, `"${value}"`); // заменяем на значение
+    const regex = new RegExp(`{{${key}}}`, 'g');
+    newStr = newStr.replace(regex, `"${value}"`);
   });
   return newStr;
 };
@@ -68,7 +68,9 @@ export function generateHeaders(headers: {
 export function generateURL(data: FormData | FieldValues) {
   const { EndpointURL, method, body, ...headers } = data as FormData;
 
-  const variables = JSON.parse(localStorage.getItem('RESTVariables') ?? '');
+  const localStorageData = localStorage.getItem('RESTVariables') ?? '';
+  const variables = localStorageData ? JSON.parse(localStorageData) : [];
+
   const variableURL = replaceVariables(EndpointURL, variables).replaceAll(
     '"',
     ''

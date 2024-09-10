@@ -11,13 +11,20 @@ type HeadersProps = {};
 
 const Headers: FC<HeadersProps> = ({}) => {
   const t = useTranslations('apiClient');
+
   const search = useSearchParams();
 
   const [headers, setHeaders] = useState(() => {
     if (!search.toString()) return [{ key: '', value: '' }];
     const arr = [];
-    for (const [key, value] of search.entries()) {
-      arr.push({ key, value });
+
+    const keys = [...search.keys()];
+
+    for (const key of keys) {
+      const value = search.get(key);
+      if (value) {
+        arr.push({ key, value });
+      }
     }
     return arr;
   });
@@ -30,7 +37,10 @@ const Headers: FC<HeadersProps> = ({}) => {
     const params = new URLSearchParams();
     headers.forEach((header) => {
       if (header.key && header.value) {
-        params.set(encodeURIComponent(header.key), encodeURIComponent(header.value));
+        params.set(
+          encodeURIComponent(header.key),
+          encodeURIComponent(header.value)
+        );
       }
     });
     const pewPath = pathname + '?' + params.toString();
@@ -45,7 +55,11 @@ const Headers: FC<HeadersProps> = ({}) => {
     setHeaders(headers.filter((_, i) => i !== index));
   };
 
-  const handleHeaderChange = (index: number, field: 'key' | 'value', value: string) => {
+  const handleHeaderChange = (
+    index: number,
+    field: 'key' | 'value',
+    value: string
+  ) => {
     const modified = [...headers];
     modified[index][field] = value;
     setHeaders(modified);
@@ -86,7 +100,9 @@ const Headers: FC<HeadersProps> = ({}) => {
                 name="headerKey"
                 id={`headerKey${index}`}
                 value={header.key}
-                onChange={(e) => handleHeaderChange(index, 'key', e.target.value)}
+                onChange={(e) =>
+                  handleHeaderChange(index, 'key', e.target.value)
+                }
                 sx={{ flex: '1' }}
               />
               <TextField
@@ -95,7 +111,9 @@ const Headers: FC<HeadersProps> = ({}) => {
                 name="headerValue"
                 id={`headerValue${index}`}
                 value={header.value}
-                onChange={(e) => handleHeaderChange(index, 'value', e.target.value)}
+                onChange={(e) =>
+                  handleHeaderChange(index, 'value', e.target.value)
+                }
                 sx={{ flex: '1' }}
               />
               <Button
