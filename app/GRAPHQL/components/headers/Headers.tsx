@@ -1,21 +1,21 @@
-import { FC, useEffect, useState } from "react";
-import styles from "./headers.module.css";
-import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
-import { IoMdClose } from "react-icons/io";
-import { usePathname, useSearchParams } from "next/navigation";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import { useTranslations } from "next-intl";
+import { FC, useEffect, useState } from 'react';
+import styles from './headers.module.css';
+import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
+import { IoMdClose } from 'react-icons/io';
+import { usePathname, useSearchParams } from 'next/navigation';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { useTranslations } from 'next-intl';
 
 type HeadersProps = {};
 
 const Headers: FC<HeadersProps> = ({}) => {
-  const t = useTranslations("apiClient");
+  const t = useTranslations('apiClient');
 
   const search = useSearchParams();
 
   const [headers, setHeaders] = useState(() => {
-    if (!search.toString()) return [{ key: "", value: "" }];
+    if (!search.toString()) return [{ key: '', value: '' }];
     const arr = [];
 
     const keys = [...search.keys()];
@@ -43,12 +43,12 @@ const Headers: FC<HeadersProps> = ({}) => {
         );
       }
     });
-    const pewPath = pathname + "?" + params.toString();
-    history.replaceState(null, "", pewPath);
+    const pewPath = pathname + '?' + params.toString();
+    history.replaceState(null, '', pewPath);
   }, [headers]);
 
   const addHeader = () => {
-    setHeaders([...headers, { key: "", value: "" }]);
+    setHeaders([...headers, { key: '', value: '' }]);
   };
 
   const deleteHeader = (index: number) => {
@@ -57,7 +57,7 @@ const Headers: FC<HeadersProps> = ({}) => {
 
   const handleHeaderChange = (
     index: number,
-    field: "key" | "value",
+    field: 'key' | 'value',
     value: string
   ) => {
     const modified = [...headers];
@@ -74,65 +74,63 @@ const Headers: FC<HeadersProps> = ({}) => {
           onClick={() => setShowHeaders((prev) => !prev)}
           size="small"
           sx={{
-            color: "grey",
-            border: "1px solid grey",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "20px",
-            height: "20px",
-            minWidth: "20px",
+            color: 'grey',
+            border: '1px solid grey',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '20px',
+            height: '20px',
+            minWidth: '20px',
             padding: 0,
-            marginRight: "10px",
+            marginRight: '10px',
           }}
         >
           {showHeaders ? <IoIosArrowDown /> : <IoIosArrowForward />}
         </Button>
-        <h3>{t("graphHeaders")}</h3>
+        <h3>{t('graphHeaders')}</h3>
       </div>
       {showHeaders && (
         <fieldset>
           {headers.map((header, index) => (
             <div className={styles.headerWrapper} key={index}>
               <TextField
-                label={`${t("keyUpper")}:`}
+                label={`${t('keyUpper')}:`}
                 variant="outlined"
                 name="headerKey"
                 id={`headerKey${index}`}
                 value={header.key}
                 onChange={(e) =>
-                  handleHeaderChange(index, "key", e.target.value)
+                  handleHeaderChange(index, 'key', e.target.value)
                 }
-                sx={{ flex: "1" }}
+                sx={{ flex: '1' }}
               />
               <TextField
-                label={`${t("valueUpper")}:`}
+                label={`${t('valueUpper')}:`}
                 variant="outlined"
                 name="headerValue"
                 id={`headerValue${index}`}
                 value={header.value}
                 onChange={(e) =>
-                  handleHeaderChange(index, "value", e.target.value)
+                  handleHeaderChange(index, 'value', e.target.value)
                 }
-                sx={{ flex: "1" }}
+                sx={{ flex: '1' }}
               />
               <Button
                 variant="text"
                 size="small"
                 sx={{
-                  position: "absolute",
-                  right: "10px",
-                  top: "30%",
-                  color: "grey",
-                  border: "1px solid grey",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: "20px",
-                  height: "20px",
-                  minWidth: "20px",
+                  position: 'absolute',
+                  right: '0',
+                  top: '0',
+                  color: 'grey',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '20px',
+                  height: '20px',
+                  minWidth: '20px',
                   padding: 0,
-                  marginRight: "10px",
                 }}
                 type="button"
                 onClick={() => deleteHeader(index)}
@@ -143,13 +141,13 @@ const Headers: FC<HeadersProps> = ({}) => {
           ))}
           <Button
             size="small"
-            sx={{ color: "white", background: "grey" }}
+            sx={{ color: 'white', background: 'grey' }}
             variant="contained"
             color="primary"
             type="button"
             onClick={addHeader}
           >
-            {t("addHeader")}
+            {t('addHeader')}
           </Button>
         </fieldset>
       )}
