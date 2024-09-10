@@ -30,10 +30,7 @@ const Headers: FC<HeadersProps> = ({}) => {
     const params = new URLSearchParams();
     headers.forEach((header) => {
       if (header.key && header.value) {
-        params.set(
-          encodeURIComponent(header.key),
-          encodeURIComponent(header.value)
-        );
+        params.set(encodeURIComponent(header.key), encodeURIComponent(header.value));
       }
     });
     const pewPath = pathname + '?' + params.toString();
@@ -48,11 +45,7 @@ const Headers: FC<HeadersProps> = ({}) => {
     setHeaders(headers.filter((_, i) => i !== index));
   };
 
-  const handleHeaderChange = (
-    index: number,
-    field: 'key' | 'value',
-    value: string
-  ) => {
+  const handleHeaderChange = (index: number, field: 'key' | 'value', value: string) => {
     const modified = [...headers];
     modified[index][field] = value;
     setHeaders(modified);
@@ -93,9 +86,7 @@ const Headers: FC<HeadersProps> = ({}) => {
                 name="headerKey"
                 id={`headerKey${index}`}
                 value={header.key}
-                onChange={(e) =>
-                  handleHeaderChange(index, 'key', e.target.value)
-                }
+                onChange={(e) => handleHeaderChange(index, 'key', e.target.value)}
                 sx={{ flex: '1' }}
               />
               <TextField
@@ -104,9 +95,7 @@ const Headers: FC<HeadersProps> = ({}) => {
                 name="headerValue"
                 id={`headerValue${index}`}
                 value={header.value}
-                onChange={(e) =>
-                  handleHeaderChange(index, 'value', e.target.value)
-                }
+                onChange={(e) => handleHeaderChange(index, 'value', e.target.value)}
                 sx={{ flex: '1' }}
               />
               <Button
@@ -114,10 +103,9 @@ const Headers: FC<HeadersProps> = ({}) => {
                 size="small"
                 sx={{
                   position: 'absolute',
-                  right: '10px',
-                  top: '30%',
+                  right: '0',
+                  top: '0',
                   color: 'grey',
-                  border: '1px solid grey',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
@@ -125,7 +113,6 @@ const Headers: FC<HeadersProps> = ({}) => {
                   height: '20px',
                   minWidth: '20px',
                   padding: 0,
-                  marginRight: '10px',
                 }}
                 type="button"
                 onClick={() => deleteHeader(index)}

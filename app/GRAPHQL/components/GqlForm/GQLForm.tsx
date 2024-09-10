@@ -24,6 +24,7 @@ import * as Yup from 'yup';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { decodeBase64, saveRequestToLS } from '@/app/[...rest]/utils';
 import { useTranslations } from 'next-intl';
+/* import { parse } from 'graphql'; */
 
 const errMessages = [
   'Invalid URL format.',
