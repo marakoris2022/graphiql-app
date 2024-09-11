@@ -147,5 +147,14 @@
     "sergey": "Sergey",
     "sergeyTitle": "Our team lead",
     "sergeyBio": "Confident and grounded, Sergey values everyone's input but stands firm on his convictions. His balanced approach ensures we stay true to our vision while considering all perspectives."
+  },
+  "globalError": {
+    "errMsg": "Something went wrong!",
+    "errBtn": "Try again"
+  },
+  "graphError": {
+    "errMsg": "Error!",
+    "errBtn": "Try again",
+    "errDesc": "Error text: "
   }
 }
