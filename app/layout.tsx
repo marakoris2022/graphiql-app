@@ -1,33 +1,48 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Header } from "./components/Header/Header";
-import { Footer } from "./components/Footer/Footer";
-import "../styles/globals.css";
-import { ToastContainer } from "react-toastify";
-import { toastContainerConfig } from "@/utils/utils";
-import "react-toastify/dist/ReactToastify.css";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
+import '../styles/globals.css';
+import { ToastContainer } from 'react-toastify';
+import { toastContainerConfig } from '@/utils/utils';
+import 'react-toastify/dist/ReactToastify.css';
+import { NextIntlClientProvider, useTranslations } from 'next-intl';
+import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: "RSTeam REST & GraphiQL Client",
-  description: "Application made for education purpose.",
-};
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({ locale, namespace: 'metaMain' });
 
-export default function RootLayout({
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={inter.className}>
-        <div className="container">
+        <NextIntlClientProvider messages={messages}>
           <Header />
-          <main>{children}</main>
+          <main>
+            <div className="container">{children}</div>
+          </main>
           <Footer />
           <ToastContainer {...toastContainerConfig} />
-        </div>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

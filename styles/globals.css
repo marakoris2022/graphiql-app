@@ -1,9 +1,13 @@
 .container {
   max-width: 1440px;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   margin: 0 auto;
-  min-height: 100vh;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
 }
 
 ul {
@@ -15,25 +19,29 @@ li {
 }
 
 body,
-h2 {
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
   margin: 0;
+  padding: 0;
 }
 
-header,
-footer {
+body {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid black;
-  padding: 20px;
-  border-radius: 5px;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  padding: 10px 10px 5px 10px;
+  background-color: #c0c0c0;
 }
 
 main {
-  padding: 20px;
-  border: 1px solid black;
-  border-radius: 5px;
+  padding: 0 20px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -63,9 +71,11 @@ main {
   font-size: 20px;
   display: block;
   transition: all 0.2s;
-  background-color: inherit;
+  background-color: white;
+  padding: 5px 10px;
   border: none;
   color: black;
+  border-radius: 5px;
 }
 
 .linkDefault:hover {
@@ -82,4 +92,64 @@ main {
 .linkActive:hover {
   color: blue;
   transform: none;
+}
+
+header {
+  transition: background-color 0.5s ease, padding 0.3s ease;
+  background-color: rgb(236 236 236);
+  min-height: 40px;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+.sticky {
+  background-color: #9acc8f;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  padding: 3px;
+}
+
+.logo {
+  position: relative;
+  display: block;
+  padding: 15px 30px;
+  padding-right: 42px;
+  padding-left: 42px;
+  text-decoration: none;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+  z-index: 5;
+  transition: all 0.2s ease;
+}
+
+.logoTitle {
+  position: relative;
+  z-index: 5;
+  color: black;
+  font-size: 20px;
+}
+
+.logo:hover {
+  transform: scale(1.02);
+  background-color: #9acc8f;
+  cursor: pointer;
+}
+
+.logo img {
+  transition: all 0.2s ease;
+}
+
+.logo:hover img {
+  filter: brightness(0) saturate(100%) invert(11%) sepia(99%) saturate(6022%)
+    hue-rotate(237deg) brightness(86%) contrast(98%);
 }

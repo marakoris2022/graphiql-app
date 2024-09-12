@@ -1,0 +1,44 @@
+.graphiqlContainer {
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 10px;
+  row-gap: 10px;
+  width: 50%;
+  margin-bottom: 20px;
+  overflow: scroll;
+}
+
+.responseField {
+  flex: 0.6;
+}
+
+.buttonContainer {
+  background: rgb(231, 229, 229);
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  margin: 10px auto;
+  padding: 10px;
+  width: 100%;
+}
+
+.docsContainer {
+  height: 80vh;
+  flex: 0.5;
+  min-width: 100px;
+  padding: 10px;
+  overflow: auto;
+}
+
+.errorText {
+  color: red;
+}

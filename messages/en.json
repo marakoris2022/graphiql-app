@@ -1,0 +1,160 @@
+{
+  "localeSwitcher": {
+    "en": "English",
+    "ru": "Russian",
+    "language": "Language"
+  },
+  "404": {
+    "title": "404 Page not found",
+    "main": "Back to main"
+  },
+  "loggedUserHeader": {
+    "signOut": "Sign Out",
+    "main": "Main",
+    "toastMsg": "You are successfully signed out!"
+  },
+  "unLoggedUserHeader": {
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "main": "Main"
+  },
+  "loader": {
+    "title": "Loading..."
+  },
+  "mainLoggedUser": {
+    "title": "Welcome back, ",
+    "rest": "REST Client",
+    "graphiql": "GraphiQL Client",
+    "history": "History"
+  },
+  "mainUnLoggedUser": {
+    "title": "Welcome!",
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+  "apiClient": {
+    "responseTitle": "Fill data to send REST request.",
+    "restTitle": "REST Client",
+    "graphTitle": "GraphiQL Client",
+    "errEmptyUrl": "URL can't be empty.",
+    "errEndpointUrl": "Either endpointURL or endpointSDL is required.",
+    "errRequiredUrl": "URL is required.",
+    "errInvalidUrl": "Invalid URL format.",
+    "errInvalidJson": "Invalid JSON format.",
+    "errInvalidGraphQLQuery": "Invalid GraphQL query.",
+    "errRequiredQuery": "Query is required.",
+    "urlPlaceholder": "Endpoint URL",
+    "sdlPlaceholder": "Endpoint SDL:",
+    "send": "Send",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "downloading": "Downloading...",
+    "headers": "Headers",
+    "graphHeaders": "Request Headers",
+    "addHeader": "Add Header",
+    "variables": "Variables",
+    "add": "Add",
+    "body": "Body:",
+    "bodyExample": "Example: ",
+    "bodyPlaceholder": "Type JSON",
+    "format": "FORMAT",
+    "response": "Response:",
+    "key": "key",
+    "value": "value",
+    "keyUpper": "Key",
+    "valueUpper": "Value",
+    "delete": "del",
+    "error": "Error:",
+    "result": "Result:",
+    "emptyHeaders": "No any Headers. Press «ADD» button.",
+    "emptyVariables": "No any Variables. Press «ADD» button.",
+    "requestBody": "Request Body",
+    "statusCode": "Status Code: ",
+    "responseData": "Response Data",
+    "getSchema": "Get Schema",
+    "prettify": "Prettify",
+    "query": "Query",
+    "Error": "Error",
+    "Response": "Response",
+    "explorer": "Explorer"
+  },
+  "signUser": {
+    "titleSignUp": "Sign Up",
+    "titleSignIn": "Sign In",
+    "main": "To Main",
+    "email": "E-mail",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "name": "Your Name",
+    "toastMsgSignIn": "You are successfully signed in!",
+    "toastMsgSignUp": "You are successfully signed up!",
+    "invalidEmail": "Invalid email",
+    "passwordRequired": "Password is required",
+    "passwordOneLetter": "Password must contain at least one letter or unicode symbol",
+    "passwordNumber": "Password must contain at least one number (0-9)",
+    "passwordSpecialCharacter": "Password must contain at least one special character (e.g. !@#$%^&*)",
+    "passwordLength": "Password must be at least 8 characters long",
+    "nameRequired": "Name is required"
+  },
+  "metaMain": {
+    "title": "RSTeam REST & GraphiQL Client",
+    "description": "Application made for education purpose."
+  },
+  "metaRest": {
+    "title": "REST Client"
+  },
+  "history": {
+    "title": "Request History",
+    "desc1": "There are no requests in the history.",
+    "desc2": "Please select a client and make your first request.",
+    "restClient": "REST Client",
+    "graphqlClient": "GraphQL Client",
+    "repeat": "Repeat",
+    "remove": "Remove"
+  },
+  "aboutCourse": {
+    "title": "About course",
+    "everyoneTitle": "For everyone",
+    "everyoneDesc": "Everyone can study at RS School, regardless of age, professional employment, or place of residence. However, you should have sufficient base knowledge before the program begins.",
+    "educationTitle": "Free education",
+    "educationDesc": "Feel the desire to share your experience and knowledge.",
+    "certificateTitle": "Certificate",
+    "certificateDesc": "The certificate will be awarded to you once you complete the course.",
+    "materialsTitle": "Materials",
+    "materialsDesc": "All materials are publicly available on the ",
+    "schoolDocs": "School documentation",
+    "channel": "channel",
+    "and": "and"
+  },
+  "aboutProject": {
+    "title": "About project",
+    "p1": "This project is a lightweight application that combines a REST and GraphQL client within a single interface. Developed using Next.js, it offers efficient server-side rendering and routing. Firebase authentication is integrated to provide secure user login and session management.",
+    "p2": "The app is designed to allow users to interact with REST and GraphQL APIs in a streamlined and user-friendly environment, making it an all-in-one solution for API testing and development.",
+    "p3": "In addition to its core functionality, the app features a request history functionality. After submitting a request, the details are saved and added to a history list, allowing users to review and revisit previous requests. This feature enhances the usability of the app by providing easy access to past interactions with APIs.",
+    "and": "and",
+    "accessibility": "Accessibility",
+    "history": "Request History"
+  },
+  "aboutUs": {
+    "title": "About us",
+    "olga": "Olga",
+    "olgaTitle": "Theoretical Master",
+    "olgaBio": "Intelligent and purposeful, Olga is our strategic thinker. She always thoroughly understands each issue before taking action, ensuring our solutions are well-informed and effective.",
+    "alex": "Alexander",
+    "alexTitle": "Anonymous Coder",
+    "alexBio": "Modest and persistent, Alexander is our dedicated learner. He prefers to gain knowledge through hands-on experience, bringing a practical approach to our projects.",
+    "sergey": "Sergey",
+    "sergeyTitle": "Our team lead",
+    "sergeyBio": "Confident and grounded, Sergey values everyone's input but stands firm on his convictions. His balanced approach ensures we stay true to our vision while considering all perspectives."
+  },
+  "globalError": {
+    "errMsg": "Something went wrong!",
+    "errBtn": "Try again"
+  },
+  "graphError": {
+    "errMsg": "Error!",
+    "errBtn": "Try again",
+    "errDesc": "Error text: "
+  }
+}

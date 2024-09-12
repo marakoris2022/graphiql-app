@@ -1,0 +1,41 @@
+.aboutPageWrapper {
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%;
+}
+
+.aboutPageTitle {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+.aboutCardsWrapper {
+  display: flex;
+  gap: 15px;
+  padding: 15px 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .aboutCardsWrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.projectTextWrapper {
+  padding: 0 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.textImages {
+  display: block;
+  width: 30%;
+  min-width: 240px;
+  margin: 0 auto;
+  border-radius: 15px;
+  max-height: 260px;
+}

@@ -1,5 +1,5 @@
-import { app } from "@/firebase";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from '@/firebase';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 export async function signInWithEmail(email: string, password: string) {
   try {
@@ -10,7 +10,7 @@ export async function signInWithEmail(email: string, password: string) {
     );
     const idToken = await credential.user.getIdToken();
 
-    await fetch("/api/login", {
+    await fetch('/api/login', {
       headers: {
         Authorization: `Bearer ${idToken}`,
       },

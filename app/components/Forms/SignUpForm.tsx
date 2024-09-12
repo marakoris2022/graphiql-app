@@ -1,33 +1,46 @@
-"use client";
-import { signInWithEmail } from "@/utils/firebaseApi";
-import { FormUserData, validationSchema } from "@/utils/yupSchema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, TextField } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import { RoutePath, toastifyMessage } from "@/utils/utils";
+'use client';
+import { signInWithEmail } from '@/utils/firebaseApi';
+import { createValidationSchema, FormUserData } from '@/utils/yupSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, TextField } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { RoutePath, toastifyMessage } from '@/utils/utils';
 import {
   createUserWithEmailAndPassword,
   getAuth,
   updateProfile,
-} from "firebase/auth";
-import { app } from "@/firebase";
-import Loader from "../Loader/Loader";
-import { CustomLink } from "../CustomLink/CustomLink";
+} from 'firebase/auth';
+import { app } from '@/firebase';
+import Loader from '../Loader/Loader';
+import { CustomLink } from '../CustomLink/CustomLink';
+import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
 
 export const SignUpForm = () => {
+  const t = useTranslations('signUser');
+  const validationSchema = createValidationSchema(t);
   const {
     handleSubmit,
     control,
+    trigger,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(validationSchema),
-    mode: "onChange",
+    mode: 'onChange',
     context: { isRegistration: true },
   });
 
   const router = useRouter();
+
+  useEffect(() => {
+    const errorFields = Object.keys(errors) as Array<keyof FormUserData>;
+
+    if (errorFields.length > 0) {
+      trigger(errorFields);
+    }
+  }, [t]);
 
   const onSubmit = async (data: FormUserData) => {
     if (data.email && data.password && data.name) {
@@ -42,7 +55,7 @@ export const SignUpForm = () => {
         await signInWithEmail(data.email, data.password);
         router.push(RoutePath.HOME);
         router.refresh();
-        toast.success("You are successfully signed up!", toastifyMessage);
+        toast.success(t('toastMsgSignUp'), toastifyMessage);
       } catch (error) {
         if (error instanceof Error) {
           toast.error(`${error.message}`, toastifyMessage);
@@ -52,9 +65,9 @@ export const SignUpForm = () => {
   };
 
   return (
-    <div className="formContainer">
-      <CustomLink href={"/"} title={"To Main"} />
-      <h2>Sign Up</h2>
+    <section className="formContainer">
+      <CustomLink href={'/'} title={t('main')} />
+      <h2>{t('titleSignUp')}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="formUser">
         <div className="formField">
           <Controller
@@ -63,12 +76,16 @@ export const SignUpForm = () => {
             defaultValue=""
             render={({ field }) => (
               <TextField
-                label="E-mail"
+                label={t('email')}
                 type="email"
                 {...field}
                 autoComplete="email"
                 error={!!errors.email}
-                helperText={errors.email ? errors.email.message : ""}
+                helperText={errors.email ? errors.email.message : ''}
+                sx={{ width: '300px' }}
+                FormHelperTextProps={{
+                  sx: { maxWidth: '300px' },
+                }}
               />
             )}
           ></Controller>
@@ -80,12 +97,16 @@ export const SignUpForm = () => {
             defaultValue=""
             render={({ field }) => (
               <TextField
-                label="Password"
+                label={t('password')}
                 {...field}
                 type="password"
                 autoComplete="password"
                 error={!!errors.password}
-                helperText={errors.password ? errors.password.message : ""}
+                helperText={errors.password ? errors.password.message : ''}
+                sx={{ width: '300px' }}
+                FormHelperTextProps={{
+                  sx: { maxWidth: '300px' },
+                }}
               />
             )}
           ></Controller>
@@ -98,11 +119,15 @@ export const SignUpForm = () => {
             defaultValue=""
             render={({ field }) => (
               <TextField
-                label="Your name"
+                label={t('name')}
                 {...field}
                 type="text"
                 error={!!errors.name}
-                helperText={errors.name ? errors.name.message : ""}
+                helperText={errors.name ? errors.name.message : ''}
+                sx={{ width: '300px' }}
+                FormHelperTextProps={{
+                  sx: { maxWidth: '300px' },
+                }}
               />
             )}
           ></Controller>
@@ -111,13 +136,13 @@ export const SignUpForm = () => {
         <Button
           type="submit"
           variant="contained"
-          sx={{ width: "fit-content" }}
+          sx={{ width: 'fit-content' }}
           disabled={Object.entries(errors).length > 0 || isSubmitting}
         >
-          Sign Up
+          {t('signUp')}
         </Button>
       </form>
       {isSubmitting && <Loader />}
-    </div>
+    </section>
   );
 };
