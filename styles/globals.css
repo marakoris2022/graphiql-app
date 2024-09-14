@@ -150,6 +150,17 @@ header {
 }
 
 .logo:hover img {
-  filter: brightness(0) saturate(100%) invert(11%) sepia(99%) saturate(6022%)
-    hue-rotate(237deg) brightness(86%) contrast(98%);
+  filter: brightness(0) saturate(100%) invert(11%) sepia(99%) saturate(6022%) hue-rotate(237deg) brightness(86%) contrast(98%);
+}
+
+.globalError {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.globalErrorTitle {
+  color: red;
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
 export default function GlobalError({
@@ -13,9 +14,16 @@ export default function GlobalError({
 
   return (
     <html>
-      <body>
-        <h2>{t('errMsg')}</h2>
-        <button onClick={() => reset()}>{t('errBtn')}</button>
+      <body className="globalError">
+        <h2 className="globalErrorTitle">{t('errMsg')}</h2>
+        <Button
+          variant="contained"
+          color="primary"
+          type="button"
+          onClick={() => reset()}
+        >
+          {t('errBtn')}
+        </Button>
       </body>
     </html>
   );

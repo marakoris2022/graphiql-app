@@ -24,7 +24,6 @@ import * as Yup from 'yup';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { decodeBase64, saveRequestToLS } from '@/app/[...rest]/utils';
 import { useTranslations } from 'next-intl';
-/* import { parse } from 'graphql'; */
 
 const errMessages = [
   'Invalid URL format.',
@@ -72,7 +71,9 @@ const GQLForm = () => {
   const [queryArea, setQueryArea] = useState<string>(() => {
     const pathArray = pathname.split('/');
     const query = pathArray[3];
-    const decodedQuery = query ? JSON.parse(decodeURIComponent(decodeBase64(query))).query : '';
+    const decodedQuery = query
+      ? JSON.parse(decodeURIComponent(decodeBase64(query))).query
+      : '';
     return decodedQuery;
   });
   const [open, setOpen] = useState<boolean>(false);
@@ -133,7 +134,7 @@ const GQLForm = () => {
             ...acc,
             [err.path!]: err.message,
           }),
-          {},
+          {}
         );
         setErrors(formErrors);
       }
@@ -164,7 +165,7 @@ const GQLForm = () => {
               ...acc,
               [err.path!]: err.message,
             }),
-            {},
+            {}
           );
           setErrors(formErrors);
         }
@@ -176,14 +177,36 @@ const GQLForm = () => {
     <div className={styles.graphiqlContainer}>
       {open && show && (
         <article className={styles.docsContainer}>
-          {<SchemaDocumentation valueSDL={endpointSDL ? endpointSDL : endpointURL} />}
+          {
+            <SchemaDocumentation
+              valueSDL={endpointSDL ? endpointSDL : endpointURL}
+            />
+          }
         </article>
       )}
-      <form className={styles.form} ref={ref} action={action} onSubmit={handleSubmit} noValidate>
-        <EndpointURL setURL={setEndpointURL} urlValue={endpointURL} setOpen={setOpen} />
-        {errors.endpointURL && <p className={styles.errorText}>{errors.endpointURL}</p>}
-        <EndpointSDL setSDL={setEndpointSDL} sdlValue={endpointSDL} setOpen={setOpen} />
-        {errors.endpointSDL && <p className={styles.errorText}>{errors.endpointSDL}</p>}
+      <form
+        className={styles.form}
+        ref={ref}
+        action={action}
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <EndpointURL
+          setURL={setEndpointURL}
+          urlValue={endpointURL}
+          setOpen={setOpen}
+        />
+        {errors.endpointURL && (
+          <p className={styles.errorText}>{errors.endpointURL}</p>
+        )}
+        <EndpointSDL
+          setSDL={setEndpointSDL}
+          sdlValue={endpointSDL}
+          setOpen={setOpen}
+        />
+        {errors.endpointSDL && (
+          <p className={styles.errorText}>{errors.endpointSDL}</p>
+        )}
         <Headers />
         <div className={styles.buttonContainer}>
           <span style={{ fontSize: '1.5rem' }}>
@@ -201,10 +224,19 @@ const GQLForm = () => {
           <PrettifyButton handler={formatQuery} />
           {open && <ExplorerButton showFn={() => setShow((prev) => !prev)} />}
         </div>
-        <QuerySection variables={variablesArea} setQueryArea={setQueryArea} queryArea={queryArea} />
+        <QuerySection
+          variables={variablesArea}
+          setQueryArea={setQueryArea}
+          queryArea={queryArea}
+        />
         {errors.query && <p className={styles.errorText}>{errors.query}</p>}
-        <VariablesSection setVariables={setVariablesArea} variables={variablesArea} />
-        {errors.variables && <p className={styles.errorText}>{errors.variables}</p>}
+        <VariablesSection
+          setVariables={setVariablesArea}
+          variables={variablesArea}
+        />
+        {errors.variables && (
+          <p className={styles.errorText}>{errors.variables}</p>
+        )}
       </form>
       <div className={styles.responseField}>
         {data.message && (

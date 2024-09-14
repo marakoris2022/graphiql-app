@@ -10,7 +10,7 @@ import { signInWithEmail } from '@/utils/firebaseApi';
 import Loader from '../Loader/Loader';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import { useEffect, useTransition } from 'react';
 
 export const SignInForm = () => {
   const t = useTranslations('signUser');
@@ -25,6 +25,7 @@ export const SignInForm = () => {
     mode: 'onChange',
   });
   const router = useRouter();
+  const [isPending, setTransition] = useTransition();
 
   useEffect(() => {
     const errorFields = Object.keys(errors) as Array<keyof FormUserData>;
@@ -35,18 +36,20 @@ export const SignInForm = () => {
   }, [t]);
 
   const onSubmit = async (data: FormUserData) => {
-    if (data.email && data.password) {
-      try {
-        await signInWithEmail(data.email, data.password);
-        router.push(RoutePath.HOME);
-        router.refresh();
-        toast.success(t('toastMsgSignIn'), toastifyMessage);
-      } catch (error) {
-        if (error instanceof Error) {
-          toast.error(`${error.message}`, toastifyMessage);
+    setTransition(async () => {
+      if (data.email && data.password) {
+        try {
+          await signInWithEmail(data.email, data.password);
+          router.push(RoutePath.HOME);
+          router.refresh();
+          toast.success(t('toastMsgSignIn'), toastifyMessage);
+        } catch (error) {
+          if (error instanceof Error) {
+            toast.error(`${error.message}`, toastifyMessage);
+          }
         }
       }
-    }
+    });
   };
 
   return (
@@ -106,7 +109,7 @@ export const SignInForm = () => {
           {t('signIn')}
         </Button>
       </form>
-      {isSubmitting && <Loader />}
+      {(isSubmitting || isPending) && <Loader />}
     </section>
   );
 };
