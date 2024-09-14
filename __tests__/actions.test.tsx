@@ -124,38 +124,35 @@ describe('createSDLQuery', () => {
     jest.clearAllMocks();
   });
 
-  it('should throw error on 500 server error', async () => {
+  it('should return null on 500 server error', async () => {
     (global.fetch as jest.Mock).mockResolvedValue({
       status: 500,
       text: jest.fn().mockResolvedValue('Internal Server Error'),
     });
 
-    await expect(createSDLQuery('https://example.com/graphql')).rejects.toThrow(
-      '500 Internal Server Error'
-    );
+    const result = await createSDLQuery('https://example.com/graphql');
+    expect(result).toBeNull();
   });
 
-  it('should throw error on 400 client error', async () => {
+  it('should return null on 400 client error', async () => {
     (global.fetch as jest.Mock).mockResolvedValue({
       status: 400,
       statusText: 'Bad Request',
     });
 
-    await expect(createSDLQuery('https://example.com/graphql')).rejects.toThrow(
-      'Client Error: 400 Bad Request'
-    );
+    const result = await createSDLQuery('https://example.com/graphql');
+    expect(result).toBeNull();
   });
 
-  it('should throw error if the response is not ok', async () => {
+  it('should return null if the response is not ok', async () => {
     (global.fetch as jest.Mock).mockResolvedValue({
       status: 404,
       ok: false,
       statusText: 'Not Found',
     });
 
-    await expect(createSDLQuery('https://example.com/graphql')).rejects.toThrow(
-      'Client Error: 404 Not Found'
-    );
+    const result = await createSDLQuery('https://example.com/graphql');
+    expect(result).toBeNull();
   });
 
   it('should return SDL query data on success', async () => {
