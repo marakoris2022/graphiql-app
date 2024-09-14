@@ -16,7 +16,7 @@ import { app } from '@/firebase';
 import Loader from '../Loader/Loader';
 import { CustomLink } from '../CustomLink/CustomLink';
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import { useEffect, useTransition } from 'react';
 
 export const SignUpForm = () => {
   const t = useTranslations('signUser');
@@ -33,6 +33,7 @@ export const SignUpForm = () => {
   });
 
   const router = useRouter();
+  const [isPending, setTransition] = useTransition();
 
   useEffect(() => {
     const errorFields = Object.keys(errors) as Array<keyof FormUserData>;
@@ -43,25 +44,27 @@ export const SignUpForm = () => {
   }, [t]);
 
   const onSubmit = async (data: FormUserData) => {
-    if (data.email && data.password && data.name) {
-      try {
-        const userCredential = await createUserWithEmailAndPassword(
-          getAuth(app),
-          data.email,
-          data.password
-        );
-        const user = userCredential.user;
-        await updateProfile(user, { displayName: data.name });
-        await signInWithEmail(data.email, data.password);
-        router.push(RoutePath.HOME);
-        router.refresh();
-        toast.success(t('toastMsgSignUp'), toastifyMessage);
-      } catch (error) {
-        if (error instanceof Error) {
-          toast.error(`${error.message}`, toastifyMessage);
+    setTransition(async () => {
+      if (data.email && data.password) {
+        try {
+          const userCredential = await createUserWithEmailAndPassword(
+            getAuth(app),
+            data.email,
+            data.password
+          );
+          const user = userCredential.user;
+          await updateProfile(user, { displayName: data.name });
+          await signInWithEmail(data.email, data.password);
+          router.push(RoutePath.HOME);
+          router.refresh();
+          toast.success(t('toastMsgSignUp'), toastifyMessage);
+        } catch (error) {
+          if (error instanceof Error) {
+            toast.error(`${error.message}`, toastifyMessage);
+          }
         }
       }
-    }
+    });
   };
 
   return (
@@ -142,7 +145,7 @@ export const SignUpForm = () => {
           {t('signUp')}
         </Button>
       </form>
-      {isSubmitting && <Loader />}
+      {(isSubmitting || isPending) && <Loader />}
     </section>
   );
 };
