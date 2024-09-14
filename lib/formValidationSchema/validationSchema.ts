@@ -48,6 +48,13 @@ export const createGqlFormSchema = (t: (key: string) => string) => {
   });
 };
 
+export const endpointSDLSchema = (t: (key: string) => string) => {
+  return Yup.object().shape({
+    valueSDL: Yup.string()
+      .url(t('errInvalidUrl'))
+  });
+};
+
 export const createPrettifySchema = (t: (key: string) => string) => {
   const variablesValidation = createVariablesValidation(t);
   const queryValidation = createQueryValidation(t);

@@ -109,8 +109,8 @@ import { getIntrospectionQuery } from 'graphql/utilities';
 
 export async function createSDLQuery(
   endpointSDL: string
-): Promise<typeof Object> {
-  try {
+): Promise<typeof Object | null> {
+  
     const response = await fetch(endpointSDL, {
       method: 'POST',
       headers: {
@@ -122,27 +122,14 @@ export async function createSDLQuery(
       }),
     });
 
-    if (response.status >= 500 && response.status <= 599) {
-      throw new Error('500 Internal Server Error');
-    }
-
-    if (response.status >= 400 && response.status <= 499) {
-      throw new Error(
-        `Client Error: ${response.status} ${response.statusText}`
-      );
-    }
-
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      return null;
     }
 
     const result = await response.json();
 
     if (!result.data) {
-      throw new Error('No data found in the response.');
+       return null;
     }
     return result.data;
-  } catch (error) {
-    throw error;
-  }
 }
