@@ -1,0 +1,51 @@
+.footerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.githubContainer {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.githubUserContainer {
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.githubUserContainer a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: black;
+  transition: all 0.2s;
+}
+
+.githubUserContainer img {
+  transition: all 0.2s;
+}
+
+.githubUserContainer:hover a {
+  color: blue;
+  transform: scale(1.03);
+}
+
+.githubUserContainer:hover img {
+  filter: invert(0.4);
+}
+
+.rsschoolLogo a img {
+  transition: all 0.2s;
+}
+
+.rsschoolLogo a:hover img {
+  filter: hue-rotate(180deg);
+  transform: scale(1.03);
+}

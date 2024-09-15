@@ -1,0 +1,17 @@
+.buttonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 0;
+}
+
+.buttonsContainerNav {
+  min-width: 33%;
+}
+
+.localeSwitcher {
+  padding: 5px;
+  cursor: pointer;
+  min-width: 120px;
+}

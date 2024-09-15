@@ -1,0 +1,14 @@
+.headersTitleBlock {
+  display: flex;
+  align-items: end;
+  margin-bottom: 10px;
+  color: grey;
+}
+
+.headerWrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+  column-gap: 5px;
+}
