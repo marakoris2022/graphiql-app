@@ -8,6 +8,7 @@ import { toastContainerConfig } from '@/utils/utils';
 import 'react-toastify/dist/ReactToastify.css';
 import { NextIntlClientProvider, useTranslations } from 'next-intl';
 import { getLocale, getMessages, getTranslations } from 'next-intl/server';
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -36,6 +37,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
+          <NextTopLoader />
           <Header />
           <main>
             <div className="container">{children}</div>

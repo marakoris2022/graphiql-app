@@ -33,6 +33,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
 }
 
 footer {
@@ -95,9 +96,12 @@ main {
 }
 
 header {
-  transition: background-color 0.5s ease, padding 0.3s ease;
+  transition: background-color 0.5s ease;
   background-color: rgb(236 236 236);
   min-height: 40px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 .headerContainer {
@@ -112,10 +116,6 @@ header {
 
 .sticky {
   background-color: #9acc8f;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  padding: 3px;
 }
 
 .logo {
@@ -150,7 +150,8 @@ header {
 }
 
 .logo:hover img {
-  filter: brightness(0) saturate(100%) invert(11%) sepia(99%) saturate(6022%) hue-rotate(237deg) brightness(86%) contrast(98%);
+  filter: brightness(0) saturate(100%) invert(11%) sepia(99%) saturate(6022%)
+    hue-rotate(237deg) brightness(86%) contrast(98%);
 }
 
 .globalError {
