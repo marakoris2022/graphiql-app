@@ -26,7 +26,11 @@ export const SignOutButton = () => {
   }
 
   if (isPending) {
-    return <Loader />;
+    return (
+      <div className="fullViewPortContainer">
+        <Loader />
+      </div>
+    );
   }
 
   return (
