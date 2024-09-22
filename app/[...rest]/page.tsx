@@ -38,11 +38,7 @@ export default async function RestClient({
     }
   } catch (error) {
     responseTitle = t('error');
-    if (error instanceof Error) {
-      responseData = error.message;
-    } else {
-      responseData = String(error);
-    }
+    responseData = error instanceof Error ? error.message : String(error);
   }
 
   const headers: { [key: string]: string } = {};
