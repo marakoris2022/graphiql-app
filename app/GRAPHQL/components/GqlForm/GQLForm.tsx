@@ -57,7 +57,7 @@ const GQLForm = () => {
   const [variablesArea, setVariablesArea] = useState<string>('');
   const [queryArea, setQueryArea] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
-  const [show, setShow] = useState<boolean>(false);
+  const [isShown, setIsShow] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -170,7 +170,7 @@ const GQLForm = () => {
 
   return (
     <div className={styles.graphiqlContainer}>
-      {open && show && (
+      {open && isShown && (
         <article className={styles.docsContainer}>
           {
             <SchemaDocumentation
@@ -217,7 +217,7 @@ const GQLForm = () => {
             errors={errors}
           />
           <PrettifyButton handler={formatQuery} />
-          {open && <ExplorerButton showFn={() => setShow((prev) => !prev)} />}
+          {open && <ExplorerButton showFn={() => setIsShow((prev) => !prev)} />}
         </div>
         <QuerySection
           variables={variablesArea}
