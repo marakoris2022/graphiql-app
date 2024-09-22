@@ -41,13 +41,11 @@ const VariablesSection: FC<VariablesSectionProps> = ({
     if (!pathArray[2]) {
       pathArray[2] = '';
     }
-    pathArray[3] = val
-      ? encodeBase64(
-          encodeURIComponent(JSON.stringify({ query, variables: val }))
-        )
-      : encodeBase64(
-          encodeURIComponent(JSON.stringify({ query, variables: '' }))
-        );
+
+    pathArray[3] = encodeBase64(
+      encodeURIComponent(JSON.stringify({ query, variables: val ?? '' }))
+    );
+
     let newPath = pathArray.join('/');
     if (searchParams) {
       newPath = newPath + `?${searchParams}`;
