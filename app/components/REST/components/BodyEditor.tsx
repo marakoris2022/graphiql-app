@@ -41,11 +41,16 @@ export const BodyEditor = ({
   function handleBlur(e: FocusEvent<HTMLTextAreaElement, Element>) {
     const pathArray = pathname.split('/');
 
-    if (!pathArray[2]) pathArray[2] = '';
+    if (!pathArray[2]) {
+      pathArray[2] = '';
+    }
 
     pathArray[3] = encodeURIComponent(encodeBase64(e.target.value));
     let newPath = pathArray.join('/');
-    if (searchParams) newPath = newPath + `?${searchParams}`;
+
+    if (searchParams) {
+      newPath = newPath + `?${searchParams}`;
+    }
 
     history.replaceState(null, '', newPath);
   }
