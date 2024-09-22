@@ -37,6 +37,12 @@ export enum RoutePath {
   REST_CLIENT_PATCH = '/PATCH',
   REST_CLIENT_DELETE = '/DELETE',
   GRAPHIQL_CLIENT = '/GRAPHQL',
+  NOT_FOUND = '/404',
+}
+
+export enum MiddleWarePath {
+  LOGIN = '/api/login',
+  LOGOUT = '/api/logout',
 }
 
 export const handleScrollWithRef = (ref: React.RefObject<HTMLElement>) => {
