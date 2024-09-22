@@ -52,33 +52,28 @@ const GQLForm = () => {
   });
   const pathname = usePathname();
   const search = useSearchParams().toString();
-  const [endpointURL, setEndpointURL] = useState<string>(() => {
-    const pathArray = pathname.split('/');
-    const url = pathArray[2];
-    const decodedUrl = url ? decodeURIComponent(decodeBase64(url)) : '';
-    return decodedUrl;
-  });
+  const [endpointURL, setEndpointURL] = useState<string>('');
   const [endpointSDL, setEndpointSDL] = useState<string>('');
-  const [variablesArea, setVariablesArea] = useState<string>(() => {
-    const pathArray = pathname.split('/');
-    const query = pathArray[3];
-    const decodedVariables = query
-      ? JSON.parse(decodeURIComponent(decodeBase64(query))).variables
-      : '';
-    return decodedVariables;
-  });
-
-  const [queryArea, setQueryArea] = useState<string>(() => {
-    const pathArray = pathname.split('/');
-    const query = pathArray[3];
-    const decodedQuery = query
-      ? JSON.parse(decodeURIComponent(decodeBase64(query))).query
-      : '';
-    return decodedQuery;
-  });
+  const [variablesArea, setVariablesArea] = useState<string>('');
+  const [queryArea, setQueryArea] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const pathArray = pathname.split('/');
+
+    const url = pathArray[2];
+    const decodedUrl = url ? decodeURIComponent(decodeBase64(url)) : '';
+    setEndpointURL(decodedUrl);
+
+    const query = pathArray[3];
+    if (query) {
+      const decodedQuery = JSON.parse(decodeURIComponent(decodeBase64(query)));
+      setVariablesArea(decodedQuery.variables || '');
+      setQueryArea(decodedQuery.query || '');
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const updatedErrors = { ...errors };
