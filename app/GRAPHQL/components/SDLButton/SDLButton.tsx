@@ -1,7 +1,6 @@
 'use client';
 
 import { useTransition } from 'react';
-import styles from './SDLButton.module.css';
 import { createSDLQuery } from '@/lib/actions/form.actions';
 import Button from '@mui/material/Button';
 import { useTranslations } from 'next-intl';
@@ -72,7 +71,6 @@ const SDLButton = ({
       disabled={isPending}
       variant="contained"
       color="primary"
-      className={styles.sdlDocBtn}
       type="button"
       onClick={handleClick}
     >

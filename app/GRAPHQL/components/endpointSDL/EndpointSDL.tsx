@@ -18,18 +18,16 @@ const EndpointSDL: FC<EndpointSDLProps> = ({ setSDL, sdlValue, setOpen }) => {
   };
 
   return (
-    <div>
-      <TextField
-        variant="outlined"
-        label={t('sdlPlaceholder')}
-        type="text"
-        name="endpointSDL"
-        id="endpointSDL"
-        value={sdlValue}
-        onChange={handleChange}
-        sx={{ width: '100%' }}
-      />
-    </div>
+    <TextField
+      variant="outlined"
+      label={t('sdlPlaceholder')}
+      type="text"
+      name="endpointSDL"
+      id="endpointSDL"
+      value={sdlValue}
+      onChange={handleChange}
+      sx={{ width: '100%' }}
+    />
   );
 };
 
