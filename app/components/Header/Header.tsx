@@ -13,17 +13,9 @@ export const Header = async () => {
     serviceAccount: serverConfig.serviceAccount,
   });
 
-  if (tokens) {
-    return (
-      <HeaderContainer>
-        <HeaderLoggedUser />
-      </HeaderContainer>
-    );
-  }
-
   return (
     <HeaderContainer>
-      <HeaderUnLoggedUser />
+      {tokens ? <HeaderLoggedUser /> : <HeaderUnLoggedUser />}
     </HeaderContainer>
   );
 };

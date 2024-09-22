@@ -52,33 +52,28 @@ const GQLForm = () => {
   });
   const pathname = usePathname();
   const search = useSearchParams().toString();
-  const [endpointURL, setEndpointURL] = useState<string>(() => {
+  const [endpointURL, setEndpointURL] = useState<string>('');
+  const [endpointSDL, setEndpointSDL] = useState<string>('');
+  const [variablesArea, setVariablesArea] = useState<string>('');
+  const [queryArea, setQueryArea] = useState<string>('');
+  const [open, setOpen] = useState<boolean>(false);
+  const [isShown, setIsShow] = useState<boolean>(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
     const pathArray = pathname.split('/');
+
     const url = pathArray[2];
     const decodedUrl = url ? decodeURIComponent(decodeBase64(url)) : '';
-    return decodedUrl;
-  });
-  const [endpointSDL, setEndpointSDL] = useState<string>('');
-  const [variablesArea, setVariablesArea] = useState<string>(() => {
-    const pathArray = pathname.split('/');
-    const query = pathArray[3];
-    const decodedVariables = query
-      ? JSON.parse(decodeURIComponent(decodeBase64(query))).variables
-      : '';
-    return decodedVariables;
-  });
+    setEndpointURL(decodedUrl);
 
-  const [queryArea, setQueryArea] = useState<string>(() => {
-    const pathArray = pathname.split('/');
     const query = pathArray[3];
-    const decodedQuery = query
-      ? JSON.parse(decodeURIComponent(decodeBase64(query))).query
-      : '';
-    return decodedQuery;
-  });
-  const [open, setOpen] = useState<boolean>(false);
-  const [show, setShow] = useState<boolean>(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+    if (query) {
+      const decodedQuery = JSON.parse(decodeURIComponent(decodeBase64(query)));
+      setVariablesArea(decodedQuery.variables || '');
+      setQueryArea(decodedQuery.query || '');
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const updatedErrors = { ...errors };
@@ -175,7 +170,7 @@ const GQLForm = () => {
 
   return (
     <div className={styles.graphiqlContainer}>
-      {open && show && (
+      {open && isShown && (
         <article className={styles.docsContainer}>
           {
             <SchemaDocumentation
@@ -222,7 +217,7 @@ const GQLForm = () => {
             errors={errors}
           />
           <PrettifyButton handler={formatQuery} />
-          {open && <ExplorerButton showFn={() => setShow((prev) => !prev)} />}
+          {open && <ExplorerButton showFn={() => setIsShow((prev) => !prev)} />}
         </div>
         <QuerySection
           variables={variablesArea}

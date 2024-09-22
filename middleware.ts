@@ -1,16 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { authMiddleware } from 'next-firebase-auth-edge';
 import { clientConfig, serverConfig } from './config';
-import { RoutePath } from './utils/utils';
+import { MiddleWarePath, RoutePath } from './utils/utils';
 
 const PUBLIC_PATHS: string[] = [RoutePath.SIGN_IN, RoutePath.SIGN_UP];
-const protectedPathsRegex =
-  /^(\/GET|\/POST|\/PUT|\/PATCH|\/DELETE|\/GRAPHQL|\/HEAD|\/CONNECT|\/OPTIONS|\/TRACE|\/history)(\/.*)?$/;
+
+const protectedPaths = [
+  RoutePath.REST_CLIENT_GET,
+  RoutePath.REST_CLIENT_POST,
+  RoutePath.REST_CLIENT_PUT,
+  RoutePath.REST_CLIENT_PATCH,
+  RoutePath.REST_CLIENT_DELETE,
+  RoutePath.GRAPHIQL_CLIENT,
+  RoutePath.HISTORY,
+];
+
+const protectedPathsRegex = new RegExp(
+  `^(${protectedPaths.join('|').replace(/\//g, '\\/')})(\\/.*)?$`
+);
 
 export async function middleware(request: NextRequest) {
   return authMiddleware(request, {
-    loginPath: '/api/login',
-    logoutPath: '/api/logout',
+    loginPath: MiddleWarePath.LOGIN,
+    logoutPath: MiddleWarePath.LOGOUT,
     apiKey: clientConfig.apiKey,
     cookieName: serverConfig.cookieName,
     cookieSignatureKeys: serverConfig.cookieSignatureKeys,
@@ -28,7 +40,7 @@ export async function middleware(request: NextRequest) {
         pathname !== '/404' &&
         pathname !== RoutePath.HOME
       ) {
-        return NextResponse.redirect(new URL('/404', request.url));
+        return NextResponse.redirect(new URL(RoutePath.NOT_FOUND, request.url));
       }
 
       return NextResponse.next({
@@ -43,13 +55,13 @@ export async function middleware(request: NextRequest) {
       if (
         !PUBLIC_PATHS.includes(currentPath) &&
         currentPath !== RoutePath.HOME &&
-        currentPath !== '/404'
+        currentPath !== RoutePath.NOT_FOUND
       ) {
         if (protectedPathsRegex.test(currentPath)) {
           return NextResponse.redirect(new URL(RoutePath.HOME, request.url));
         }
 
-        return NextResponse.redirect(new URL('/404', request.url));
+        return NextResponse.redirect(new URL(RoutePath.NOT_FOUND, request.url));
       }
 
       return NextResponse.next();

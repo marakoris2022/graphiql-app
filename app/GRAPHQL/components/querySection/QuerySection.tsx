@@ -23,6 +23,7 @@ const QuerySection: FC<QuerySectionProps> = ({
   function handleQueryFocusOut(e: FocusEvent<HTMLTextAreaElement>) {
     const queryStr = e.target.value;
     let pathArray = pathname.split('/');
+
     if (queryStr) {
       if (!pathArray[2]) {
         pathArray[2] = '';
@@ -30,22 +31,19 @@ const QuerySection: FC<QuerySectionProps> = ({
       pathArray[3] = encodeBase64(
         encodeURIComponent(JSON.stringify({ query: queryStr, variables }))
       );
-      let newPath = pathArray.join('/');
-      if (searchParams) {
-        newPath = newPath + `?${searchParams}`;
-      }
-
-      history.replaceState(null, '', newPath);
     } else {
       if (pathArray.length > 3) {
         pathArray = pathArray.slice(0, -1);
       }
-      let newPath = pathArray.join('/');
-      if (searchParams) {
-        newPath = newPath + `?${searchParams}`;
-      }
-      history.replaceState(null, '', newPath);
     }
+
+    let newPath = pathArray.join('/');
+
+    if (searchParams) {
+      newPath = newPath + `?${searchParams}`;
+    }
+
+    history.replaceState(null, '', newPath);
   }
 
   return (

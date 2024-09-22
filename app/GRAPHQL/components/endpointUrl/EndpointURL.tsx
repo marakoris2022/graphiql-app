@@ -33,19 +33,17 @@ const EndpointURL: FC<EndpointURLProps> = ({ setURL, urlValue, setOpen }) => {
   };
 
   return (
-    <div>
-      <TextField
-        required
-        variant="outlined"
-        label={`${t('urlPlaceholder')}:`}
-        type="text"
-        name="endpointURL"
-        id="endpointURL"
-        value={urlValue}
-        onChange={handleChange}
-        sx={{ width: '100%' }}
-      />
-    </div>
+    <TextField
+      required
+      variant="outlined"
+      label={`${t('urlPlaceholder')}:`}
+      type="text"
+      name="endpointURL"
+      id="endpointURL"
+      value={urlValue}
+      onChange={handleChange}
+      sx={{ width: '100%' }}
+    />
   );
 };
 

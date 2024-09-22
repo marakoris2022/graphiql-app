@@ -37,4 +37,37 @@ export enum RoutePath {
   REST_CLIENT_PATCH = '/PATCH',
   REST_CLIENT_DELETE = '/DELETE',
   GRAPHIQL_CLIENT = '/GRAPHQL',
+  NOT_FOUND = '/404',
 }
+
+export enum MiddleWarePath {
+  LOGIN = '/api/login',
+  LOGOUT = '/api/logout',
+}
+
+export enum HttpStatusCode {
+  OK = 200,
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  INTERNAL_SERVER_ERROR = 500,
+  BAD_GATEWAY = 502,
+  SERVICE_UNAVAILABLE = 503,
+  GATEWAY_TIMEOUT = 504,
+}
+
+export enum ResponseTitle {
+  RESPONSE = 'Response',
+  ERROR = 'Error',
+}
+
+export const handleScrollWithRef = (ref: React.RefObject<HTMLElement>) => {
+  if (!ref.current) return;
+
+  if (window.scrollY > 10) {
+    ref.current.classList.add('sticky');
+  } else {
+    ref.current.classList.remove('sticky');
+  }
+};
