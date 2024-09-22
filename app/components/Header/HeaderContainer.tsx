@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { handleScrollWithRef } from '@/utils/utils';
+import { useEffect, useRef } from 'react';
 
 export const HeaderContainer = ({
   children,
@@ -9,15 +10,7 @@ export const HeaderContainer = ({
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!ref.current) return;
-
-      if (window.scrollY > 10) {
-        ref.current.classList.add('sticky');
-      } else {
-        ref.current.classList.remove('sticky');
-      }
-    };
+    const handleScroll = () => handleScrollWithRef(ref);
 
     window.addEventListener('scroll', handleScroll);
 
@@ -27,12 +20,7 @@ export const HeaderContainer = ({
   }, []);
 
   useEffect(() => {
-    if (!ref.current) return;
-    if (window.scrollY > 10) {
-      ref.current.classList.add('sticky');
-    } else {
-      ref.current.classList.remove('sticky');
-    }
+    handleScrollWithRef(ref);
   }, []);
 
   return (
