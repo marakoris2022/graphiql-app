@@ -7,9 +7,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useTranslations } from 'next-intl';
 
-type HeadersProps = {};
-
-const Headers: FC<HeadersProps> = ({}) => {
+const Headers = () => {
   const t = useTranslations('apiClient');
 
   const search = useSearchParams();
