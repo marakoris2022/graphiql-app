@@ -33,14 +33,5 @@ export default function LocaleSwitcher() {
         </NativeSelect>
       </FormControl>
     </Box>
-
-    // <select
-    //   className={styles.localeSwitcher}
-    //   defaultValue={locale}
-    //   onChange={handleChange}
-    // >
-    //   <option value="en">{t('en')}</option>
-    //   <option value="ru">{t('ru')}</option>
-    // </select>
   );
 }
